@@ -1,0 +1,16 @@
+.representation{
+	margin:auto;
+	border:solid 1px;
+	height:100px;
+	width:500px;
+	margin-bottom: 3%;
+}
+
+.sectionvie{
+	border: solid 1px;
+	text-align:center;
+}
+
+.boutons{
+	text-align:center;
+}
