@@ -5,4 +5,6 @@
 	catch(Exception $e){
 		die('Erreur : '.$e->getMessage());
 	}
+
+	// TEST COMMIT HUGO 
 ?>
