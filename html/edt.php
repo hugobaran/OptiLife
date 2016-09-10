@@ -1,11 +1,11 @@
-<?php
+<!--<?php
 	require('../php/connexionBDD.php');
 	$nb = "select count(*) as TOTAL from ACTIVITE;";
 
 	$req = $bdd->query($nb);
 	$nb2 = $req->fetch();
 	$req->closeCursor();
-?>
+?>-->
 <html>
   <head>
   		<meta charset="UTF-8"/>
@@ -26,9 +26,6 @@
 		<input type="button" value="Modifier" onclick="document.location.href='modifier.php'"/>
 		<input type="button" value="Supprimer" onclick="alert('Activité supprimée');"/>
 	</div>
-	<?php
-		echo $nb2;
-	?>
 	<?php include('footer.html') ?>
   </body>
 </html>
