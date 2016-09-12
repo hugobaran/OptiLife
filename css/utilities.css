@@ -1,0 +1,21 @@
+#btn{
+	font-family: Arial,sans-serif;
+     font-size: 1em;
+     height: 40px;
+     text-align: center;
+	
+     background: #FF8F15;
+	 background: linear-gradient( #FF8F15, #D55601);
+	 border-radius: 10px;
+	 text-shadow: 0px 1px 0px rgba( 244, 222, 207, 0.4);
+	 box-shadow: 1px 0 2px rgba( 0, 0, 0, 0.5),
+                 0 -1px 0 rgba( 255, 255, 255, 0.4);
+				 
+}
+
+#btn:hover{
+	color: #151515;
+	background: #FF9D33;
+	 background: linear-gradient( #FF9D33, #D5671E);
+
+}
