@@ -1,11 +1,3 @@
-<!--<?php
-	require('../php/connexionBDD.php');
-	$nb = "select count(*) as TOTAL from ACTIVITE;";
-
-	$req = $bdd->query($nb);
-	$nb2 = $req->fetch();
-	$req->closeCursor();
-?>-->
 <html>
   <head>
   		<meta charset="UTF-8"/>
