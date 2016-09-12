@@ -3,6 +3,7 @@
 	<?php 
 	include("../php/fonctionsUtiles.php");
 	include("../php/ajouterTache.php");
+	include("../php/connexionBDD.php");
 	?>
 	<form method="post" action= "<?php $_SERVER['PHP_SELF'] ?>" enctype="application/x-www-form-urlencoded" name="ajoutTache">
 		<label for="theme">Theme :</label>

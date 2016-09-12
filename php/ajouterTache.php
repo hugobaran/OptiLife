@@ -8,7 +8,7 @@ function traiterAjout(){
 		//Envoi du formulaire à la base de donnée
 			
 			
-			echo "<p id='formSend'>Tahce Ajouotée</p>";
+			echo "<p id='formSend'>Tache Ajoutée</p>";
 		}
 		else
 			echo "<p id='erreur'> Veuillez remplir tout les champs. </p>";
