@@ -3,25 +3,22 @@
 	<?php 
 	include("../php/fonctionsUtiles.php");
 	include("../php/ajouterTache.php");
-	include("../php/connexionBDD.php");
+	// include("../php/connexionBDD.php");
 	?>
 	<form method="post" action= "<?php $_SERVER['PHP_SELF'] ?>" enctype="application/x-www-form-urlencoded" name="ajoutTache">
 		<label for="theme">Theme :</label>
 		<select name="theme" id="theme">
-			
+			<?php choixTheme($bdd); ?>
 		</select>
 		<label for="classeAge">classe d'Age :</label>
 		<select name="classeAge" id="classeAge">
-			
+			<?php choixClasseAge($bdd); ?>
 		</select>
 		<label for="Activite">Activite :</label>
 		<select name="Activite" id="Activite">
 			
 		</select>
-		<input type="radio" name="frequence" id="journalier" value="journalier" <?php cocherRadio("frequence","journalier"); ?> > <label for="journalier"> Journalier </label>
-		<input type="radio" name="frequence" id="hebdomadaire"  value="hebdomadaire" <?php cocherRadio("frequence", "hebdomadaire"); ?> > <label for="hebdomadaire"> hebdomadaire </label>
-		<input type="radio" name="frequence" id="Mensuel"  value="Mensuel" <?php cocherRadio("frequence","Mensuel"); ?> > <label for="Mensuel"> Mensuel </label>
-		<input type="radio" name="frequence" id="Annuel"  value="Annuel" <?php cocherRadio("frequence", "Annuel"); ?> <label for="Annuel"> Annuel </label>
+		<?php choixFrequence($bdd); ?>
 		<label for="nbFois">nombre de fois : </label>
 		<input type="number" id="nbFois" name="nbFois" value=<?php verifierRempli("nbFois"); ?> >
 		<label for="nbHeure">Heure(s) : </label>
@@ -32,6 +29,8 @@
 	</form>
 
 	<?php
+	//$tab = LireDonneesPDO1($bdd, 'SELECT * FROM `frequence` ');
+	 //print_r($tab);
 	traiterAjout();
 	?>
 </html>

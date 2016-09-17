@@ -36,71 +36,43 @@
       }
     }
   }  
-//---------------------------------------------------------------------------------------------
-function PreparerRequete($conn,$req)
-{
-  $cur = oci_parse($conn, $req);
   
-  if (!$cur)
-  {  
-  $e = oci_error($conn);  
-  print htmlentities($e['message']);  
-  exit;
-  }
-  return $cur;
-}
-//---------------------------------------------------------------------------------------------
-function ExecuterRequete($cur)
+  
+function LireDonneesPDO1($conn,$sql)
 {
-  $r = oci_execute($cur, OCI_DEFAULT);
-  echo "<br>résultat de la requête: $r<br />";
-  if (!$r)
-  {  
-  $e = oci_error($stid);  
-  echo htmlentities($e['message']);  
-  exit;
-  }
-  return $r;
-}
-//---------------------------------------------------------------------------------------------
-function FermerConnexion($conn)
-{
-  oci_close($conn);
-}
-//---------------------------------------------------------------------------------------------
-function LireDonnees1($cur,&$tab)
-{
-  $nbLignes = oci_fetch_all($cur, $tab,0,-1,OCI_ASSOC); //OCI_FETCHSTATEMENT_BY_ROW, OCI_ASSOC, OCI_NUM
-  return $nbLignes;
-}
-//---------------------------------------------------------------------------------------------
-function LireDonnees2($cur,&$tab)
-{
-  $nbLignes = 0;
   $i=0;
-  while ($row = oci_fetch_array ($cur, OCI_BOTH  ))
-  {    
-    $tab[$nbLignes][$i]  = $row[0];
-    $tab[$nbLignes][$i+1]  = $row[1];
-    $tab[$nbLignes][$i+2]  = $row[2];
-  $nbLignes++;
-  }
-  return $nbLignes;
+  foreach  ($conn->query($sql,PDO::FETCH_ASSOC) as $ligne)     
+    $tab[$i++] = $ligne;
+  return $tab;
 }
 //---------------------------------------------------------------------------------------------
-function LireDonnees3($cur,&$tab)
+function LireDonneesPDO2($conn,$sql)
 {
-  $nbLignes = 0;
   $i=0;
-  while ($row = oci_fetch ($cur))
-  {    
-  $tab[$nbLignes][$i] = oci_result($cur,'VAL'); // respecter la casse
-    $tab[$nbLignes][$i+1] = oci_result($cur,'TYPE');
-  $tab[$nbLignes][$i+2] = oci_result($cur,'COULEUR');
-  $nbLignes++;
-  }
-  return $nbLignes;
+  $cur = $conn->query($sql);
+  while ($ligne = $cur->fetch(PDO::FETCH_ASSOC))
+    $tab[$i++] = $ligne;
+  return $tab;
 }
+//---------------------------------------------------------------------------------------------
+function LireDonneesPDO3($conn,$sql)
+{
+  $cur = $conn->query($sql);
+  $tab = $cur->fetchall(PDO::FETCH_ASSOC);
+  return $tab;
+}
+//---------------------------------------------------------------------------------------------
+function AfficherDonnee($tab)
+{
+  foreach($tab as $ligne)
+  {
+    foreach($ligne as $cle =>$valeur)
+    echo $cle.":".$valeur."\t";
+    echo "<br/>";
+  }
+}
+//---------------------------------------------------------------------------------------------
+
 //---------------------------------------------------------------------------------------------
 // fonctions autres
 function AfficherDonnee1($tab,$nbLignes)

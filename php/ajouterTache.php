@@ -1,5 +1,5 @@
 <?php
-
+include("connexionBDD.php");
 
 function traiterAjout(){
 	if(isset($_POST["envoyer"])){
@@ -15,20 +15,46 @@ function traiterAjout(){
 	}
 }
 
-function choixFrequence(){
-	
+function choixFrequence($bdd){
+	$tab = LireDonneesPDO1($bdd, 'SELECT * FROM `frequence` ');
+	foreach($tab as $ligne)
+	{
+		foreach($ligne as $cle =>$valeur)
+		echo "<input type='radio' name='frequence' id='frequence' value='".$valeur."' ";
+		cocherRadio("frequence",$valeur);
+		echo ">"."<label for='".$valeur."'>".$valeur."</label>";
+	}
 }
 
-function choixClasseAge(){
-	
+function choixClasseAge($bdd){
+	$tab = LireDonneesPDO1($bdd, 'SELECT * FROM `classe_d_age` ');
+	print_r($tab);
+		foreach($tab as $ligne)
+	{
+		foreach($ligne as $cle =>$valeur)
+		if($cle == "CAT_LIBELLE"){
+			echo "<option value='".$valeur."' ";
+			VerifSelect("classeAge",$valeur);
+			echo " >".$valeur."</option>";
+		}
+	}
 }
 
-function choixTheme(){
-	
+function choixTheme($bdd){
+	$tab = LireDonneesPDO1($bdd, 'SELECT * FROM `theme` ');
+	print_r($tab);
+		foreach($tab as $ligne)
+	{
+		foreach($ligne as $cle =>$valeur)
+		if($cle == "THM_LIBELLE"){
+			echo "<option value='".$valeur."' ";
+			VerifSelect("theme",$valeur);
+			echo " >".$valeur."</option>";
+		}
+	}
 }
 
 function choixActivite(){
 	
 }
-
 ?>
