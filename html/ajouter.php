@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+ <head>
+<meta charset="UTF-8">
+</head> 
 	<?php 
 	include("../php/fonctionsUtiles.php");
 	include("../php/ajouterTache.php");

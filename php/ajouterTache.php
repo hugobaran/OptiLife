@@ -28,7 +28,6 @@ function choixFrequence($bdd){
 
 function choixClasseAge($bdd){
 	$tab = LireDonneesPDO1($bdd, 'SELECT * FROM `classe_d_age` ');
-	print_r($tab);
 		foreach($tab as $ligne)
 	{
 		foreach($ligne as $cle =>$valeur)
@@ -42,7 +41,6 @@ function choixClasseAge($bdd){
 
 function choixTheme($bdd){
 	$tab = LireDonneesPDO1($bdd, 'SELECT * FROM `theme` ');
-	print_r($tab);
 		foreach($tab as $ligne)
 	{
 		foreach($ligne as $cle =>$valeur)
