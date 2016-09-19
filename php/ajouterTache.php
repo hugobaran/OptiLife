@@ -1,5 +1,15 @@
 <?php
-include("connexionBDD.php");
+
+
+function creerListe($bdd,$sql,$table){
+	$reponse = $bdd->query($sql);
+	while ($donnees = $reponse->fetch())
+	{
+		echo '<option value="' . $donnees[$table] . '">' .  $donnees[$table] . '</option>';
+	}
+	$reponse->closeCursor();
+}
+
 
 function traiterAjout(){
 	if(isset($_POST["envoyer"])){
@@ -40,7 +50,22 @@ function choixClasseAge($bdd){
 }
 
 function choixTheme($bdd){
-	$tab = LireDonneesPDO1($bdd, 'SELECT * FROM `theme` ');
+	
+
+	$reponse = $bdd->query('SELECT ACT_LIBELLE FROM ACTIVITE');
+	while ($donnees = $reponse->fetch())
+	{
+	echo $donnees['ACT_LIBELLE'];
+	echo "<option value='".$donnees['ACT_LIBELLE']."' ";
+	echo " >".$donnees['ACT_LIBELLE']."</option>";
+	}
+
+$reponse->closeCursor();
+
+
+
+
+	/*$tab = LireDonneesPDO1($bdd, 'SELECT * FROM `theme` ');
 		foreach($tab as $ligne)
 	{
 		foreach($ligne as $cle =>$valeur)
@@ -49,7 +74,7 @@ function choixTheme($bdd){
 			VerifSelect("theme",$valeur);
 			echo " >".$valeur."</option>";
 		}
-	}
+	}*/
 }
 
 function choixActivite(){

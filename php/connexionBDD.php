@@ -1,10 +1,12 @@
-<?php 
-	try{
-		$bdd = new PDO('mysql:localhost;charset=utf8', 'root', '');
-	}
-	catch(Exception $e){
-		die('Erreur : '.$e->getMessage());
-	}
+<?php
+try
+{
 
-	// TEST COMMIT HUGO 
+	$bdd = new PDO('mysql:host=localhost;dbname=optilife', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION ));
+	
+} catch (Exception $e)
+{
+	die('Erreur : ' . $e->getMessage());
+}
+
 ?>
