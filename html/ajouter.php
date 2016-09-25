@@ -8,6 +8,7 @@
  <head>
 <meta charset="UTF-8">
 <title>Ajout d'une activité</title>	
+<link rel="stylesheet" href="../css/utilities.css" type="text/css" />
 </head> 
 <header>
 	<?php include("header.html"); ?>
@@ -55,7 +56,7 @@
 		<label for="nbMinutes">Minute(s) : </label>
 		<input type="number" id="nbMinutes" name="nbMinutes" value=<?php verifierRempli("nbMinutes"); ?> >
 		</br>	</br>
-		<input type="submit" id="envoyer" name="envoyer">
+		<input type="submit" id="btn" name="envoyer">
 	</form>
 </body>
 <footer>
