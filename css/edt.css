@@ -1,48 +1,62 @@
-.onglet{
-	text-align: center;
-    display:inline-block;
-    margin-right:3px;
+.systeme_onglets{
+    text-align: center;
     margin-left: 5%;
+    margin-right: 5%;
+}
+
+
+.onglets{
+    vertical-align: middle;
+    line-height: 300px;
+}
+
+.onglet{
+    text-align: center;
+    display: inline-block;
     padding:3px;
-    width: 25.75%;
     border:1px solid black;
     cursor:pointer;
+    height: 50%;
+    vertical-align:middle;
+    background-color: #F3E2A9;
 }
 
-.onglet_0{
-    background:#bbbbbb;
-    border-bottom:1px solid black;
+.onglet:hover{
+    background-color: #FE9A2E;
+    font-size: 15pt;
 }
 
-.onglet_1{
-    background:#dddddd;
-    border-bottom:0px solid black;
-    padding-bottom:4px;
+#onglet_etudiant{
+    width: 27%;
+    border-radius: 20px 0 0 20px;
+
+}
+
+#onglet_actif{
+    width: 43.3%;
+}
+
+#onglet_retraite{
+    width: 27%;
+    border-radius: 0 20px 20px 0;
 }
 
 .contenu_onglet{
-    background-color:#dddddd;
+    background-color: #F3E2A9;
     border:1px solid black;
-    margin-top:-1px;
-    margin-right: 5%;
-    margin-left: 5%;
-    margin-bottom:5%;
-    padding:5px;
+    padding:3px;
     height: 50%;
     display:none;
+    border-radius: 20px 20px 20px 20px;
 }
 
-ul{
-    margin-top:0px;
-    margin-bottom:0px;
-    margin-left:-10px
-}
-       
-h1{
-    margin:0px;
-    padding:0px;
+.retour{
+    float:left;
+    cursor:pointer;
+    width: 30px;
 }
 
 .boutons{
-	text-align:center;
+    margin-top: 50px;
+    text-align:center;
 }
