@@ -23,7 +23,6 @@
 
 .onglet:hover{
     background-color: #FE9A2E;
-    font-size: 15pt;
 }
 
 #onglet_etudiant{
@@ -50,7 +49,12 @@
     border-radius: 20px 20px 20px 20px;
 }
 
+.header_onglet{
+    display: inline;
+}
+
 .retour{
+    margin-left: 5px;
     float:left;
     cursor:pointer;
     width: 30px;
@@ -60,3 +64,27 @@
     margin-top: 50px;
     text-align:center;
 }
+
+table
+{
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+td, th
+{
+    border: 1px solid black;
+}
+
+.thActivite{
+    width: 40%;
+}
+
+.thFrequence{
+    width: 30%;
+}
+
+.thNbFois, .thDuree{
+    width: 15%;
+}
+
+
