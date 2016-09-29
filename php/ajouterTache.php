@@ -11,13 +11,38 @@ function creerListe($bdd,$sql,$table){
 }
 
 
-function traiterAjout(){
+function traiterAjout($bdd){
 	if(isset($_POST["envoyer"])){
-		if(!empty($_POST["theme"]) && !empty($_POST["Activite"]) && !empty($_POST["frequence"]) && !empty($_POST["nbFois"]) && !empty($_POST["nbHeures"]) &&
-		!empty($_POST["nbMinutes"]) && !empty($_POST["classeAge"])){
+		if(!empty($_POST["theme"]) && !empty($_POST["activite"]) && !empty($_POST["frequence"]) && !empty($_POST["nbFois"]) && !empty($_POST["nbHeure"]) &&
+		!empty($_POST["nbMinutes"]) && !empty($_POST["classe_age"]))
+		/*if(!empty($_POST["theme"]))
+		echo "theme"; 
+		if(!empty($_POST["activite"]))
+			echo "act";
+		if(!empty($_POST["frequence"]))
+			echo "frequ";
+		if(!empty($_POST["nbFois"]))
+			echo "nbfois"; 
+		if(!empty($_POST["nbHeures"]))
+			 echo "nbHeures";
+		if(!empty($_POST["nbMinutes"]))
+			echo "nbMinutes"; 
+		if(!empty($_POST["classe_age"]))
+			echo "classe age";*/
+		{
 		//Envoi du formulaire à la base de donnée
-			
-			
+			if(($_POST["classe_age"] == "Etudiant"))
+				$age = 1;
+			else if(($_POST["classe_age"] == "Actif"))
+				$age = 2;
+			else
+				$age = 3;
+			$temps = $_POST["nbHeure"] + ($_POST["nbMinutes"]/60);//transforme les données du form en donnée lisible par la base
+			$sql = "INSERT INTO `optilife`.`pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NB_FOIS`, `PRA_DUREE`) VALUES ('"."2"."', '".$_POST["frequence"]."', '".$age."', '"."1"."', '".$_POST["nbFois"]."', '".$temps."')";
+  			echo $sql;
+  			$stmt = $bdd->exec($sql);
+			echo 'RES : ',$stmt ,'<br/>';
+
 			echo "<p id='formSend'>Tache Ajoutée</p>";
 		}
 		else
@@ -43,30 +68,15 @@ function choixClasseAge($bdd){
 		foreach($ligne as $cle =>$valeur)
 		if($cle == "CAT_LIBELLE"){
 			echo "<option value='".$valeur."' ";
-			VerifSelect("classeAge",$valeur);
+			VerifSelect("classe_age",$valeur);
 			echo " >".$valeur."</option>";
 		}
 	}
 }
 
 function choixTheme($bdd){
-	
-
-	$reponse = $bdd->query('SELECT ACT_LIBELLE FROM ACTIVITE');
-	while ($donnees = $reponse->fetch())
-	{
-	echo $donnees['ACT_LIBELLE'];
-	echo "<option value='".$donnees['ACT_LIBELLE']."' ";
-	echo " >".$donnees['ACT_LIBELLE']."</option>";
-	}
-
-$reponse->closeCursor();
-
-
-
-
-	/*$tab = LireDonneesPDO1($bdd, 'SELECT * FROM `theme` ');
-		foreach($tab as $ligne)
+	$tab = LireDonneesPDO1($bdd, 'SELECT * FROM `theme` ');
+	foreach($tab as $ligne)
 	{
 		foreach($ligne as $cle =>$valeur)
 		if($cle == "THM_LIBELLE"){
@@ -74,7 +84,7 @@ $reponse->closeCursor();
 			VerifSelect("theme",$valeur);
 			echo " >".$valeur."</option>";
 		}
-	}*/
+	}
 }
 
 function choixActivite(){

@@ -120,6 +120,15 @@ function AfficherDonnee3($tab,$nb)
     echo $tab[$i][0]." ".$tab[$i][1]." ".$tab[$i][2]."\n";
 }
 
+function bidon(){
+//juste un test
+
+  $sql = "INSERT INTO bidon VALUES (99,'évier','blanc')";
+  $stmt = $conn->exec($sql);
+  echo 'RES : ',$stmt ,'<br/>';
+
+}
+
 
 
 ?>

@@ -18,12 +18,11 @@
 		<label for="theme">Theme :</label>
 		<select name="theme" id="theme">
 		<?php 
-			$sql = 'SELECT THM_LIBELLE FROM THEME';
-			creerListe($bdd,$sql,'THM_LIBELLE');
+			choixTheme($bdd);
 		?>
 		</select>
 		</br>	</br>
-		<label for="theme">Activité :</label>
+		<label for="activite">Activité :</label>
 		<select name="activite" id="activite">
 		<?php 
 			$sql = 'SELECT ACT_LIBELLE FROM ACTIVITE';
@@ -31,33 +30,32 @@
 		?>
 		</select>
 		</br>	</br>
-		<label for="theme">Classe d'age :</label>
+		<label for="classe_age">Classe d'age :</label>
 		<select name="classe_age" id="classe_age">
 		<?php 
-			$sql = 'SELECT CAT_LIBELLE FROM CLASSE_D_AGE';
-			creerListe($bdd,$sql,'CAT_LIBELLE');
+			choixClasseAge($bdd);
 		?>
 		</select>
 		</br>	</br>
-		<label for="theme">Frequence :</label>
-		<select name="frequence" id="frequence">
+		<label for="frequence">Frequence :</label>
+		
 		<?php 
-			$sql = 'SELECT FR_LIBELLE FROM FREQUENCE';
-			creerListe($bdd,$sql,'FR_LIBELLE');
+			choixFrequence($bdd);
 		?>
-		</select>
+		
 		</br>	</br>
 		<label for="nbFois">Nombre de fois : </label>
-		<input type="number" id="nbFois" name="nbFois" value=<?php verifierRempli("nbFois"); ?> >
+		<input type="number" id="nbFois" name="nbFois"  min="1" max="1000" value=<?php verifierRempli("nbFois"); ?> >
 		</br>	</br>
 		<label for="nbHeure">Heure(s) : </label>
-		<input type="number" id="nbHeure" name="nbHeure" value=<?php verifierRempli("nbHeure"); ?> >
+		<input type="number" id="nbHeure" name="nbHeure"  min="0" value=<?php verifierRempli("nbHeure"); ?> >
 		</br>	</br>
 		<label for="nbMinutes">Minute(s) : </label>
-		<input type="number" id="nbMinutes" name="nbMinutes" value=<?php verifierRempli("nbMinutes"); ?> >
+		<input type="number" id="nbMinutes" name="nbMinutes"  min="1" max="59" value=<?php verifierRempli("nbMinutes"); ?> >
 		</br>	</br>
 		<input type="submit" id="btn" name="envoyer">
 	</form>
+	<?php traiterAjout($bdd); ?>
 </body>
 <footer>
 	<?php include("footer.html"); ?>
