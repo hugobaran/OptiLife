@@ -13,6 +13,19 @@
 <header>
 	<?php include("header.html"); ?>
 </header>
+<script>
+	function resetFields(){
+	document.getElementById('theme').selectedIndex=0;
+	document.getElementById('activite').selectedIndex=0;
+	document.getElementById('classe_age').selectedIndex=0;
+	document.getElementById('nbFois').value="";
+	document.getElementById('nbHeure').value="";
+	document.getElementById('nbMinutes').value="";
+	document.getElementById('frequence').selectedIndex=0;//marche pas, faut trouver un truc qui selectionne un bouton radio
+
+}
+
+</script>
 <body>
 	<form method="post" action= "<?php $_SERVER['PHP_SELF'] ?>" enctype="application/x-www-form-urlencoded" name="ajoutTache">
 		<label for="theme">Theme :</label>

@@ -10,26 +10,27 @@ function creerListe($bdd,$sql,$table){
 	$reponse->closeCursor();
 }
 
+function chercherAct($bdd, $lib){
+			$sql1 = "SELECT * FROM `activite` WHERE `ACT_LIBELLE` LIKE '".$lib."' ";
+			$tab = LireDonneesPDO1($bdd, $sql1);
+			return $tab[0]["ACT_NUM"];
+}
+
+function chercherDejaPresent($bdd, $act, $freq, $emp, $age){
+	$act = chercherAct($bdd, $act);
+	$sql1 = "SELECT * FROM `pratiquer` WHERE `ACT_NUM` = ".$act." AND `FR_LIBELLE` LIKE '".$freq."' AND `CAT_NUM` = ".$age." AND `EMP_NUM` = ".$emp." ";
+	$tab = @LireDonneesPDO1($bdd, $sql1);
+	if(empty($tab))
+		return false;
+	else
+		return true;
+}
+
 
 function traiterAjout($bdd){
 	if(isset($_POST["envoyer"])){
 		if(!empty($_POST["theme"]) && !empty($_POST["activite"]) && !empty($_POST["frequence"]) && !empty($_POST["nbFois"]) && !empty($_POST["nbHeure"]) &&
-		!empty($_POST["nbMinutes"]) && !empty($_POST["classe_age"]))
-		/*if(!empty($_POST["theme"]))
-		echo "theme"; 
-		if(!empty($_POST["activite"]))
-			echo "act";
-		if(!empty($_POST["frequence"]))
-			echo "frequ";
-		if(!empty($_POST["nbFois"]))
-			echo "nbfois"; 
-		if(!empty($_POST["nbHeures"]))
-			 echo "nbHeures";
-		if(!empty($_POST["nbMinutes"]))
-			echo "nbMinutes"; 
-		if(!empty($_POST["classe_age"]))
-			echo "classe age";*/
-		{
+		!empty($_POST["nbMinutes"]) && !empty($_POST["classe_age"])){
 		//Envoi du formulaire à la base de donnée
 			if(($_POST["classe_age"] == "Etudiant"))
 				$age = 1;
@@ -37,13 +38,20 @@ function traiterAjout($bdd){
 				$age = 2;
 			else
 				$age = 3;
-			$temps = $_POST["nbHeure"] + ($_POST["nbMinutes"]/60);//transforme les données du form en donnée lisible par la base
-			$sql = "INSERT INTO `optilife`.`pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NB_FOIS`, `PRA_DUREE`) VALUES ('"."2"."', '".$_POST["frequence"]."', '".$age."', '"."1"."', '".$_POST["nbFois"]."', '".$temps."')";
-  			echo $sql;
-  			$stmt = $bdd->exec($sql);
-			echo 'RES : ',$stmt ,'<br/>';
+			//on ajoute uniquement si ce n'est pas déja présent dans l'emploi du tps
+			if(!chercherDejaPresent($bdd, $_POST["activite"], $_POST["frequence"], 1, $age)){
 
-			echo "<p id='formSend'>Tache Ajoutée</p>";
+				$actLib = chercherAct($bdd, $_POST["activite"]);
+				
+				$temps = $_POST["nbHeure"] + ($_POST["nbMinutes"]/60);//transforme les données du form en donnée lisible par la base
+				$sql = "INSERT INTO `optilife`.`pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NB_FOIS`, `PRA_DUREE`) VALUES ('".$actLib."', '".$_POST["frequence"]."', '".$age."', '"."1"."', '".$_POST["nbFois"]."', '".$temps."')";
+	  			$stmt = $bdd->exec($sql);
+				
+	  			echo "<script> resetFields(); </script>";
+				echo "<p id='formSend'>Tache Ajoutée</p>";
+			}
+			else
+				echo "<p id='erreur'>Cette activité existe déja avec cette frequence et cette classe d'age</p>";
 		}
 		else
 			echo "<p id='erreur'> Veuillez remplir tout les champs. </p>";
