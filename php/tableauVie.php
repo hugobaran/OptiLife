@@ -13,7 +13,9 @@
         }
         while ($donnees = $reponse->fetch())
         {   
-            echo '<tr><td>' . $donnees['ACT_LIBELLE'] . "</td><td>" . $donnees['FR_LIBELLE'] . "</td><td>" . $donnees['PRA_NB_FOIS'] . "</td><td>" . $donnees['PRA_DUREE'] . '</td></tr>';
+            $heure =  (int)$donnees['PRA_DUREE']/1;
+            $minute = (int)(($donnees['PRA_DUREE'] - $heure) * 60 /1);
+            echo '<tr><td>' . $donnees['ACT_LIBELLE'] . "</td><td>" . $donnees['FR_LIBELLE'] . "</td><td>" . $donnees['PRA_NB_FOIS'] . "</td><td>" . $heure. "h ". $minute . "m" . '</td></tr>';
         }
         echo '</table>';
         $reponse->closeCursor();
