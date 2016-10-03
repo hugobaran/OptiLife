@@ -39,7 +39,7 @@
 		<select name="activite" id="activite">
 		<?php 
 			$sql = 'SELECT ACT_LIBELLE FROM ACTIVITE';
-			creerListe($bdd,$sql,'ACT_LIBELLE');
+			creerListe($bdd,$sql,'ACT_LIBELLE', 'activite');
 		?>
 		</select>
 		</br>	</br>

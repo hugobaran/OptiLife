@@ -1,11 +1,13 @@
 <?php
 
 
-function creerListe($bdd,$sql,$table){
+function creerListe($bdd,$sql,$table, $form){
 	$reponse = $bdd->query($sql);
 	while ($donnees = $reponse->fetch())
 	{
-		echo '<option value="' . $donnees[$table] . '">' .  $donnees[$table] . '</option>';
+		echo '<option value="' . $donnees[$table] . '" ' ;
+		VerifSelect($form, $donnees[$table]);
+		echo  ' >'.$donnees[$table] . '</option>';
 	}
 	$reponse->closeCursor();
 }
@@ -29,7 +31,7 @@ function chercherDejaPresent($bdd, $act, $freq, $emp, $age){
 
 function traiterAjout($bdd){
 	if(isset($_POST["envoyer"])){
-		if(!empty($_POST["theme"]) && !empty($_POST["activite"]) && !empty($_POST["frequence"]) && !empty($_POST["nbFois"]) && !empty($_POST["nbHeure"]) &&
+		if(!empty($_POST["theme"]) && !empty($_POST["activite"]) && !empty($_POST["frequence"]) && !empty($_POST["nbFois"]) && isset($_POST["nbHeure"]) &&
 		!empty($_POST["nbMinutes"]) && !empty($_POST["classe_age"])){
 		//Envoi du formulaire à la base de donnée
 			if(($_POST["classe_age"] == "Etudiant"))
