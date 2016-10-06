@@ -5,9 +5,10 @@ function creerListe($bdd,$sql,$table, $form){
 	$reponse = $bdd->query($sql);
 	while ($donnees = $reponse->fetch())
 	{
-		echo '<option value="' . $donnees[$table] . '" ' ;
-		VerifSelect($form, $donnees[$table]);
-		echo  ' >'.$donnees[$table] . '</option>';
+		$valeur = encodageUTF8($donnees[$table]);
+		echo '<option value="' . $valeur . '" ' ;
+		VerifSelect($form, $valeur);
+		echo  ' >'.$valeur . '</option>';
 	}
 	$reponse->closeCursor();
 }
@@ -21,7 +22,7 @@ function chercherAct($bdd, $lib){
 function chercherDejaPresent($bdd, $act, $freq, $emp, $age){
 	$act = chercherAct($bdd, $act);
 	$sql1 = "SELECT * FROM `pratiquer` WHERE `ACT_NUM` = ".$act." AND `FR_LIBELLE` LIKE '".$freq."' AND `CAT_NUM` = ".$age." AND `EMP_NUM` = ".$emp." ";
-	$tab = @LireDonneesPDO1($bdd, $sql1);
+	$tab = @LireDonneesPDO3($bdd, $sql1);
 	if(empty($tab))
 		return false;
 	else
@@ -52,11 +53,12 @@ function traiterAjout($bdd){
 	  			echo "<script> resetFields(); </script>";
 				echo "<p id='formSend'>Tache Ajoutée</p>";
 			}
-			else
+			else 
 				echo "<p id='erreur'>Cette activité existe déja avec cette frequence et cette classe d'age</p>";
 		}
 		else
 			echo "<p id='erreur'> Veuillez remplir tout les champs. </p>";
+		
 	}
 }
 
@@ -77,6 +79,7 @@ function choixClasseAge($bdd){
 	{
 		foreach($ligne as $cle =>$valeur)
 		if($cle == "CAT_LIBELLE"){
+			$valeur = encodageUTF8($valeur);
 			echo "<option value='".$valeur."' ";
 			VerifSelect("classe_age",$valeur);
 			echo " >".$valeur."</option>";
@@ -90,6 +93,7 @@ function choixTheme($bdd){
 	{
 		foreach($ligne as $cle =>$valeur)
 		if($cle == "THM_LIBELLE"){
+			$valeur = encodageUTF8($valeur);
 			echo "<option value='".$valeur."' ";
 			VerifSelect("theme",$valeur);
 			echo " >".$valeur."</option>";

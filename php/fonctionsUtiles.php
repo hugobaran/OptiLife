@@ -130,5 +130,11 @@ function bidon(){
 }
 
 
+function encodageUTF8($str){
+  $str = utf8_encode($str);
+  echo $str;
+  return $str;
+}
+
 
 ?>
