@@ -3,6 +3,7 @@
 		<meta charset="UTF-8"/>
 		<title>OptiLife</title>
 		<link rel="stylesheet"  href="../css/accueil.css" type="text/CSS"/>
+		<link rel="stylesheet" href="../css/utilities.css" type="text/css" />
 	
 
 	</head>
