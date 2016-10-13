@@ -10,13 +10,13 @@
         if($reponse->rowCount() == 0){
             echo 'Aucune activité dans cette classe d\'age';
         }else{
-             echo '<table class="table table-condensed" id="table"><thead> <tr> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> </tr> </thead>';
+             echo '<table class="table table-condensed" id="table"><thead> <tr> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> <th style="display:none;">CA</th></tr> </thead>';
         }
         while ($donnees = $reponse->fetch())
         {   
             $heure =  (int)$donnees['PRA_DUREE']/1;
             $minute = (int)(($donnees['PRA_DUREE'] - $heure) * 60 /1);
-            echo '<tr id="ligne" value="OUI"><td>' . $donnees['ACT_LIBELLE'] . "</td><td>" . $donnees['FR_LIBELLE'] . "</td><td>" . $donnees['PRA_NB_FOIS'] . "</td><td>" . $heure. "h ". $minute . "m" . '</td></tr>';
+            echo '<tr id="ligne"><td>' . $donnees['ACT_LIBELLE'] . "</td><td>" . $donnees['FR_LIBELLE'] . "</td><td>" . $donnees['PRA_NB_FOIS'] . "</td><td>" . $heure. "h ". $minute . "m" . '</td><td style="display:none;">'.$categorie. '</tr>';
             $cpt++;
         }
         echo '</table>';

@@ -136,28 +136,20 @@ element.addEventListener('click', function(e) {
 
     });
 
-element.addEventListener('click', function(e) {
-  e.preventDefault(); 
-
-    var act = 208;
-    var fre = "Hebdomadaire";
-
-    document.supprimerActivite.activite.value = act;
-    document.supprimerActivite.frequence.value = fre;
-    });
-
 
 function clicked(){
   var cl = this.className;
   var valeur;
   if (/selected/.test(cl)) {
     this.className = cl.replace(" selected", "");
-    selected.splice(selected.indexOf(this), 2);
+    //selected.splice(selected.indexOf(this), 2);
   }else {
     this.className += " selected";
-    var valeur = $('#e1 input[name="n1"]').val()
-    alert (valeur);
-    selected.push(this, [this.children[0].innerHTML, this.children[1].innerHTML, this.children[2].innerHTML, this.children[3].innerHTML]);
+    //selected.push(this, [this.children[0].innerHTML, this.children[1].innerHTML, this.children[2].innerHTML, this.children[3].innerHTML]);
+    document.supprimerActivite.activite.value = this.children[0].innerHTML;
+    document.supprimerActivite.frequence.value = this.children[1].innerHTML;
+    document.supprimerActivite.classeAge.value = this.children[4].innerHTML;
+
   }
 }
 
