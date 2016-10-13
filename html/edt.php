@@ -79,9 +79,9 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <form method="POST" action= "../php/passerelle.php" enctype="application/x-www-form-urlencoded" name="supprimerActivite">
-            <input type="text" id="suppActivite" name="activite" value=""/>
-            <input type="text" id="suppFrequence" name="frequence" value=""/>  
-            <input type="text" id="suppCA" name="classeAge" value="Actif"/>
+            <input type="hidden" id="suppActivite" name="activite" value=""/>
+            <input type="hidden" id="suppFrequence" name="frequence" value=""/>  
+            <input type="hidden" id="suppCA" name="classeAge" value="Actif"/>
             <p>Voulez vous supprimer cette activite ?<p>       
             <input type="submit" name="supprimer" value="supprimer"/>
           </form>
@@ -149,6 +149,12 @@ function clicked(){
     document.supprimerActivite.activite.value = this.children[0].innerHTML;
     document.supprimerActivite.frequence.value = this.children[1].innerHTML;
     document.supprimerActivite.classeAge.value = this.children[4].innerHTML;
+
+    document.modifierTache.activite.value = this.children[0].innerHTML;
+    document.modifierTache.frequence.value = this.children[1].innerHTML;
+    document.modifierTache.classeAge.value = this.children[2].innerHTML;
+    document.modifierTache.classeAge.value = this.children[3].innerHTML;
+    document.modifierTache.classeAge.value = this.children[4].innerHTML;
 
   }
 }
