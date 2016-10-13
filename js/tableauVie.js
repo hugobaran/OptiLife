@@ -14,3 +14,4 @@ function afficher_onglet(){
     document.getElementById('contenu_onglet_actif').style.display = 'none';
     document.getElementById('contenu_onglet_retraite').style.display = 'none';
 }
+

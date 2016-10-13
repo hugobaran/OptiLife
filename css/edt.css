@@ -65,26 +65,17 @@
     text-align:center;
 }
 
-table
-{
-    border-collapse: collapse;
-    margin: 0 auto;
-}
-td, th
-{
-    border: 1px solid black;
+tr.selected {
+    color:#fff;background:#444 !important;
 }
 
-.thActivite{
-    width: 40%;
+tr:hover {
+    cursor:pointer;
+    background:#eee;
 }
 
-.thFrequence{
-    width: 30%;
+thead tr:hover {
+    cursor:auto;
+    background:none;
 }
-
-.thNbFois, .thDuree{
-    width: 15%;
-}
-
 

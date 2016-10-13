@@ -10,9 +10,6 @@
 <title>Ajout d'une activité</title>	
 <link rel="stylesheet" href="../css/utilities.css" type="text/css" />
 </head> 
-<header>
-	<?php include("header.html"); ?>
-</header>
 <script>
 	function resetFields(){
 	document.getElementById('theme').selectedIndex=0;
@@ -27,7 +24,7 @@
 
 </script>
 <body>
-	<form method="post" action= "<?php $_SERVER['PHP_SELF'] ?>" enctype="application/x-www-form-urlencoded" name="ajoutTache">
+	<form method="post" action= "../php/passerelle.php" enctype="application/x-www-form-urlencoded" name="ajoutTache">
 		<label for="theme">Theme :</label>
 		<select name="theme" id="theme">
 		<?php 
@@ -65,12 +62,9 @@
 		</br>	</br>
 		<label for="nbMinutes">Minute(s) : </label>
 		<input type="number" id="nbMinutes" name="nbMinutes"  min="1" max="59" value=<?php verifierRempli("nbMinutes"); ?> >
+		<input type="hidden" name="ajouter" id="ajouter" value="ajouter" />
 		</br>	</br>
 		<input type="submit" id="btn" name="envoyer">
 	</form>
-	<?php traiterAjout($bdd); ?>
 </body>
-<footer>
-	<?php include("footer.html"); ?>
-</footer>
 </html>
