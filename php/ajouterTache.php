@@ -31,7 +31,7 @@ function chercherDejaPresent($bdd, $act, $freq, $emp, $age){
 
 
 function traiterAjout($bdd){
-	if(isset($_POST["envoyer"])){
+	if(isset($_POST["ajouter"])){
 		if(!empty($_POST["theme"]) && !empty($_POST["activite"]) && !empty($_POST["frequence"]) && !empty($_POST["nbFois"]) && isset($_POST["nbHeure"]) &&
 		!empty($_POST["nbMinutes"]) && !empty($_POST["classe_age"])){
 		//Envoi du formulaire à la base de donnée

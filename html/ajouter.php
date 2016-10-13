@@ -62,9 +62,8 @@
 		</br>	</br>
 		<label for="nbMinutes">Minute(s) : </label>
 		<input type="number" id="nbMinutes" name="nbMinutes"  min="1" max="59" value=<?php verifierRempli("nbMinutes"); ?> >
-		<input type="hidden" name="ajouter" id="ajouter" value="ajouter" />
 		</br>	</br>
-		<input type="submit" id="btn" name="envoyer">
+		<input type="submit" id="btn" name="ajouter" value="envoyer">
 	</form>
 </body>
 </html>
