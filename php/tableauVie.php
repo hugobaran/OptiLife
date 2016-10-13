@@ -10,7 +10,7 @@
         if($reponse->rowCount() == 0){
             echo 'Aucune activité dans cette classe d\'age';
         }else{
-             echo '<table class="table table-condensed" id="table"><thead> <tr> <th>ACTIVITE</th> <th">FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> </tr> </thead>';
+             echo '<table class="table table-condensed" id="table"><thead> <tr> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> </tr> </thead>';
         }
         while ($donnees = $reponse->fetch())
         {   
