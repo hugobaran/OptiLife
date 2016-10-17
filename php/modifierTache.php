@@ -3,7 +3,7 @@
 function modifierTache($bdd){
 	if(isset($_POST["ajouter"])){
 
-		if(!chercherDejaPresent($bdd, $_POST["activite"], $_POST["frequence"], 1, $age)){
+		if(!chercherDejaPresent($bdd, $_POST["activite"], $_POST["frequence"], 1, $age)){//Fonctionne pas, la tache est déja présente
 			//Suppression de l'ancienne activité
 			if(isset($POST['EXactivite']) && isset($_POST['EXfrequence']) && isset($_POST['EXclasseAge'])){
 				$act_num = chercherAct($_POST['EXactivite']);
