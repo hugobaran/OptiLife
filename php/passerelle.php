@@ -6,23 +6,42 @@
 
 
 		if(isset($_POST["ajouter"])){
-			traiterAjout($bdd);
+			try{
+				traiterAjout($bdd);
+				header("location: ../html/edt.php?action=ajout");
+				exit();
+			}catch(PDOException $e){
+				header("location: ../html/edt.php?action=echec");
+				exit();
+			}
 		}else if(isset($_POST["modifier"])){
-			echo "MODIFIER";
+			try{
+				echo "MODIFIER";
+				header("location: ../html/edt.php?action=modif");
+				exit();
+			}catch(PDOException $e){
+				header("location: ../html/edt.php?action=echec");
+				exit();
+			}
 		}else if(isset($_POST["supprimer"])){
-			echo "ici";
 			if(isset($_POST['activite']) && isset($_POST['frequence']) && isset($_POST['classeAge'])){
-			echo "la";
-			$act_num = chercherAct($bdd,$_POST['activite']);
-			$fr_lib = $_POST['frequence'];
-			$cat_num = $_POST['classeAge'];
-			echo "sas";
-			$sql = 'DELETE FROM `optilife`.`pratiquer` WHERE `ACT_NUM` = '.$act_num.' AND `pratiquer`.`FR_LIBELLE` = "'.$fr_lib.'" AND `pratiquer`.`CAT_NUM` = '.$cat_num.' AND `pratiquer`.`EMP_NUM` = 1 ';
-   			echo $sql;
-   			 $bdd->exec($sql);
+				try{
+					$act_num = chercherAct($bdd,$_POST['activite']);
+					$fr_lib = $_POST['frequence'];
+					$cat_num = $_POST['classeAge'];
+					$sql = 'DELETE FROM `optilife`.`pratiquer` WHERE `ACT_NUM` = '.$act_num.' AND `pratiquer`.`FR_LIBELLE` = "'.$fr_lib.'" AND `pratiquer`.`CAT_NUM` = '.$cat_num.' AND `pratiquer`.`EMP_NUM` = 1';
+		   			echo $sql;
+		   			$bdd->exec($sql);
+		   			header("location: ../html/edt.php?action=supp");
+					exit();
+				}catch(PDOException $e){
+					header("location: ../html/edt.php?action=echec");
+					exit();
+				}
 			}
 		}else{
-			echo "rien";
+			header("location: ../html/edt.php?action=echec");
+			exit();
 		}
 
 
