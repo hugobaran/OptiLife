@@ -101,8 +101,6 @@ function clicked(){
     document.supprimerActivite.classeAge.value = this.children[4].innerHTML;
 
     //remlpissage formulaire modifier
-    document.modifierTache.EXclasse_age.value = this.children[4].innerHTML;
-    document.modifierTache.EXactivite.value = this.children[0].innerHTML;
     document.modifierTache.EXfrequence.value = this.children[1].innerHTML;
 
     document.modifierTache.activite.value = this.children[0].innerHTML;

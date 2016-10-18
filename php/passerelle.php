@@ -3,11 +3,12 @@
 	include("../php/connexionBDD.php");
 	include("../php/fonctionsUtiles.php");
 	include("../php/ajouterTache.php");
-	include("../php/odifierTache.php");
+	include("../php/modifierTache.php");
 
 		if(isset($_POST["ajouter"])){
 			traiterAjout($bdd);
 		}else if(isset($_POST["modifier"])){
+			echo "dans modif";
 			modifierTache($bdd);
 		}else if(isset($_POST["supprimer"])){
 			if(isset($_POST['activite']) && isset($_POST['frequence']) && isset($_POST['classeAge'])){
