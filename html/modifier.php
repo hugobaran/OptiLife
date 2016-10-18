@@ -8,8 +8,6 @@
 	</head>
 	<body>
 		<form method="post" action= "../php/passerelle.php" enctype="application/x-www-form-urlencoded" name="modifierTache">
-			<input name="EXclasse_age" id="EXclasse_age" type="hidden" value=<?php if(isset($_POST["classe_age"])) echo '"'.$_POST["classe_age"].'"'; ?>/>
-			<input name="EXactivite" id="EXactivite" type="hidden" value=<?php if(isset($_POST["activite"])) echo '"'.$_POST["activite"].'"'; ?>/>
 			<input name="EXfrequence" id="EXfrequence" type="hidden" value=<?php if(isset($_POST["frequence"])) echo '"'.$_POST["frequence"].'"'; ?>/>
 
 			<label for="activite">Activité :</label><?php if(isset($_POST["activite"])) echo $_POST["activite"]; ?>
@@ -32,7 +30,7 @@
 			<label for="nbMinutes">Minute(s) : </label>
 			<input type="number" id="nbMinutes" name="nbMinutes"  min="1" max="59" value=<?php verifierRempli("nbMinutes"); ?> />
 			</br>	</br>
-			<input type="submit" id="btn" name="ajouter" value="envoyer"/>
+			<input type="submit" id="btn" name="modifier" value="envoyer"/>
 		</form>
 	</body>
 </html>

@@ -32,14 +32,13 @@ function chercherDejaPresent($bdd, $act, $freq, $emp, $age){
 
 
 function traiterAjout($bdd){
-	if(isset($_POST["ajouter"])){
-		if(!empty($_POST["theme"]) && !empty($_POST["activite"]) && !empty($_POST["frequence"]) && !empty($_POST["nbFois"]) && isset($_POST["nbHeure"]) &&
+		if(!empty($_POST["activite"]) && !empty($_POST["frequence"]) && !empty($_POST["nbFois"]) && isset($_POST["nbHeure"]) &&
 		isset($_POST["nbMinutes"]) && !empty($_POST["classe_age"])){
 		//Envoi du formulaire à la base de donnée
 			echo "passage1";
-			if(($_POST["classe_age"] == "Etudiant"))
+			if(($_POST["classe_age"] == "Etudiant") || $_POST["classe_age"] == 1)
 				$age = 1;
-			else if(($_POST["classe_age"] == "Actif"))
+			else if(($_POST["classe_age"] == "Actif") || $_POST["classe_age"] == 2)
 				$age = 2;
 			else
 				$age = 3;
@@ -51,7 +50,7 @@ function traiterAjout($bdd){
 				$temps = $_POST["nbHeure"] + ($_POST["nbMinutes"]/60);//transforme les données du form en donnée lisible par la base
 				$sql = "INSERT INTO `optilife`.`pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NB_FOIS`, `PRA_DUREE`) VALUES ('".$actLib."', '".$_POST["frequence"]."', '".$age."', '"."1"."', '".$_POST["nbFois"]."', '".$temps."')";
 	  			$stmt = $bdd->exec($sql);
-				
+				echo $sql;
 	  			echo "<script> resetFields(); </script>";
 				echo "<p id='formSend'>Tache Ajoutée</p>";
 			}
@@ -60,8 +59,6 @@ function traiterAjout($bdd){
 		}
 		else
 			echo "<p id='erreur'> Veuillez remplir tout les champs. </p>";
-		
-	}
 }
 
 function choixFrequence($bdd){

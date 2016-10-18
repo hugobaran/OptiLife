@@ -102,11 +102,16 @@ function clicked(){
     document.supprimerActivite.frequence.value = this.children[1].innerHTML;
     document.supprimerActivite.classeAge.value = this.children[4].innerHTML;
 
+    //remlpissage formulaire modifier
+    document.modifierTache.EXfrequence.value = this.children[1].innerHTML;
+
     document.modifierTache.activite.value = this.children[0].innerHTML;
     document.modifierTache.frequence.value = this.children[1].innerHTML;
-    document.modifierTache.classeAge.value = this.children[2].innerHTML;
-    document.modifierTache.classeAge.value = this.children[3].innerHTML;
-    document.modifierTache.classeAge.value = this.children[4].innerHTML;
+    document.modifierTache.classe_age.value = this.children[4].innerHTML;
+    document.modifierTache.nbFois.value = this.children[2].innerHTML;
+    document.modifierTache.nbHeure.value = this.children[5].innerHTML;
+    document.modifierTache.nbMinutes.value = this.children[6].innerHTML;
+    
 
   }
 }
