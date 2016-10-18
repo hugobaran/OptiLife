@@ -8,6 +8,9 @@
 
 	</head>
 	<body>
+
+	<div class="page"> <!--debut page-->
+    <div class="contenu">
 	
 		<?php include("header.html"); ?>
 		
@@ -35,15 +38,17 @@
 				</div>
 			</div>
 		</div>
+		</section>
 	</div>
-    
-	</section>
 
-	<input id="btn" type=button value="Commencer un projet" onclick="document.location.href='edt.php'"/>
+	<input class="bouton" type=button value="Commencer un projet" onclick="document.location.href='edt.php'"/>
 			<?php include("connectacc.php"); ?>
 		
 		</div>
+
 		<?php include("footer.html"); ?>
+		</div>
+</div>
 	</table>
 	</body>
 </html>

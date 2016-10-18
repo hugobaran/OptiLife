@@ -20,6 +20,8 @@
       
     <?php include('header.html') ?>
 
+    <?php include('../php/notifications.php')  ?>
+
     <?php include('../php/tableauVie.php') ?>
 
     <?php include('Modals.php') ?>
