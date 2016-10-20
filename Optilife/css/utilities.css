@@ -16,6 +16,12 @@
 .bouton:hover{
 	color: #151515;
 	background: #FF9D33;
-	 background: linear-gradient( #FF9D33, #D5671E);
+	background: linear-gradient( #FF9D33, #D5671E);
 
+}
+
+.boutons{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
 }

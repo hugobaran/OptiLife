@@ -62,7 +62,7 @@
             <form method="POST" action= "../php/passerelle.php" enctype="application/x-www-form-urlencoded" name="supprimerActivite">
             <input type="text" id="suppActivite" name="activite" value=""/>
             <input type="text" id="suppFrequence" name="frequence" value=""/>  
-            <input type="text" id="suppCA" name="classeAge" value="Actif"/>
+            <input type="hidden" id="suppCA" name="classeAge" value=""/>
             <p>Voulez vous supprimer cette activite ?<p>       
             <input type="submit" class="btn btn-default" name="supprimer" value="supprimer"/>
             <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>

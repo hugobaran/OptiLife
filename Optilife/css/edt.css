@@ -72,12 +72,6 @@ body{
     width: 30px;
 }
 
-.boutons{
-    margin-top: 50px;
-    margin-bottom: 50px;
-    text-align:center;
-}
-
 tr.selected {
     color:#fff;background:#444 !important;
 }

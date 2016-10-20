@@ -46,7 +46,10 @@ $(document).ready(function(){
         $("#ModalAjout").modal();
     });
     $("#btnModif").click(function(){
-        $("#ModalModifier").modal();
+      if( document.supprimerActivite.activite.value == "")
+          $("#ModalErreur").modal();
+        else
+          $("#ModalModifier").modal();
     });
      $("#btnSupp").click(function(){
         if( document.supprimerActivite.activite.value == "")

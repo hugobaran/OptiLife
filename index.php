@@ -17,7 +17,7 @@
                 <h1 id="hOptiday">Optiday</h1>
             </div>
         </a>
-        <a href="../html/accueil.php">
+        <a href="Optilife/html/accueil.php">
             <div id="droite" class="demiPage" onmouseover="mOver('Droit')" onmouseout="mOut('Droit')">
                 <div class="circle" id="circleDroit">
                 </div>
