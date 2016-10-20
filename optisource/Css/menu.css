@@ -1,0 +1,80 @@
+body{
+    margin: 0;
+    cursor: pointer;
+    font-family: font_title;
+
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+
+    overflow: hidden;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+h1{
+    position: absolute;
+    z-index: 3;
+
+    margin: auto;
+}
+
+.demiPage{
+    margin: 0;
+    padding: 0;
+
+    text-align: center;
+
+    color: rgba(255, 255, 255, 0.7);
+
+    overflow: hidden;
+
+    box-shadow: 0;
+    transition: box-shadow 0.3s, text-shadow 0.3s;
+}
+
+.demiPage:hover{
+    box-shadow: 0px 0px 60px #080808 inset;
+
+    color: white;
+    text-shadow: 0px 0px 10px #fff;
+}
+
+.circle{
+    position: absolute;
+    z-index: 2;
+
+    border-radius: 50%;
+    border-width: 10px;
+    border-style: solid;
+    border-top-style:double;
+    /*    border-bottom-style: double;*/
+
+    box-shadow: 0px 0px 20px rgba(34, 34, 34, 1),
+        0px 0px 20px rgba(34, 34, 34, 1) inset;
+
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+#gauche{
+
+    background: linear-gradient(60deg, #1f3e9b, #36f);
+}
+
+#circleGauche{
+    border-color: #4477FF;
+}
+
+#droite{
+    background: linear-gradient(60deg, #dd4e00, #a03700);
+}
+
+#circleDroit{
+    border-color: #dd4e00;
+}

@@ -1,0 +1,194 @@
+.application{
+    margin-top: 10px;
+    z-index: 1;
+}
+
+.choix_liste{
+    background-color: #eeeeee;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.liste{
+    font-size: 15px;
+    font-weight:bold;
+}
+
+.box_input{
+    text-align: center;
+}
+
+
+.select_input{
+    width: 90%;
+    height: 40px;
+    margin-top: 10px;
+    background: #f6f6f6;
+	border: 1px solid #ccc;
+	color: #333;
+	cursor:pointer;
+    font-size: 17px;
+	text-shadow: 0px 1px 0px #fff;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	-moz-box-shadow: 0px 0px 2px #fff inset;
+	-webkit-box-shadow: 0px 0px 2px #fff inset;
+}
+
+.box_datetime{
+    text-align: center;
+}
+
+
+#datetime{
+    margin-top: 10px;
+    height: 30px;
+    width: 40%;
+}
+
+.input_liste{
+    height: 25px;
+}
+
+#bouton_optimize input, .input_liste{
+    background: #e3e3e3;
+	border: 1px solid #ccc;
+	color: #333;
+	font-size: 14px;
+	font-weight: bold;
+	cursor:pointer;
+	text-shadow: 0px 1px 0px #fff;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	-moz-box-shadow: 0px 0px 2px #fff inset;
+	-webkit-box-shadow: 0px 0px 2px #fff inset;
+	box-shadow: 0px 0px 2px #fff inset;
+}
+
+#menuBarre input{
+    background: rgba(227, 227, 227, 0.21);
+	border: 1px solid rgba(203, 203, 203, 0.21);
+	color: #EEEEEE;
+    font-size: 14px;
+	font-weight: bold;
+	cursor:pointer;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	-moz-box-shadow: 0px 0px 2px rgba(203, 203, 203, 0.21) inset;
+	-webkit-box-shadow: 0px 0px 2px rgba(203, 203, 203, 0.21) inset;
+	box-shadow: 0px 0px 2px rgba(203, 203, 203, 0.21) inset;
+}
+
+#bouton_optimize input:hover, .input_liste:hover, #menuBarre input:hover{
+    background: #d9d9d9;
+	-moz-box-shadow: 0px 0px 2px #eaeaea inset;
+	-webkit-box-shadow: 0px 0px 2px #eaeaea inset;
+	box-shadow: 0px 0px 2px #eaeaea inset;
+	color: #222;
+}
+
+#ajouter_tache input, #bouton_optimize input{
+    background-image: url(../Images/texture_bouton.png);
+	border: 1px solid #3366FF;
+    color: #fff;
+    text-shadow: 0px 1px 0px #333;
+}
+
+#ajouter_tache input:hover, #bouton_optimize input:hover{
+    background-image: url(../Images/texture_bouton_hover.png);
+    color: #EEE;
+}
+
+#menuBarre{
+    width: 100%;
+    height: 30px;
+    margin-bottom: 11px;
+}
+
+#dayLeft{
+    width: 38%;
+    text-align: left;
+}
+
+#dayRight{
+    width: 38%;
+    text-align: right;
+}
+
+#ajouter_tache{
+    width: 23%;
+    text-align: center;
+}
+
+#dayLeft, #dayRight, #ajouter_tache{
+    display: inline-block;
+}
+
+#dayLeft input{
+    height: 30px;
+    width: 200px;
+}
+
+#ajouter_tache input{
+    height: 30px;
+    width: 200px;
+}
+
+#dayRight input{
+    height: 30px;
+    width: 200px;
+}
+
+#bouton_optimize{
+    margin-top: 10px;
+    margin-bottom: 9px;
+    text-align: center;
+}
+
+#bouton_optimize input{
+    margin-right: 10px;
+    height: 30px;
+    width: 330px;
+}
+
+#bouton_optimize_method, #bouton_optimize_ss_method{
+    display: inline-block;
+}
+
+span[title]:hover:after {
+    content: attr(title);
+    padding: 4px 8px;
+    color: #333;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    white-space: nowrap;
+    z-index: 20px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0px 0px 4px #222;
+    -webkit-box-shadow: 0px 0px 4px #222;
+    box-shadow: 0px 0px 4px #222;
+    background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, #eeeeee),color-stop(1, #cccccc));
+    background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
+    background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+    background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
+    background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+}
+
+#bienvenue{
+    color: white;
+    margin-right:20px;
+    font-size:15px;
+    font-weight:bold;
+}
+
+#administration{
+    text-decoration:none;
+    color:#accbea;
+}

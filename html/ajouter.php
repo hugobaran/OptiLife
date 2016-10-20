@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>Ajout d'une activité</title>	
 <link rel="stylesheet" href="../css/utilities.css" type="text/css" />
+<link rel="stylesheet" href="../css/formulaire.css" type="text/css" />
 </head> 
 <script>
 	function resetFields(){

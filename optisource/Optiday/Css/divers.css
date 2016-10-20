@@ -1,0 +1,16 @@
+body{
+    overflow: hidden;
+    margin: 0;
+    padding: 0px;
+    font-family: Tahoma, Trebuchet, sans-serif; /* par dÃ©faut */
+    background-color: #444;
+}
+
+a {
+   outline: none;
+   text-decoration: none;
+}
+
+.currentPage {
+   color:#959595 !important; 
+}

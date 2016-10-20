@@ -1,0 +1,68 @@
+.menu {
+    background-color: #222222;
+    width: 100%;
+    height: 30px;
+}
+
+.icon_return{
+    position: absolute;
+    margin: 6px;
+    transition-property: all;
+    transition-duration: 1s;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+
+.logoAide{
+    transition-property: all;
+    transition-duration: 1s;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+
+.icon_return:hover, .logoAide:hover{
+    -webkit-transform: rotate(-360deg);
+    -moz-transform: rotate(-360deg);
+    -o-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+}
+
+.return_site {
+    position: absolute;
+    margin-left: 30px;
+    margin-top: 4px;
+}
+
+.return_site a {
+    color:#6699ff;
+    font-size: 12pt;
+    font-family: font_title;
+    text-decoration: none;
+}
+
+.return_site a:hover{
+   color:#959595;
+}
+
+.prof_pref{
+    float: right;
+    display: inline-block;
+    margin-top: 4px;
+}
+    
+.prof_pref a{
+    color:#6699ff;
+    font-family: font_title;
+    text-decoration: none;
+    font-size: 12pt;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.prof_pref a:hover{
+    color: #959595;
+}

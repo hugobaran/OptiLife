@@ -1,0 +1,194 @@
+DROP DATABASE IF EXISTS MLR1;
+
+CREATE DATABASE IF NOT EXISTS MLR1;
+USE MLR1;
+# -----------------------------------------------------------------------------
+#       TABLE : MEMBRE
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS MEMBRE
+ (
+   ME_ID CHAR(32) NOT NULL  ,
+   TA_ID CHAR(32) NULL  ,
+   ME_LIBELLE CHAR(32) NULL  ,
+   QUANTITÉ__1_OU_2_ CHAR(32) NULL  
+   , PRIMARY KEY (ME_ID) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       INDEX DE LA TABLE MEMBRE
+# -----------------------------------------------------------------------------
+
+
+CREATE  INDEX I_FK_MEMBRE_TACHE
+     ON MEMBRE (TA_ID ASC);
+
+# -----------------------------------------------------------------------------
+#       TABLE : SOUSDOMAINE
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS SOUSDOMAINE
+ (
+   SO_ID CHAR(32) NOT NULL  ,
+   DO_ID CHAR(32) NOT NULL  ,
+   SO_LIBELLE CHAR(32) NULL  
+   , PRIMARY KEY (SO_ID) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       INDEX DE LA TABLE SOUSDOMAINE
+# -----------------------------------------------------------------------------
+
+
+CREATE  INDEX I_FK_SOUSDOMAINE_DOMAINE
+     ON SOUSDOMAINE (DO_ID ASC);
+
+# -----------------------------------------------------------------------------
+#       TABLE : UTILISATEUR
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS UTILISATEUR
+ (
+   UT_ID CHAR(32) NOT NULL  ,
+   UT_PRENOM CHAR(32) NULL  ,
+   UT_NOM CHAR(32) NULL  ,
+   UT_AGE CHAR(32) NULL  
+   , PRIMARY KEY (UT_ID) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       TABLE : LIEU
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS LIEU
+ (
+   LI_ID CHAR(32) NOT NULL  ,
+   LI_LIBELLE CHAR(32) NULL  
+   , PRIMARY KEY (LI_ID) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       TABLE : MANIÈRE_DE_FAIRE
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS MANIÈRE_DE_FAIRE
+ (
+   MET_ID INTEGER(2) NOT NULL  ,
+   MET_LIBELLE CHAR(100) NULL  ,
+   MET_DUREE INTEGER(2) NULL  
+   , PRIMARY KEY (MET_ID) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       TABLE : DOMAINE
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS DOMAINE
+ (
+   DO_ID CHAR(32) NOT NULL  ,
+   DO_LIBELLE CHAR(32) NULL  
+   , PRIMARY KEY (DO_ID) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       TABLE : TACHE
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS TACHE
+ (
+   TA_ID CHAR(32) NOT NULL  ,
+   LI_ID CHAR(32) NOT NULL  ,
+   SO_ID CHAR(32) NOT NULL  ,
+   UT_ID CHAR(32) NOT NULL  ,
+   TA_LIBELLE CHAR(32) NULL  ,
+   TA_DUREE CHAR(32) NULL  ,
+   TA_DATEDEBUT CHAR(32) NULL  ,
+   TA_DATEFIN CHAR(32) NULL  ,
+   TA_ANNULEE CHAR(32) NULL  
+   , PRIMARY KEY (TA_ID) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       INDEX DE LA TABLE TACHE
+# -----------------------------------------------------------------------------
+
+
+CREATE  INDEX I_FK_TACHE_LIEU
+     ON TACHE (LI_ID ASC);
+
+CREATE  INDEX I_FK_TACHE_SOUSDOMAINE
+     ON TACHE (SO_ID ASC);
+
+CREATE  INDEX I_FK_TACHE_UTILISATEUR
+     ON TACHE (UT_ID ASC);
+
+# -----------------------------------------------------------------------------
+#       TABLE : FAÇON
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS FAÇON
+ (
+   TA_ID CHAR(32) NOT NULL  ,
+   MET_ID INTEGER(2) NOT NULL  
+   , PRIMARY KEY (TA_ID,MET_ID) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       INDEX DE LA TABLE FAÇON
+# -----------------------------------------------------------------------------
+
+
+CREATE  INDEX I_FK_FAÇON_TACHE
+     ON FAÇON (TA_ID ASC);
+
+CREATE  INDEX I_FK_FAÇON_MANIÈRE_DE_FAIRE
+     ON FAÇON (MET_ID ASC);
+
+
+# -----------------------------------------------------------------------------
+#       CREATION DES REFERENCES DE TABLE
+# -----------------------------------------------------------------------------
+
+
+ALTER TABLE MEMBRE 
+  ADD FOREIGN KEY FK_MEMBRE_TACHE (TA_ID)
+      REFERENCES TACHE (TA_ID) ;
+
+
+ALTER TABLE SOUSDOMAINE 
+  ADD FOREIGN KEY FK_SOUSDOMAINE_DOMAINE (DO_ID)
+      REFERENCES DOMAINE (DO_ID) ;
+
+
+ALTER TABLE TACHE 
+  ADD FOREIGN KEY FK_TACHE_LIEU (LI_ID)
+      REFERENCES LIEU (LI_ID) ;
+
+
+ALTER TABLE TACHE 
+  ADD FOREIGN KEY FK_TACHE_SOUSDOMAINE (SO_ID)
+      REFERENCES SOUSDOMAINE (SO_ID) ;
+
+
+ALTER TABLE TACHE 
+  ADD FOREIGN KEY FK_TACHE_UTILISATEUR (UT_ID)
+      REFERENCES UTILISATEUR (UT_ID) ;
+
+
+ALTER TABLE FAÇON 
+  ADD FOREIGN KEY FK_FAÇON_TACHE (TA_ID)
+      REFERENCES TACHE (TA_ID) ;
+
+
+ALTER TABLE FAÇON 
+  ADD FOREIGN KEY FK_FAÇON_MANIÈRE_DE_FAIRE (MET_ID)
+      REFERENCES MANIÈRE_DE_FAIRE (MET_ID) ;
+
