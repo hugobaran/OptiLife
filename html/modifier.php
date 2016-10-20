@@ -26,7 +26,6 @@
 			</br>	</br>
 			<label for="nbHeure">Heure(s) : </label>
 			<input type="number" id="nbHeure" name="nbHeure"  min="0" value=<?php verifierRempli("nbHeure"); ?> />
-			</br>	</br>
 			<label for="nbMinutes">Minute(s) : </label>
 			<input type="number" id="nbMinutes" name="nbMinutes"  min="1" max="59" value=<?php verifierRempli("nbMinutes"); ?> />
 			</br>	</br>
