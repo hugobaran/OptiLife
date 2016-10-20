@@ -5,7 +5,7 @@ function creerListe($bdd,$sql,$table, $form){
 	$reponse = $bdd->query($sql);
 	while ($donnees = $reponse->fetch())
 	{
-		$valeur = encodageUTF8($donnees[$table]);
+		$valeur = utf8_encode($donnees[$table]);
 		echo '<option value="' . $valeur . '" ' ;
 		VerifSelect($form, $valeur);
 		echo  ' >'.$valeur . '</option>';
@@ -14,6 +14,7 @@ function creerListe($bdd,$sql,$table, $form){
 }
 
 function chercherAct($bdd, $lib){
+			$lib = utf8_decode($lib);
 			$sql1 = "SELECT * FROM `activite` WHERE `ACT_LIBELLE` LIKE '".$lib."' ";
 			$tab = LireDonneesPDO1($bdd, $sql1);
 			return $tab[0]["ACT_NUM"];
@@ -31,25 +32,25 @@ function chercherDejaPresent($bdd, $act, $freq, $emp, $age){
 
 
 function traiterAjout($bdd){
-	if(isset($_POST["envoyer"])){
-		if(!empty($_POST["theme"]) && !empty($_POST["activite"]) && !empty($_POST["frequence"]) && !empty($_POST["nbFois"]) && isset($_POST["nbHeure"]) &&
-		!empty($_POST["nbMinutes"]) && !empty($_POST["classe_age"])){
+		if(!empty($_POST["activite"]) && !empty($_POST["frequence"]) && !empty($_POST["nbFois"]) && isset($_POST["nbHeure"]) &&
+		isset($_POST["nbMinutes"]) && !empty($_POST["classe_age"])){
 		//Envoi du formulaire à la base de donnée
-			if(($_POST["classe_age"] == "Etudiant"))
+			echo "passage1";
+			if(($_POST["classe_age"] == "Etudiant") || $_POST["classe_age"] == 1)
 				$age = 1;
-			else if(($_POST["classe_age"] == "Actif"))
+			else if(($_POST["classe_age"] == "Actif") || $_POST["classe_age"] == 2)
 				$age = 2;
 			else
 				$age = 3;
 			//on ajoute uniquement si ce n'est pas déja présent dans l'emploi du tps
 			if(!chercherDejaPresent($bdd, $_POST["activite"], $_POST["frequence"], 1, $age)){
-
+				echo "passage2";
 				$actLib = chercherAct($bdd, $_POST["activite"]);
-				
+				$actLib = utf8_decode($actLib);
 				$temps = $_POST["nbHeure"] + ($_POST["nbMinutes"]/60);//transforme les données du form en donnée lisible par la base
 				$sql = "INSERT INTO `optilife`.`pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NB_FOIS`, `PRA_DUREE`) VALUES ('".$actLib."', '".$_POST["frequence"]."', '".$age."', '"."1"."', '".$_POST["nbFois"]."', '".$temps."')";
 	  			$stmt = $bdd->exec($sql);
-				
+				echo $sql;
 	  			echo "<script> resetFields(); </script>";
 				echo "<p id='formSend'>Tache Ajoutée</p>";
 			}
@@ -58,8 +59,6 @@ function traiterAjout($bdd){
 		}
 		else
 			echo "<p id='erreur'> Veuillez remplir tout les champs. </p>";
-		
-	}
 }
 
 function choixFrequence($bdd){
@@ -79,7 +78,7 @@ function choixClasseAge($bdd){
 	{
 		foreach($ligne as $cle =>$valeur)
 		if($cle == "CAT_LIBELLE"){
-			$valeur = encodageUTF8($valeur);
+			$valeur = utf8_encode($valeur);
 			echo "<option value='".$valeur."' ";
 			VerifSelect("classe_age",$valeur);
 			echo " >".$valeur."</option>";
@@ -93,7 +92,7 @@ function choixTheme($bdd){
 	{
 		foreach($ligne as $cle =>$valeur)
 		if($cle == "THM_LIBELLE"){
-			$valeur = encodageUTF8($valeur);
+			$valeur = utf8_encode($valeur);
 			echo "<option value='".$valeur."' ";
 			VerifSelect("theme",$valeur);
 			echo " >".$valeur."</option>";

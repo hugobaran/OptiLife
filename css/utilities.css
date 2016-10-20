@@ -1,4 +1,4 @@
-#btn{
+.bouton{
 	font-family: Arial,sans-serif;
      font-size: 1em;
      height: 40px;
@@ -13,7 +13,7 @@
 				 
 }
 
-#btn:hover{
+.bouton:hover{
 	color: #151515;
 	background: #FF9D33;
 	 background: linear-gradient( #FF9D33, #D5671E);

@@ -5,7 +5,7 @@
     if (!empty($_POST[$n]))
   {
     $var = $_POST[$n];
-    if ($var <> "")
+    /*if ($var <> "")*/
     echo $var;
   }
   }
@@ -36,7 +36,6 @@
       }
     }
   }  
-  
   
 function LireDonneesPDO1($conn,$sql)
 {
@@ -127,13 +126,6 @@ function bidon(){
   $stmt = $conn->exec($sql);
   echo 'RES : ',$stmt ,'<br/>';
 
-}
-
-
-function encodageUTF8($str){
-  $str = utf8_encode($str);
-  echo $str;
-  return $str;
 }
 
 

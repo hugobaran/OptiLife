@@ -1,29 +1,5 @@
- <?php
 
-    function afficherActivite($categorie,$bdd){
-        $sql = 'SELECT ACT_LIBELLE,FR_LIBELLE,EMP_NUM,PRA_NB_FOIS,PRA_DUREE FROM PRATIQUER JOIN ACTIVITE USING(ACT_NUM) WHERE CAT_NUM = ' . $categorie;
-        /*echo '<pre>';
-        print_r($sql);
-        echo '</pre>';*/
-        $reponse = $bdd->query($sql);
-        if($reponse->rowCount() == 0){
-            echo 'Aucune activité dans cette classe d\'age';
-        }else{
-             echo '<table> <tr> <th class="thActivite">ACTIVITE</th> <th class="thFrequence">FREQUENCE</th> <th class="thNbFois">NB FOIS</th> <th class="thDuree">DUREE</th> </tr>';
-        }
-        while ($donnees = $reponse->fetch())
-        {   
-            $heure =  (int)$donnees['PRA_DUREE']/1;
-            $minute = (int)(($donnees['PRA_DUREE'] - $heure) * 60 /1);
-            echo '<tr><td>' . $donnees['ACT_LIBELLE'] . "</td><td>" . $donnees['FR_LIBELLE'] . "</td><td>" . $donnees['PRA_NB_FOIS'] . "</td><td>" . $heure. "h ". $minute . "m" . '</td></tr>';
-        }
-        echo '</table>';
-        $reponse->closeCursor();
-    }
-    
- ?>
-
- <?php include('connexionBDD.php') ?>
+<?php include('connexionBDD.php') ?>
 
  <div class="systeme_onglets">
         <div class="onglets">
@@ -37,7 +13,7 @@
                    <img src="../img/retour.gif" class="retour" onclick="javascript:afficher_onglet();"/>
                    <h3>Liste d'activité de la classe d'age : Etudiant</h3>
                 </div>
-                <div class="activites" id="acticite_etudiant">
+                <div class="table-striped" id="activite_etudiant">
                 <?php
                     afficherActivite('1',$bdd);
                 ?>
@@ -48,7 +24,7 @@
                    <img src="../img/retour.gif" class="retour" onclick="javascript:afficher_onglet();"/>
                    <h3>Liste d'activité de la classe d'age : Actif</h3>
                 </div>
-                <div class="activites" id="activite_actif">
+                <div class="table-striped" id="activite_actif">
                      <?php
                         afficherActivite('2',$bdd);
                      ?>
@@ -59,7 +35,7 @@
                    <img src="../img/retour.gif" class="retour" onclick="javascript:afficher_onglet();"/>
                    <h3>Liste d'activité de la classe d'age : Retraite</h3>
                 </div>
-                <div class="activites" id="activite_retraite">
+                <div class="table-striped   " id="activite_retraite">
                 <?php
                     afficherActivite('3',$bdd);
                 ?>
@@ -67,3 +43,31 @@
             </div>
         </div>
 </div>
+
+ <?php
+
+    function afficherActivite($categorie,$bdd){
+        $sql = 'SELECT ACT_LIBELLE,FR_LIBELLE,EMP_NUM,PRA_NB_FOIS,PRA_DUREE FROM PRATIQUER JOIN ACTIVITE USING(ACT_NUM) WHERE CAT_NUM = ' . $categorie;
+        /*echo '<pre>';
+        print_r($sql);
+        echo '</pre>';*/
+        $reponse = $bdd->query($sql);
+        $cpt = 1;
+        if($reponse->rowCount() == 0){
+            echo 'Aucune activité dans cette classe d\'age';
+        }else{
+             echo '<table class="table table-condensed" id="table"><thead> <tr> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> <th style="display:none;">CA</th><th style="display:none;">nbHeure</th><th style="display:none;">nbMinute</th></tr> </thead>';
+        }
+        while ($donnees = $reponse->fetch())
+        {   
+            $heure =  (int)$donnees['PRA_DUREE']/1;
+            $minute = (int)(($donnees['PRA_DUREE'] - $heure) * 60 /1);
+            $activite = utf8_encode($donnees['ACT_LIBELLE']);
+            echo '<tr id="ligne"><td>' . $activite . "</td><td>" . $donnees['FR_LIBELLE'] . "</td><td>" . $donnees['PRA_NB_FOIS'] . "</td><td>" . $heure. "h ". $minute . "m" . '</td><td style="display:none;">'.$categorie. '</td><td style="display:none;">'.$heure. '</td><td style="display:none;">'.$minute. '</td></tr>';
+            $cpt++;
+        }
+        echo '</table>';
+        $reponse->closeCursor();
+    }
+    
+ ?>

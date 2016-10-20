@@ -3,10 +3,14 @@
 		<meta charset="UTF-8"/>
 		<title>OptiLife</title>
 		<link rel="stylesheet"  href="../css/accueil.css" type="text/CSS"/>
+		<link rel="stylesheet" href="../css/utilities.css" type="text/css" />
 	
 
 	</head>
 	<body>
+
+	<div class="page"> <!--debut page-->
+    <div class="contenu">
 	
 		<?php include("header.html"); ?>
 		
@@ -35,15 +39,23 @@
 				</div>
 			</div>
 		</div>
-	
+
     
 	</section>
 </div>
-	<input id="btn" type=button value="Commencer un projet" onclick="document.location.href='edt.php'"/>
+	
+
+	</div>
+
+	<input class="bouton" type=button value="Commencer un projet" onclick="document.location.href='edt.php'"/>
+
 			<?php include("connectacc.php"); ?>
 		
 		</div>
+
 		<?php include("footer.html"); ?>
+		</div>
+</div>
 	</table>
 	</body>
 </html>
