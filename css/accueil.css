@@ -1,26 +1,23 @@
-.acc  {
+﻿#optiacc{
+	
 	margin:auto;
 	width:50%;
-	 
+	
 }
-#optiacc{
-	height:394px; font-family:"Helvetica Neue","Trebuchet MS",sans-serif;font-size:0.9em;border:3px solid white;
-	}
 
-	#optiacc #demoWrap{position:absolute;top:30px;width:80%;height:100%; overflow:hidden;}
-/*; 
+#optiacc #demoWrap{position:relative;top:100px;width:80%;height:100%; overflow:hidden;}
+
+
+/*
 background gradient*/
 #optiacc #background{
 	position:absolute;
-    width:50%;
+    width:100%;
     height:50%;
     
    
     background-color:#FF8F15;
-    background-image:-webkit-linear-gradient(#FEA749,#FEA749 50%,rgba(213,86,1,0) 75%,rgba(213,86,1,0));
-    background-image:-moz-linear-gradient(#FEA749,#FEA749 50%,rgba(213,86,1,0) 75%,rgba(213,86,1,0));
-    background-image:-o-linear-gradient(#FEA749,#FEA749 50%,rgba(213,86,1,0) 75%,rgba(213,86,1,0));
-    background-image:linear-gradient(#FEA749,#FEA749 50%,rgba(213,86,1,0) 75%,rgba(213,86,1,0));
+   
     
     -webkit-transition:background-color 1s ease-out;
        -moz-transition:background-color 1s ease-out;
@@ -159,11 +156,9 @@ padding-top:5px;
 
 /* :target */
 #optiacc #demoWrap #present:target #textes{margin-left:0px;}
-#optiacc #demoWrap #present:target #background{background-color:#FFBD75;}
 #optiacc #demoWrap #present:target #fleche{margin-left:34.5%;}
 /* tuto */
 #optiacc #demoWrap #tuto:target #textes{margin-left:-100%;}
-#optiacc #demoWrap #tuto:target #background{background-color :#D55601;}
 #optiacc #demoWrap #tuto:target #fleche{margin-left:68%;}
 
 
@@ -211,6 +206,7 @@ padding-top:5px;
 /* div textes */
 #optiacc #demoWrap #textes{
 	clear:left;
+	position:absolute;
 	width:200%;
 	height:193px;
 	margin-top:6px;
@@ -238,4 +234,10 @@ padding-top:5px;
     font-size:1.2em;
     color:#4e5358;
     text-shadow:0px -1px 0px rgba(0,0,0,0.5);
+}
+
+#carreblanc{
+	background:#333941;
+	width:200%;
+	height:193px;
 }

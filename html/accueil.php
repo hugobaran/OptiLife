@@ -13,6 +13,7 @@
  
 	<div class="acc">
 	<section id="optiacc" class="crayon article-css-27 demoTime">
+		
 		<div id="demoWrap">
 			<div id="present">
 				<div id="tuto">
@@ -34,10 +35,10 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	
     
 	</section>
-
+</div>
 	<input id="btn" type=button value="Commencer un projet" onclick="document.location.href='edt.php'"/>
 			<?php include("connectacc.php"); ?>
 		
