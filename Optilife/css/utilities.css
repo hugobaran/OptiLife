@@ -1,5 +1,11 @@
+.boutonsGroup{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align:center;
+}
+
 .bouton{
-	font-family: Arial,sans-serif;
+	 font-family: Arial,sans-serif;
      font-size: 1em;
      height: 40px;
      text-align: center;
@@ -18,10 +24,4 @@
 	background: #FF9D33;
 	background: linear-gradient( #FF9D33, #D5671E);
 
-}
-
-.boutons{
-    margin-top: 50px;
-    margin-bottom: 50px;
-    text-align: center;
 }

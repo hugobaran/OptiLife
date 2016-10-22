@@ -8,7 +8,6 @@
  <head>
 <meta charset="UTF-8">
 <title>Ajout d'une activité</title>	
-<link rel="stylesheet" href="../css/utilities.css" type="text/css" />
 <link rel="stylesheet" href="../css/formulaire.css" type="text/css" />
 </head> 
 <script>
@@ -36,7 +35,7 @@
 		<label for="activite">Activité :</label>
 		<select name="activite" id="activite">
 		<?php 
-			$sql = 'SELECT ACT_LIBELLE FROM ACTIVITE';
+			$sql = 'SELECT ACT_LIBELLE FROM activite';
 			creerListe($bdd,$sql,'ACT_LIBELLE', 'activite');
 		?>
 		</select>

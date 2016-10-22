@@ -14,9 +14,6 @@
   </head>
 
   <body>
-
-    <div class="page"> <!--debut page-->
-    <div class="contenu">
       
     <?php include('header.html') ?>
 
@@ -27,15 +24,14 @@
     <?php include('Modals.php') ?>
 
 
-  <div class="boutons"> <!--debut boutons-->
+  <div class="boutonsGroup"> <!--debut boutons-->
     <button type="button" class="bouton" id="btnAdd">Ajouter</button>
     <button type="button" class="bouton" id="btnModif">Modifier</button>
     <button type="button" class="bouton" id="btnSupp">Supprimer</button>
   </div> <!--fin boutons-->
 
-   </div>
    <?php include('footer.html') ?>
-</div>
+   
 </body>
   
 <script type="text/javascript">

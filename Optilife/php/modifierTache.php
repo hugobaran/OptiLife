@@ -15,7 +15,7 @@ function modifierTache($bdd){
 				$act_num = chercherAct($bdd, $_POST['activite']);
 				$fr_lib = $_POST['EXfrequence'];
 				$cat_num = $_POST['classe_age'];
-				$sql = 'DELETE FROM `optilife`.`pratiquer` WHERE `ACT_NUM` = '.$act_num.' AND `pratiquer`.`FR_LIBELLE` = "'.$fr_lib.'" AND `pratiquer`.`CAT_NUM` = '.$cat_num.' AND `pratiquer`.`EMP_NUM` = 1 ';
+				$sql = 'DELETE FROM `pratiquer` WHERE `ACT_NUM` = '.$act_num.' AND `pratiquer`.`FR_LIBELLE` = "'.$fr_lib.'" AND `pratiquer`.`CAT_NUM` = '.$cat_num.' AND `pratiquer`.`EMP_NUM` = 1 ';
 	   			echo $sql;
 	   			$bdd->exec($sql);
 			traiterAjout($bdd);

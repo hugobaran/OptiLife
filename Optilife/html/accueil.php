@@ -10,10 +10,12 @@
 	</head>
 	<body>
 
-	<div class="page"> <!--debut page-->
-    	<div class="contenu">
-
 			<?php include("header.html"); ?>
+		
+			<div class="boutonsGroup">
+				<input class="bouton" type=button value="Commencer un projet" onclick="document.location.href='edt.php'"/>
+				<?php include("connectacc.php"); ?>
+			</div>
 		
  			<div class="acc">
 				<section id="optiacc" class="demoTime">
@@ -38,15 +40,8 @@
 				</section>
 			</div>
 
-
-			<div class="boutongroup">
-				<input class="bouton" type=button value="Commencer un projet" onclick="document.location.href='edt.php'"/>
-				<?php include("connectacc.php"); ?>
-			</div>
-	</div>
-
-	<?php include("footer.html"); ?>
-	</div>
-	</table>
+	
+		<?php include("footer.html"); ?>
+		
 	</body>
 </html>

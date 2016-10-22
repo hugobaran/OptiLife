@@ -47,7 +47,7 @@
  <?php
 
     function afficherActivite($categorie,$bdd){
-        $sql = 'SELECT ACT_LIBELLE,FR_LIBELLE,EMP_NUM,PRA_NB_FOIS,PRA_DUREE FROM PRATIQUER JOIN ACTIVITE USING(ACT_NUM) WHERE CAT_NUM = ' . $categorie;
+        $sql = 'SELECT ACT_LIBELLE,FR_LIBELLE,EMP_NUM,PRA_NB_FOIS,PRA_DUREE FROM pratiquer JOIN activite USING(ACT_NUM) WHERE CAT_NUM = ' . $categorie;
         /*echo '<pre>';
         print_r($sql);
         echo '</pre>';*/
