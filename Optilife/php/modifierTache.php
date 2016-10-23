@@ -5,6 +5,7 @@ function modifierTache($bdd){
 		echo "bien ds la fonction";
 		//if(!chercherDejaPresent($bdd, $_POST["activite"], $_POST["frequence"], 1, $age)){//Fonctionne pas, la tache est déja présente
 				//Suppression de l'ancienne activité
+		if(($_POST["EXfrequence"] != $_POST["frequence"] && !chercherDejaPresent($bdd, $_POST["activite"], $_POST["frequence"], 1, $age)) || $_POST["EXfrequence"] == $_POST["frequence"]){
 				echo $_POST["activite"]."</br>";
 				echo $_POST["EXfrequence"]."</br>";
 				echo $_POST["classe_age"]."</br>";
@@ -18,11 +19,12 @@ function modifierTache($bdd){
 				$sql = 'DELETE FROM `pratiquer` WHERE `ACT_NUM` = '.$act_num.' AND `pratiquer`.`FR_LIBELLE` = "'.$fr_lib.'" AND `pratiquer`.`CAT_NUM` = '.$cat_num.' AND `pratiquer`.`EMP_NUM` = 1 ';
 	   			echo $sql;
 	   			$bdd->exec($sql);
-			traiterAjout($bdd);
-		//}
-		//else{
-		//	echo "<p id='erreur'>Cette activité existe déja avec cette frequence et cette classe d'age</p>";
-		//}
+				traiterAjout($bdd);
+		}
+		else{
+			echo "<p id='erreur'>Cette activité existe déja avec cette frequence et cette classe d'age</p>";
+			throw new PDOException('activtePres');
+		}
 
 	}
 

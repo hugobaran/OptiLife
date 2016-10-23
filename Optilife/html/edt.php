@@ -23,7 +23,6 @@
 
     <?php include('Modals.php') ?>
 
-
   <div class="boutonsGroup"> <!--debut boutons-->
     <button type="button" class="bouton" id="btnAdd">Ajouter</button>
     <button type="button" class="bouton" id="btnModif">Modifier</button>

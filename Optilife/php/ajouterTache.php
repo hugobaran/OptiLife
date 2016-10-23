@@ -54,11 +54,15 @@ function traiterAjout($bdd){
 	  			echo "<script> resetFields(); </script>";
 				echo "<p id='formSend'>Tache Ajoutée</p>";
 			}
-			else 
+			else {
 				echo "<p id='erreur'>Cette activité existe déja avec cette frequence et cette classe d'age</p>";
+				throw new PDOException('activtePres');
+			}
 		}
-		else
+		else{
 			echo "<p id='erreur'> Veuillez remplir tout les champs. </p>";
+			throw new PDOException('incomplet');
+		}
 }
 
 function choixFrequence($bdd){
