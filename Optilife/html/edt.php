@@ -64,19 +64,7 @@ var tr = document.querySelectorAll("#table #ligne"),
   l = tr.length;
 
 for (i ; i<l; i++) tr[i].addEventListener("click", clicked, false);
-
-element.addEventListener('click', function(e) {
-  e.preventDefault(); 
-  var confirmation = "Vous avez choisi :  \n",
-    i = 0,
-    l = selected.length;
-  for( ; i<l; i+=2) confirmation += "- Activite " + selected[i+1][0] + " avec la frequence " + selected[i+1][1] +  " " + selected[i+1][2] + "fois pendant " + selected[i+1][3] + "\n";
-  
-  l == 0 && (confirmation = "Vous n'avez rien choisi :(");
-  
-  alert(confirmation);
-
-    });
+  selected[0]= tr[0];
 
 
 function clicked(){
@@ -84,6 +72,7 @@ function clicked(){
   var valeur;
   if (/selected/.test(cl)) {
     this.className = cl.replace(" selected", "");
+    selected[0]= tr[0];
     document.supprimerActivite.activite.value = "";
     document.supprimerActivite.frequence.value = "";
     document.supprimerActivite.classeAge.value = "";
@@ -95,18 +84,23 @@ function clicked(){
     document.modifierTache.classeAge.value = "";
     //selected.splice(selected.indexOf(this), 2);
   }else {
+    selected[0].className = selected[0].className.replace(" selected", "");
+    selected = [];
     this.className += " selected";
-    //selected.push(this, [this.children[0].innerHTML, this.children[1].innerHTML, this.children[2].innerHTML, this.children[3].innerHTML]);
+    selected.push(this);
     document.supprimerActivite.activite.value = this.children[0].innerHTML;
     document.supprimerActivite.frequence.value = this.children[1].innerHTML;
     document.supprimerActivite.classeAge.value = this.children[4].innerHTML;
 
-    //remlpissage formulaire modifier
+    //remplissage formulaire modifier
     document.modifierTache.EXfrequence.value = this.children[1].innerHTML;
-
     document.modifierTache.activite.value = this.children[0].innerHTML;
+    $('#affichageActivite').text(this.children[0].innerHTML);
+    $('#affichageActiviteS').text(this.children[0].innerHTML);
     document.modifierTache.frequence.value = this.children[1].innerHTML;
     document.modifierTache.classe_age.value = this.children[4].innerHTML;
+    $('#affichageClasseAge').text(this.children[4].innerHTML);
+    $('#affichageClasseAgeS').text(this.children[4].innerHTML);
     document.modifierTache.nbFois.value = this.children[2].innerHTML;
     document.modifierTache.nbHeure.value = this.children[5].innerHTML;
     document.modifierTache.nbMinutes.value = this.children[6].innerHTML;

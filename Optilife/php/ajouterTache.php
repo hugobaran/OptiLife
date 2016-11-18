@@ -13,6 +13,20 @@ function creerListe($bdd,$sql,$table, $form){
 	$reponse->closeCursor();
 }
 
+function creerListeActivite($bdd,$sql,$table, $form){
+	$reponse = $bdd->query($sql);
+	while ($donnees = $reponse->fetch())
+	{
+		$theme = utf8_encode($donnees['THM_LIBELLE']);
+		$act = utf8_encode($donnees['ACT_LIBELLE']);
+		echo '<option class="'.$theme.'" value="' . $act . '" ' ;
+		VerifSelect($form, $act);
+		echo  ' >'.$act . '</option>';
+
+	}
+	$reponse->closeCursor();
+}
+
 function chercherAct($bdd, $lib){
 			$lib = utf8_decode($lib);
 			$sql1 = "SELECT * FROM `activite` WHERE `ACT_LIBELLE` LIKE '".$lib."' ";
@@ -35,28 +49,27 @@ function traiterAjout($bdd){
 		if(!empty($_POST["activite"]) && !empty($_POST["frequence"]) && !empty($_POST["nbFois"]) && isset($_POST["nbHeure"]) &&
 		isset($_POST["nbMinutes"]) && !empty($_POST["classe_age"])){
 		//Envoi du formulaire à la base de donnée
-			echo "passage1";
-			if(($_POST["classe_age"] == "Etudiant") || $_POST["classe_age"] == 1)
-				$age = 1;
-			else if(($_POST["classe_age"] == "Actif") || $_POST["classe_age"] == 2)
-				$age = 2;
-			else
-				$age = 3;
-			//on ajoute uniquement si ce n'est pas déja présent dans l'emploi du tps
-			if(!chercherDejaPresent($bdd, $_POST["activite"], $_POST["frequence"], 1, $age)){
-				echo "passage2";
-				$actLib = chercherAct($bdd, $_POST["activite"]);
-				$actLib = utf8_decode($actLib);
-				$temps = $_POST["nbHeure"] + ($_POST["nbMinutes"]/60);//transforme les données du form en donnée lisible par la base
-				$sql = "INSERT INTO `pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NB_FOIS`, `PRA_DUREE`) VALUES ('".$actLib."', '".$_POST["frequence"]."', '".$age."', '"."1"."', '".$_POST["nbFois"]."', '".$temps."')";
-	  			$stmt = $bdd->exec($sql);
-				echo $sql;
-	  			echo "<script> resetFields(); </script>";
-				echo "<p id='formSend'>Tache Ajoutée</p>";
-			}
-			else {
-				echo "<p id='erreur'>Cette activité existe déja avec cette frequence et cette classe d'age</p>";
-				throw new PDOException('activtePres');
+			if (!empty($_POST['classe_age'])) {
+    			$array = $_POST['classe_age'];
+			    foreach ($array as $age) {
+					//on ajoute uniquement si ce n'est pas déja présent dans l'emploi du tps
+					if(!chercherDejaPresent($bdd, $_POST["activite"], $_POST["frequence"], 1, $age)){
+						echo "passage2";
+						$actLib = chercherAct($bdd, $_POST["activite"]);
+						$actLib = utf8_decode($actLib);
+						$temps = $_POST["nbHeure"] + ($_POST["nbMinutes"]/60);//transforme les données du form en donnée lisible par la base
+						$sql = "INSERT INTO `pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NB_FOIS`, `PRA_DUREE`) VALUES ('".$actLib."', '".$_POST["frequence"]."', '".$age."', '"."1"."', '".$_POST["nbFois"]."', '".$temps."')";
+			  			$stmt = $bdd->exec($sql);
+						echo $sql;
+			  			echo "<script> resetFields(); </script>";
+						echo "<p id='formSend'>Tache Ajoutée</p>";
+					}
+					else {
+						echo "<p id='erreur'>Cette activité existe déja avec cette frequence et cette classe d'age</p>";
+						throw new PDOException('activtePres');
+					}
+
+			    }
 			}
 		}
 		else{
@@ -70,9 +83,9 @@ function choixFrequence($bdd){
 	foreach($tab as $ligne)
 	{
 		foreach($ligne as $cle =>$valeur)
-		echo "<input type='radio' name='frequence' id='frequence' value='".$valeur."' ";
-		cocherRadio("frequence",$valeur);
-		echo ">"."<label for='".$valeur."'>".$valeur."</label>";
+		echo "<label for='".$valeur."' class='radio-inline'><input type='radio' name='frequence' id='".$valeur."' value='".$valeur."' ";
+		//cocherRadio("frequence",$valeur);
+		echo ">".$valeur."</label>";
 	}
 }
 
