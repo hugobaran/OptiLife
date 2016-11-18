@@ -85,8 +85,8 @@
                 if($tpsMini < $dure)
                     $dure = $tpsMini;
             }
-            $heure =  (int)$dure/1;
-            $minute = (int)(($dure - $heure) * 60 /1);
+            $minute = (int)(($dure%60));
+            $heure = (int)($dure - $minute)/60;
             $activite = utf8_encode($donnees['ACT_LIBELLE']);
             echo '<tr id="ligne"><td>' . $activite . "</td><td>" . $donnees['FR_LIBELLE'] . "</td><td>" . $donnees['PRA_NB_FOIS'] . "</td>";
             echo "<td>" . $heure. "h ". $minute . "m" . '</td>'; 
