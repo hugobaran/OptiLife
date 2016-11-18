@@ -14,6 +14,7 @@
   </head>
 
   <body>
+    <?php include('../php/fonctionsUtiles.php') ?>
       
     <?php include('header.html') ?>
 

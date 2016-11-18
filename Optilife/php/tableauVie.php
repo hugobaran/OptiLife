@@ -1,5 +1,6 @@
 
 <?php include('connexionBDD.php') ?>
+<?php //include('fonctionsUtiles.php') ?>
 
  <div class="systeme_onglets">
         <div class="onglets">
@@ -45,9 +46,26 @@
 </div>
 
  <?php
+    //regarde si une activité précise est optimisé
+    function estOpti($bdd, $act, $lib, $cat, $emp){
+        $sql = "SELECT * FROM `pratiquer` WHERE EMP_NUM = ".$emp." and ACT_NUM=".$act." and FR_LIBELLE='".$lib."' and CAT_NUM=".$cat."";
+        $tab = LireDonneesPDO1($bdd, $sql);
+        if($tab[0]["OPTIMISER"] == 0){
+            return false;
+        }
+        else
+            return true;
+    }
+
+    function tempsMini($bdd, $CAT_NUM, $ACT_NUM){
+
+        $sql = "SELECT * FROM `dure` WHERE `CAT_NUM` = ".$CAT_NUM." AND `ACT_NUM` = ".$ACT_NUM."";
+        $tab = LireDonneesPDO1($bdd, $sql);
+        return $tab[0]["DUREE_MINI"];
+    }
 
     function afficherActivite($categorie,$bdd){
-        $sql = 'SELECT ACT_LIBELLE,FR_LIBELLE,EMP_NUM,PRA_NB_FOIS,PRA_DUREE FROM pratiquer JOIN activite USING(ACT_NUM) WHERE CAT_NUM = ' . $categorie;
+        $sql = 'SELECT * FROM pratiquer JOIN activite USING(ACT_NUM) WHERE CAT_NUM = ' . $categorie;
         /*echo '<pre>';
         print_r($sql);
         echo '</pre>';*/
@@ -56,14 +74,23 @@
         if($reponse->rowCount() == 0){
             echo 'Aucune activité dans cette classe d\'age';
         }else{
-             echo '<table class="table table-condensed" id="table"><thead> <tr> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> <th style="display:none;">CA</th><th style="display:none;">nbHeure</th><th style="display:none;">nbMinute</th></tr> </thead>';
+             echo '<table class="table table-condensed" id="table"><thead> <tr> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> ';
+             echo '<th style="display:none;">CA</th><th style="display:none;">nbHeure</th><th style="display:none;">nbMinute</th></tr> </thead>';
         }
         while ($donnees = $reponse->fetch())
         {   
-            $heure =  (int)$donnees['PRA_DUREE']/1;
-            $minute = (int)(($donnees['PRA_DUREE'] - $heure) * 60 /1);
+            $dure = $donnees['PRA_DUREE'];
+            if(estOpti($bdd, $donnees['ACT_NUM'], $donnees['FR_LIBELLE'],$donnees['CAT_NUM'], $donnees['EMP_NUM'])){
+                $tpsMini = tempsMini($bdd, $donnees['CAT_NUM'], $donnees['ACT_NUM']);
+                if($tpsMini < $dure)
+                    $dure = $tpsMini;
+            }
+            $heure =  (int)$dure/1;
+            $minute = (int)(($dure - $heure) * 60 /1);
             $activite = utf8_encode($donnees['ACT_LIBELLE']);
-            echo '<tr id="ligne"><td>' . $activite . "</td><td>" . $donnees['FR_LIBELLE'] . "</td><td>" . $donnees['PRA_NB_FOIS'] . "</td><td>" . $heure. "h ". $minute . "m" . '</td><td style="display:none;">'.$categorie. '</td><td style="display:none;">'.$heure. '</td><td style="display:none;">'.$minute. '</td></tr>';
+            echo '<tr id="ligne"><td>' . $activite . "</td><td>" . $donnees['FR_LIBELLE'] . "</td><td>" . $donnees['PRA_NB_FOIS'] . "</td>";
+            echo "<td>" . $heure. "h ". $minute . "m" . '</td>'; 
+            echo '<td style="display:none;">'.$categorie. '</td><td style="display:none;">'.$heure. '</td><td style="display:none;">'.$minute. '</td></tr>';
             $cpt++;
         }
         echo '</table>';

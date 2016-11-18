@@ -20,3 +20,9 @@ a#nom{
 	margin-top:1px;
 	float:right
 }
+
+#optimiser{
+ 	margin-left: auto;
+  	margin-right: auto;
+  	width: ...;
+}

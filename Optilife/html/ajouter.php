@@ -1,6 +1,5 @@
 <?php
 	include("../php/connexionBDD.php");
-	include("../php/fonctionsUtiles.php");
 	include("../php/ajouterTache.php");
 ?>
 <!DOCTYPE html>
