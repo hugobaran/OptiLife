@@ -7,7 +7,7 @@ if(isset($_POST["optimiser"])){
 	$sql = "UPDATE `optilife`.`pratiquer` SET `OPTIMISER` = '1' WHERE `EMP_NUM` = '1'";
 	$stmt = $bdd->exec($sql);
 	echo "ici";
-	header('Location: ../html/edt.php');
+	header('Location: ../html/edt.php?action=opti');
   	exit();
 }
 

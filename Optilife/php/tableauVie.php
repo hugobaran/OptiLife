@@ -50,7 +50,9 @@
     function estOpti($bdd, $act, $lib, $cat, $emp){
         $sql = "SELECT * FROM `pratiquer` WHERE EMP_NUM = ".$emp." and ACT_NUM=".$act." and FR_LIBELLE='".$lib."' and CAT_NUM=".$cat."";
         $tab = LireDonneesPDO1($bdd, $sql);
-        if($tab[0]["OPTIMISER"] == 0){
+        $sql = "SELECT count(*) FROM `dure` WHERE `CAT_NUM` = ".$cat." AND `ACT_NUM` =".$act."";
+        $tab2 = LireDonneesPDO1($bdd, $sql);
+        if($tab[0]["OPTIMISER"] == 0 || $tab2[0]['count(*)'] == 0){
             return false;
         }
         else
@@ -60,7 +62,7 @@
     function tempsMini($bdd, $CAT_NUM, $ACT_NUM){
 
         $sql = "SELECT * FROM `dure` WHERE `CAT_NUM` = ".$CAT_NUM." AND `ACT_NUM` = ".$ACT_NUM."";
-        $tab = LireDonneesPDO1($bdd, $sql);
+        $tab = LireDonneesPDO3($bdd, $sql);
         return $tab[0]["DUREE_MINI"];
     }
 
@@ -80,7 +82,8 @@
         while ($donnees = $reponse->fetch())
         {   
             $dure = $donnees['PRA_DUREE'];
-            if(estOpti($bdd, $donnees['ACT_NUM'], $donnees['FR_LIBELLE'],$donnees['CAT_NUM'], $donnees['EMP_NUM'])){
+            $opti = estOpti($bdd, $donnees['ACT_NUM'], $donnees['FR_LIBELLE'],$donnees['CAT_NUM'], $donnees['EMP_NUM']);
+            if($opti){
                 $tpsMini = tempsMini($bdd, $donnees['CAT_NUM'], $donnees['ACT_NUM']);
                 if($tpsMini < $dure)
                     $dure = $tpsMini;
@@ -89,7 +92,12 @@
             $heure = (int)($dure - $minute)/60;
             $activite = utf8_encode($donnees['ACT_LIBELLE']);
             echo '<tr id="ligne"><td>' . $activite . "</td><td>" . $donnees['FR_LIBELLE'] . "</td><td>" . $donnees['PRA_NB_FOIS'] . "</td>";
-            echo "<td>" . $heure. "h ". $minute . "m" . '</td>'; 
+            echo "<td>";
+            if($opti)
+                echo "<font color='green'>";
+            echo  $heure. "h ". $minute . "m" . '</td>'; 
+            if($opti)
+                echo "</font>";
             echo '<td style="display:none;">'.$categorie. '</td><td style="display:none;">'.$heure. '</td><td style="display:none;">'.$minute. '</td></tr>';
             $cpt++;
         }

@@ -20,6 +20,10 @@
 
     <?php include('../php/notifications.php')  ?>
 
+    <form  class="boutonsGroup" method="post" action= "../php/optiAuto.php" enctype="application/x-www-form-urlencoded" name="optimiser">
+      <input type="submit" class="bouton" value="Optimiser" name="optimiser" id="optimiser"/>
+    </form>
+
     <?php include('../php/tableauVie.php') ?>
 
     <?php include('Modals.php') ?>

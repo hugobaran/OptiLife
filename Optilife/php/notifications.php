@@ -21,6 +21,11 @@
         <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
         <strong>Echec de l'action</strong>
         </div>";
+      }else if($_GET["action"]=="opti"){
+        echo "<div style='text-align:center; width:50%; margin:auto; margin-bottom:20px;' class='alert alert-success'>
+        <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+        <strong>Un nouveau temps a été attribué à vos activités</strong>
+        </div>";
       }
     }
   ?>
