@@ -83,7 +83,7 @@ function choixFrequence($bdd){
 	foreach($tab as $ligne)
 	{
 		foreach($ligne as $cle =>$valeur)
-		echo "<label for='".$valeur."' class='radio-inline'><input type='radio' name='frequence' id='".$valeur."' value='".$valeur."' ";
+		echo "<label for='".$valeur."' class='radio-inline'><input type='radio' onclick='affiche_bouton()' name='frequence' id='".$valeur."' value='".$valeur."' ";
 		//cocherRadio("frequence",$valeur);
 		echo ">".$valeur."</label>";
 	}
