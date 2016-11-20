@@ -8,8 +8,6 @@
 	</head>
 	<body>
 		<form method="post" action= "../php/passerelle.php" enctype="application/x-www-form-urlencoded" name="modifierTache">
-			<input name="EXfrequence" id="EXfrequence" type="hidden" value=<?php if(isset($_POST["frequence"])) echo '"'.$_POST["frequence"].'"'; ?>/>
-
 			<label>Activité :</label><p id="affichageActivite"></p>
 			<input name="activite" id="activite" type="hidden" value=<?php if(isset($_POST["activite"])) echo '"'.$_POST["activite"].'"'; ?>/>
 			</br>
@@ -20,8 +18,7 @@
 			<?php 
 				choixFrequence($bdd);
 			?>
-
-		
+			<input name="EXfrequence" id="EXfrequence" type="hidden" value=<?php if(isset($_POST["frequence"])) echo '"'.$_POST["frequence"].'"'; ?>/>
 		</br>	</br>
 			<div class="row">
 			<div class="col-xs-4">
@@ -38,7 +35,7 @@
 			</div>
 		</div>
 			</br>	</br>
-			<input type="submit" class="btn btn-primary btn-lg btn-block" id="btn" name="ajouter" value="Envoyer">
+			<input type="submit" class="btn btn-primary btn-lg btn-block" id="btn" name="modifier" value="Modifier">
 		</form>
 	</body>
 </html>

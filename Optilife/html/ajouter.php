@@ -69,7 +69,7 @@
 			</div>
 		</div>
 		</br>	</br>
-		<input type="submit" class="btn btn-primary btn-lg btn-block" id="btn" name="ajouter" value="Envoyer">
+		<input type="submit" class="btn btn-success btn-lg btn-block" id="btn" name="ajouter" value="Ajouter">
 	</form>
 </body>
 

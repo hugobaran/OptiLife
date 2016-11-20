@@ -65,7 +65,9 @@ var tr = document.querySelectorAll("#table #ligne"),
   sup = document.getElementById('btnSupp');
   selected = [],
   i = 0,
-  l = tr.length;
+  l = tr.length,
+  classeAgeNB = null,
+  classeAgeTxt = "";
 
 for (i ; i<l; i++) tr[i].addEventListener("click", clicked, false);
   selected[0]= tr[0];
@@ -101,10 +103,23 @@ function clicked(){
     document.modifierTache.activite.value = this.children[0].innerHTML;
     $('#affichageActivite').text(this.children[0].innerHTML);
     $('#affichageActiviteS').text(this.children[0].innerHTML);
-    document.modifierTache.frequence.value = this.children[1].innerHTML;
+    //document.modifierTache.frequence.value = this.children[1].innerHTML;
     document.modifierTache.classe_age.value = this.children[4].innerHTML;
-    $('#affichageClasseAge').text(this.children[4].innerHTML);
-    $('#affichageClasseAgeS').text(this.children[4].innerHTML);
+    classeAgeNB = this.children[4].innerHTML;
+    if(classeAgeNB==1){
+      classeAgeTxt = "Etudiant";
+    }
+    else if(classeAgeNB==2){
+      classeAgeTxt = "Actif";
+    }
+    else if(classeAgeNB==3){
+      classeAgeTxt = "Retraité";
+    }
+    else {
+      classeAgeTxt = "Inconnu";
+    }
+    $('#affichageClasseAge').text(classeAgeTxt);
+    $('#affichageClasseAgeS').text(classeAgeTxt);
     document.modifierTache.nbFois.value = this.children[2].innerHTML;
     document.modifierTache.nbHeure.value = this.children[5].innerHTML;
     document.modifierTache.nbMinutes.value = this.children[6].innerHTML;

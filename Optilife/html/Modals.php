@@ -59,18 +59,9 @@
           <h4 class="modal-title">Supprimer une activité</h4>
         </div>
         <div class="modal-body">
-          <form method="POST" action= "../php/passerelle.php" enctype="application/x-www-form-urlencoded" name="supprimerActivite">
-            <input type="hidden" id="suppActivite" name="activite" value=""/>
-            <input type="hidden" id="suppFrequence" name="frequence" value=""/>  
-            <input type="hidden" id="suppCA" name="classeAge" value=""/>
-            <label>Activité :</label><p id="affichageActiviteS"></p>
-            </br>
-            <label>Classe d'age :</label><p id="affichageClasseAgeS"></p>
-            </br>
-            <p>Voulez vous supprimer cette activite ?<p>       
-            <input type="submit" class="btn btn-default" name="supprimer" value="supprimer"/>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-          </form>
+          <?php
+            include("supprimer.php");
+          ?>
         </div>
       </div>
     </div>

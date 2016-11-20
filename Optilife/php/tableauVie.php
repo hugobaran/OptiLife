@@ -50,13 +50,14 @@
     function estOpti($bdd, $act, $lib, $cat, $emp){
         $sql = "SELECT * FROM `pratiquer` WHERE EMP_NUM = ".$emp." and ACT_NUM=".$act." and FR_LIBELLE='".$lib."' and CAT_NUM=".$cat."";
         $tab = LireDonneesPDO1($bdd, $sql);
-        $sql = "SELECT count(*) FROM `dure` WHERE `CAT_NUM` = ".$cat." AND `ACT_NUM` =".$act."";
+        $sql = "SELECT count(*) AS TOTAL FROM `dure` WHERE `CAT_NUM` = ".$cat." AND `ACT_NUM` =".$act."";
         $tab2 = LireDonneesPDO1($bdd, $sql);
-        if($tab[0]["OPTIMISER"] == 0 || $tab2[0]['count(*)'] == 0){
+        if($tab[0]["OPTIMISER"] == 0 || $tab2[0]['TOTAL'] == 0){
             return false;
         }
-        else
+        else{
             return true;
+        }
     }
 
     function tempsMini($bdd, $CAT_NUM, $ACT_NUM){
@@ -68,9 +69,6 @@
 
     function afficherActivite($categorie,$bdd){
         $sql = 'SELECT * FROM pratiquer JOIN activite USING(ACT_NUM) WHERE CAT_NUM = ' . $categorie;
-        /*echo '<pre>';
-        print_r($sql);
-        echo '</pre>';*/
         $reponse = $bdd->query($sql);
         $cpt = 1;
         if($reponse->rowCount() == 0){
@@ -85,8 +83,9 @@
             $opti = estOpti($bdd, $donnees['ACT_NUM'], $donnees['FR_LIBELLE'],$donnees['CAT_NUM'], $donnees['EMP_NUM']);
             if($opti){
                 $tpsMini = tempsMini($bdd, $donnees['CAT_NUM'], $donnees['ACT_NUM']);
-                if($tpsMini < $dure)
+                if($tpsMini < $dure){
                     $dure = $tpsMini;
+                }
             }
             $minute = (int)(($dure%60));
             $heure = (int)($dure - $minute)/60;
