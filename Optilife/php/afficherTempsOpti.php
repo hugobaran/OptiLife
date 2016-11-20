@@ -2,7 +2,19 @@
 require_once("../php/connexionBDD.php");
 require_once("../php/fonctionsUtiles.php");
 
+function edtVide($bdd, $cat){
+	$emp = 1;
+	$sql = "SELECT count(*) FROM `pratiquer` WHERE `CAT_NUM` = ".$cat." AND `EMP_NUM` = ".$emp." AND `OPTIMISER` = 1 ";
+	$tab = lireDonneesPDO1($bdd, $sql);
+	if($tab[0]['count(*)'] == 0)
+		return true;
+	else
+		return false;
+}
+
 function tempsOptiUnAn($bdd, $cat){
+	if(edtVide($bdd, $cat))
+		return 0;
 	$som = 0;
 	$emp = 1;
 	$sql = "SELECT * FROM `pratiquer` WHERE `CAT_NUM` = ".$cat." AND `EMP_NUM` = ".$emp." AND `OPTIMISER` = 1 ";
