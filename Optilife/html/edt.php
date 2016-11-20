@@ -106,7 +106,7 @@ function clicked(){
     document.modifierTache.activite.value = this.children[0].innerHTML;
     $('#affichageActivite').text(this.children[0].innerHTML);
     $('#affichageActiviteS').text(this.children[0].innerHTML);
-    //document.modifierTache.frequence.value = this.children[1].innerHTML;
+    document.modifierTache.frequence.value = this.children[1].innerHTML;
     document.modifierTache.classe_age.value = this.children[4].innerHTML;
     classeAgeNB = this.children[4].innerHTML;
     if(classeAgeNB==1){

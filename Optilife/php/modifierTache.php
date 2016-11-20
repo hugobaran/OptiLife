@@ -6,7 +6,7 @@ function modifierTache($bdd){
 				//Suppression de l'ancienne activité
 		if(($_POST["EXfrequence"] != $_POST["frequence"] && !chercherDejaPresent($bdd, $_POST["activite"], $_POST["frequence"], 1, $_POST['classe_age'])) || $_POST["EXfrequence"] == $_POST["frequence"]){
 				echo $_POST["activite"]."</br>";
-				echo $_POST["EXfrequence"]."</br>";
+				echo $_POST["frequence"]."</br>";
 				echo $_POST["classe_age"]."</br>";
 				echo $_POST["frequence"]."</br>";
 				echo $_POST["nbFois"]."</br>";
