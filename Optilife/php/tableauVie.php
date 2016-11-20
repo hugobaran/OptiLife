@@ -46,25 +46,6 @@
 </div>
 
  <?php
-    //regarde si une activité précise est optimisé
-    function estOpti($bdd, $act, $lib, $cat, $emp){
-        $sql = "SELECT * FROM `pratiquer` WHERE EMP_NUM = ".$emp." and ACT_NUM=".$act." and FR_LIBELLE='".$lib."' and CAT_NUM=".$cat."";
-        $tab = LireDonneesPDO1($bdd, $sql);
-        $sql = "SELECT count(*) FROM `dure` WHERE `CAT_NUM` = ".$cat." AND `ACT_NUM` =".$act."";
-        $tab2 = LireDonneesPDO1($bdd, $sql);
-        if($tab[0]["OPTIMISER"] == 0 || $tab2[0]['count(*)'] == 0){
-            return false;
-        }
-        else
-            return true;
-    }
-
-    function tempsMini($bdd, $CAT_NUM, $ACT_NUM){
-
-        $sql = "SELECT * FROM `dure` WHERE `CAT_NUM` = ".$CAT_NUM." AND `ACT_NUM` = ".$ACT_NUM."";
-        $tab = LireDonneesPDO3($bdd, $sql);
-        return $tab[0]["DUREE_MINI"];
-    }
 
     function afficherActivite($categorie,$bdd){
         $sql = 'SELECT * FROM pratiquer JOIN activite USING(ACT_NUM) WHERE CAT_NUM = ' . $categorie;
