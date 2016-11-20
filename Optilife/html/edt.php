@@ -20,6 +20,9 @@
 
     <?php include('../php/notifications.php')  ?>
 
+    <?php require_once('../php/afficherTempsOpti.php');
+    afficherTempsOpti($bdd); ?>
+
     <form  class="boutonsGroup" method="post" action= "../php/optiAuto.php" enctype="application/x-www-form-urlencoded" name="optimiser">
       <input type="submit" class="bouton" value="Optimiser" name="optimiser" id="optimiser"/>
     </form>
