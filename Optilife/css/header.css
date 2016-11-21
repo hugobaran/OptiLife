@@ -21,6 +21,13 @@ a#nom{
 	float:right
 }
 
+#logo_optilife{
+	margin-left:10px;
+	width:70px;
+	margin-top:1px;
+	float:left
+}
+
 #optimiser{
  	margin-left: auto;
   	margin-right: auto;
