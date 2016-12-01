@@ -12,7 +12,7 @@
             <div class="contenu_onglet" id="contenu_onglet_etudiant">
                 <div class="header_onglet">
                    <img src="../img/retour.gif" class="retour" onclick="javascript:afficher_onglet();"/>
-                   <h3>Liste d'activité de la classe d'age : Etudiant</h3>
+                   <h3>Liste d'activités de la classe d'age : Etudiant</h3>
                 </div>
                 <div class="table-striped" id="activite_etudiant">
                 <?php
@@ -23,7 +23,7 @@
             <div class="contenu_onglet" id="contenu_onglet_actif">
                 <div class="header_onglet">
                    <img src="../img/retour.gif" class="retour" onclick="javascript:afficher_onglet();"/>
-                   <h3>Liste d'activité de la classe d'age : Actif</h3>
+                   <h3>Liste d'activités de la classe d'age : Actif</h3>
                 </div>
                 <div class="table-striped" id="activite_actif">
                      <?php
@@ -34,7 +34,7 @@
             <div  class="contenu_onglet" id="contenu_onglet_retraite">
                 <div class="header_onglet">
                    <img src="../img/retour.gif" class="retour" onclick="javascript:afficher_onglet();"/>
-                   <h3>Liste d'activité de la classe d'age : Retraite</h3>
+                   <h3>Liste d'activités de la classe d'age : Retraite</h3>
                 </div>
                 <div class="table-striped   " id="activite_retraite">
                 <?php

@@ -28,8 +28,8 @@
 
   <div class="boutonsGroup"> <!--debut boutons-->
     <button type="button" class="bouton" id="btnAdd">Ajouter</button>
-    <button type="button" class="bouton" id="btnModif">Modifier</button>
-    <button type="button" class="bouton" id="btnSupp">Supprimer</button>
+    <button type="button" class="bouton" id="btnModif" disabled>Modifier</button>
+    <button type="button" class="bouton" id="btnSupp" disabled>Supprimer</button>
   </div> <!--fin boutons-->
 
    <?php include('footer.html') ?>
@@ -44,22 +44,25 @@ $(document).ready(function(){
         $("#ModalAjout").modal();
     });
     $("#btnModif").click(function(){
-      if( document.supprimerActivite.activite.value == "")
+      if( document.supprimerActivite.activite.value == ""){
           $("#ModalErreur").modal();
-        else
+        }else{
           $("#ModalModifier").modal();
+        }
     });
      $("#btnSupp").click(function(){
-        if( document.supprimerActivite.activite.value == "")
+        if( document.supprimerActivite.activite.value == ""){
           $("#ModalErreur").modal();
-        else
+        }
+        else{
           $("#ModalSupprimer").modal();
+        }
     });
 });
 
 
 var tr = document.querySelectorAll("#table #ligne"),
-  element = document.getElementById('test');
+  modif = document.getElementById('btnModif');
   sup = document.getElementById('btnSupp');
   selected = [],
   i = 0,
@@ -77,10 +80,11 @@ function clicked(){
   if (/selected/.test(cl)) {
     this.className = cl.replace(" selected", "");
     selected[0]= tr[0];
+    sup.disabled = true;
+    modif.disabled = true;
     document.supprimerActivite.activite.value = "";
     document.supprimerActivite.frequence.value = "";
     document.supprimerActivite.classeAge.value = "";
-
     document.modifierTache.activite.value = "";
     document.modifierTache.frequence.value = "";
     document.modifierTache.classeAge.value = "";
@@ -92,6 +96,8 @@ function clicked(){
     selected = [];
     this.className += " selected";
     selected.push(this);
+    sup.disabled = false;
+    modif.disabled = false;
     document.supprimerActivite.activite.value = this.children[0].innerHTML;
     document.supprimerActivite.frequence.value = this.children[1].innerHTML;
     document.supprimerActivite.classeAge.value = this.children[4].innerHTML;
@@ -121,7 +127,6 @@ function clicked(){
     document.modifierTache.nbFois.value = this.children[2].innerHTML;
     document.modifierTache.nbHeure.value = this.children[5].innerHTML;
     document.modifierTache.nbMinutes.value = this.children[6].innerHTML;
-    
 
   }
 }
