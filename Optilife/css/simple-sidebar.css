@@ -16,20 +16,18 @@
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+	height: 100%;
 }
 
-#wrapper.toggled {
-    padding-right: 250px;
-}
-
+/* Affichage du Menu avant le clic */
 #sidebar-wrapper {
     z-index: 1000;
     position: absolute;
-    margin-top : -25px;
+    margin-top : 0px;
     right: 0px;
-    width: 0;
+    width: 0px;
     height: 100%;
-    margin-left: -250px;
+    margin-left: 0px;
     overflow-y: auto;
     background: #000;
     -webkit-transition: all 0.5s ease;
@@ -38,18 +36,26 @@
     transition: all 0.5s ease;
 }
 
+/* Affichage du Menu après le clic */
 #wrapper.toggled #sidebar-wrapper {
-    width: 500px;
+	/* Largeur du sidebar*/
+    width: 40%;
+}
+/* Adaptation du Contenu après l'affichage*/
+#wrapper.toggled {
+    padding-right: 40%;
 }
 
+/* Contenu */
 #page-content-wrapper {
     width: 100%;
-    position: absolute;
+    position: float;
     padding: 15px;
+	min-width: 400px;
 }
 
 #wrapper.toggled #page-content-wrapper {
-    position: absolute;
+    position: float;
     margin-right: -250px;
 }
 
