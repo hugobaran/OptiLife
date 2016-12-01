@@ -10,7 +10,8 @@
     </head>
 
     <body onload="responsive()" onresize="responsive()">
-        <a href="accueil.php">
+
+        <a href="Optilife/html/accueil.php">
             <div id="droite" class="demiPage" onmouseover="mOver('Droit')" onmouseout="mOut('Droit')">
                 <div class="circle" id="circleDroit">
                 </div>
@@ -22,24 +23,28 @@
     <script>
         function responsive()
         {
-            var hauteur = 150;
-            var largeur = 150;
+            var hauteur = window.innerHeight;
+            var largeur = window.innerWidth;
 
-            var div = document.getElementById("droite");
+            var divDroite = document.getElementById("droite");
 
-            var titre = document.getElementById("hOptilife");
-            
-            div.style.height = hauteur+"px";
-            div.style.width = (largeur/2)+"px";
+            var circleDroit = document.getElementById("circleDroit");
 
+            var titreDroit = document.getElementById("hOptilife");
+
+
+            divDroite.style.height = hauteur+"px";
+            divDroite.style.width = (largeur/2)+"px";
+
+        
             circleDroit.style.width = (3*largeur/8)+"px";
             circleDroit.style.height = circleDroit.style.width
             circleDroit.style.marginLeft = ((largeur/16)-8)+"px";
             circleDroit.style.marginTop = (((hauteur-circleDroit.offsetWidth)/2)-8)+"px";
 
-            titre.style.fontSize = (largeur/20)+"px";
-            titre.style.marginTop = ((hauteur-titre.offsetHeight)/2)+"px";
-            titre.style.marginLeft = ((largeur-2*titre.offsetWidth)/4)+"px";
+            titreDroit.style.fontSize = (largeur/20)+"px";
+            titreDroit.style.marginTop = ((hauteur-titreDroit.offsetHeight)/2)+"px";
+            titreDroit.style.marginLeft = ((largeur-2*titreDroit.offsetWidth)/4)+"px";
         }
 
         function mOver(cote)
@@ -66,8 +71,8 @@
                         $(this).css('-ms-transform','rotate('+now+'deg)');
                         $(this).css('-o-transform','rotate('+now+'deg)');
                     }, duration:60000, easing:'linear'    
-                });		
-            }, 10);		
+                });     
+            }, 10);     
         });
     </script>
 

@@ -1,24 +1,47 @@
-<html lang="fr">
-  <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Emploi du temps</title>
-        <script type="text/javascript" src="../js/tableauVie.js"></script>
-        <!--integration CSS-->
-        <link rel="stylesheet" href="../css/edt.css" type="text/css" />
-  </head>
+<!DOCTYPE html>
+<html lang="en">
 
-  <body>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Emploi du temps</title>
+    <!-- Custom CSS -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/edt.css" type="text/css" />
+    
+    <!--integration JS-->
+    <script type="text/javascript" src="../js/tableauVie.js"></script>
+</head>
+
+<body>
     <?php include('../php/fonctionsUtiles.php') ?>
       
     <?php include('header.html') ?>
 
     <?php include('../php/notifications.php')  ?>
 
-    <?php require_once('../php/afficherTempsOpti.php');
-    afficherTempsOpti($bdd); ?>
 
-    <form  class="boutonsGroup" method="post" action= "../php/optiAuto.php" enctype="application/x-www-form-urlencoded" name="optimiser">
+    <div id="wrapper" toggleClass="">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Statistiques
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Afficher les statistiques</a>
+            <form  class="boutonsGroup" method="post" action= "../php/optiAuto.php" enctype="application/x-www-form-urlencoded" name="optimiser">
       <input type="submit" class="bouton" value="Optimiser" name="optimiser" id="optimiser"/>
     </form>
 
@@ -33,9 +56,20 @@
   </div> <!--fin boutons-->
 
    <?php include('footer.html') ?>
-   
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+
 </body>
-  
+
+ <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
 <script type="text/javascript">
 
 //Affichage des modals
@@ -130,3 +164,5 @@ function clicked(){
 </script>
 
 </html>
+
+ 
