@@ -37,7 +37,7 @@
 		<select name="activite" id="activite" class="form-control" onchange="affiche_bouton()">
 		<option value="">Sélectionner une activité</option>
 		<?php 
-			$sql = 'SELECT THM_LIBELLE, ACT_LIBELLE FROM activite JOIN THEME USING(THM_NUM)';
+			$sql = 'SELECT * FROM activite JOIN THEME USING(THM_NUM)';
 			creerListeActivite($bdd,$sql,'ACT_LIBELLE', 'activite');
 		?>
 		</select>

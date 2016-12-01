@@ -12,7 +12,7 @@ function modifierTache($bdd){
 				echo $_POST["nbFois"]."</br>";
 				echo $_POST["nbHeure"]."</br>";
 				echo $_POST["nbMinutes"]."</br>";
-				$act_num = chercherAct($bdd, $_POST['activite']);
+				$act_num = $_POST['activite'];
 				$fr_lib = $_POST['frequence'];
 				$cat_num = $_POST['classe_age'];
 				$nbfois = $_POST["nbFois"];

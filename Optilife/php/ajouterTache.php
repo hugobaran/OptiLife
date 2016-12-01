@@ -18,10 +18,11 @@ function creerListeActivite($bdd,$sql,$table, $form){
 	while ($donnees = $reponse->fetch())
 	{
 		$theme = utf8_encode($donnees['THM_LIBELLE']);
-		$act = utf8_encode($donnees['ACT_LIBELLE']);
+		$actLib = utf8_encode($donnees['ACT_LIBELLE']);
+		$act = $donnees['ACT_NUM'];
 		echo '<option class="'.$theme.'" value="' . $act . '" ' ;
 		VerifSelect($form, $act);
-		echo  ' >'.$act . '</option>';
+		echo  ' >'.$actLib . '</option>';
 
 	}
 	$reponse->closeCursor();
@@ -35,7 +36,7 @@ function chercherAct($bdd, $lib){
 }
 
 function chercherDejaPresent($bdd, $act, $freq, $emp, $age){
-	$act = chercherAct($bdd, $act);
+	//$act = chercherAct($bdd, $act);
 	$sql1 = "SELECT * FROM `pratiquer` WHERE `ACT_NUM` = ".$act." AND `FR_LIBELLE` LIKE '".$freq."' AND `CAT_NUM` = ".$age." AND `EMP_NUM` = ".$emp." ";
 	$tab = @LireDonneesPDO3($bdd, $sql1);
 	if(empty($tab))
@@ -55,8 +56,9 @@ function traiterAjout($bdd){
 					//on ajoute uniquement si ce n'est pas déja présent dans l'emploi du tps
 					if(!chercherDejaPresent($bdd, $_POST["activite"], $_POST["frequence"], 1, $age)){
 						echo "passage2";
-						$actLib = chercherAct($bdd, $_POST["activite"]);
-						$actLib = utf8_decode($actLib);
+						//$actLib = chercherAct($bdd, $_POST["activite"]);
+						//$actLib = utf8_decode($actLib);
+						$actLib = $_POST["activite"];
 						$temps = $_POST["nbHeure"]*60 + ($_POST["nbMinutes"]);//transforme les données du form en donnée lisible par la base
 						$sql = "INSERT INTO `pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NB_FOIS`, `PRA_DUREE`) VALUES ('".$actLib."', '".$_POST["frequence"]."', '".$age."', '"."1"."', '".$_POST["nbFois"]."', '".$temps."')";
 			  			$stmt = $bdd->exec($sql);

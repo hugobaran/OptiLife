@@ -98,7 +98,7 @@ function clicked(){
 
     //remplissage formulaire modifier
     document.modifierTache.EXfrequence.value = this.children[1].innerHTML;
-    document.modifierTache.activite.value = this.children[0].innerHTML;
+    document.modifierTache.activite.value = this.children[7].innerHTML;
     $('#affichageActivite').text(this.children[0].innerHTML);
     $('#affichageActiviteS').text(this.children[0].innerHTML);
     document.modifierTache.frequence.value = this.children[1].innerHTML;
