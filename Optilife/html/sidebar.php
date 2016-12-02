@@ -9,6 +9,7 @@
     <meta name="author" content="">
 
     <title>Emploi du temps</title>
+    
     <!-- Custom CSS -->
     <link href="../css/simple-sidebar.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/edt.css" type="text/css" />
