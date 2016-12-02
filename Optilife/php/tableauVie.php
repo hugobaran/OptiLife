@@ -4,14 +4,14 @@
 
  <div class="systeme_onglets">
         <div class="onglets">
-            <span class="onglet" id="onglet_etudiant" onclick="javascript:change_onglet('etudiant');">Etudiant</span>
-            <span class="onglet" id="onglet_actif" onclick="javascript:change_onglet('actif');">Actif</span>
-            <span class="onglet" id="onglet_retraite" onclick="javascript:change_onglet('retraite');">Retraite</span>
+            <span class="onglet" id="onglet_etudiant" onclick="window.location.href='#etudiant'">Etudiant</span>
+            <span class="onglet" id="onglet_actif" onclick="window.location.href='#actif'">Actif</span>
+            <span class="onglet" id="onglet_retraite" onclick="window.location.href='#retraite'">Retraite</span>
         </div>
         <div class="contenu_onglets">
             <div class="contenu_onglet" id="contenu_onglet_etudiant">
                 <div class="header_onglet">
-                   <img src="../img/retour.gif" class="retour" onclick="javascript:afficher_onglet();"/>
+                   <img src="../img/retour.gif" class="retour" onclick="window.location.href='#edt'"/>
                    <h3>Liste d'activités de la classe d'age : Etudiant</h3>
                 </div>
                 <div class="table-striped" id="activite_etudiant">
@@ -22,7 +22,7 @@
             </div>
             <div class="contenu_onglet" id="contenu_onglet_actif">
                 <div class="header_onglet">
-                   <img src="../img/retour.gif" class="retour" onclick="javascript:afficher_onglet();"/>
+                   <img src="../img/retour.gif" class="retour" onclick="window.location.href='#edt'"/>
                    <h3>Liste d'activités de la classe d'age : Actif</h3>
                 </div>
                 <div class="table-striped" id="activite_actif">
@@ -33,7 +33,7 @@
             </div>
             <div  class="contenu_onglet" id="contenu_onglet_retraite">
                 <div class="header_onglet">
-                   <img src="../img/retour.gif" class="retour" onclick="javascript:afficher_onglet();"/>
+                   <img src="../img/retour.gif" class="retour" onclick="window.location.href='#edt'"/>
                    <h3>Liste d'activités de la classe d'age : Retraite</h3>
                 </div>
                 <div class="table-striped   " id="activite_retraite">

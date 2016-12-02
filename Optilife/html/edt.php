@@ -4,11 +4,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Emploi du temps</title>
         <script type="text/javascript" src="../js/tableauVie.js"></script>
+        <script type="text/javascript" src="../js/JQueryBBQ.js"></script>
         <!--integration CSS-->
         <link rel="stylesheet" href="../css/edt.css" type="text/css" />
   </head>
 
-  <body>
+  <body onload="preparer();"">
     <?php include('../php/fonctionsUtiles.php') ?>
       
     <?php include('header.html') ?>
@@ -27,9 +28,9 @@
     <?php include('Modals.php') ?>
 
   <div class="boutonsGroup"> <!--debut boutons-->
-    <button type="button" class="bouton" id="btnAdd">Ajouter</button>
-    <button type="button" class="bouton" id="btnModif" disabled>Modifier</button>
-    <button type="button" class="bouton" id="btnSupp" disabled>Supprimer</button>
+    <button type="button" class="bouton" id="btnAdd" href="#ajouter">Ajouter</button>
+    <button type="button" class="bouton"" id="btnModif" href="#modifier" disabled>Modifier</button>
+    <button type="button" class="bouton" id="btnSupp" href="#supprimer" disabled>Supprimer</button>
   </div> <!--fin boutons-->
 
    <?php include('footer.html') ?>
@@ -39,6 +40,8 @@
 <script type="text/javascript">
 
 //Affichage des modals
+
+
 $(document).ready(function(){
     $("#btnAdd").click(function(){
         $("#ModalAjout").modal();
@@ -61,9 +64,27 @@ $(document).ready(function(){
 });
 
 
+//gestion de sauvegarde des pages
+$( window ).on( 'hashchange', function() {
+  var hash = window.location.hash;
+  if(hash == "#etudiant")
+    change_onglet('etudiant');
+  else if(hash == "#actif")
+    change_onglet('actif');
+  else if(hash == "#retraite")
+    change_onglet('retraite');
+  else if(hash == "#edt")
+    afficher_onglet();
+  else if(hash == "")
+    afficher_onglet();
+});
+
+
 var tr = document.querySelectorAll("#table #ligne"),
   modif = document.getElementById('btnModif');
   sup = document.getElementById('btnSupp');
+  modif.style.background = "#D5CEB5";
+  sup.style.background = "#D5CEB5";
   selected = [],
   i = 0,
   l = tr.length,
@@ -72,6 +93,7 @@ var tr = document.querySelectorAll("#table #ligne"),
 
 for (i ; i<l; i++) tr[i].addEventListener("click", clicked, false);
   selected[0]= tr[0];
+   
 
 
 function clicked(){
@@ -82,6 +104,8 @@ function clicked(){
     selected[0]= tr[0];
     sup.disabled = true;
     modif.disabled = true;
+    modif.style.background = "#D5CEB5";
+    sup.style.background = "#D5CEB5";
     document.supprimerActivite.activite.value = "";
     document.supprimerActivite.frequence.value = "";
     document.supprimerActivite.classeAge.value = "";
@@ -98,6 +122,8 @@ function clicked(){
     selected.push(this);
     sup.disabled = false;
     modif.disabled = false;
+    modif.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
+    sup.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
     document.supprimerActivite.activite.value = this.children[0].innerHTML;
     document.supprimerActivite.frequence.value = this.children[1].innerHTML;
     document.supprimerActivite.classeAge.value = this.children[4].innerHTML;

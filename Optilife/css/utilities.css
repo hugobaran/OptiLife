@@ -10,8 +10,7 @@
      height: 40px;
      text-align: center;
      min-width: 100px;
-     background: #FF8F15;
-	 background: linear-gradient( #FF8F15, #D55601);
+     background: #FF8F15 linear-gradient( #FF8F15, #D55601);
 	 border-radius: 10px;
 	 text-shadow: 0px 1px 0px rgba( 244, 222, 207, 0.4);
 	 box-shadow: 1px 0 2px rgba( 0, 0, 0, 0.5),
