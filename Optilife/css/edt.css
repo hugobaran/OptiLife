@@ -1,3 +1,6 @@
+@import url(footer.css);
+
+
 html, body { 
     height: 100% 
 }
@@ -5,9 +8,14 @@ html, body {
 html{
     min-width: 400px;
 }
+#content {
+	padding-bottom : 100px;
+	min-height:100%;
+	margin-bottom:-100px;
+}
 
 body{
-    margin:0;   
+    margin:0; 
 }
 
 .systeme_onglets{
