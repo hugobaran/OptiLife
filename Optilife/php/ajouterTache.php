@@ -58,9 +58,9 @@ function traiterAjout($bdd){
 						echo "passage2";
 						//$actLib = chercherAct($bdd, $_POST["activite"]);
 						//$actLib = utf8_decode($actLib);
-						$actLib = $_POST["activite"];
+						$act = $_POST["activite"];
 						$temps = $_POST["nbHeure"]*60 + ($_POST["nbMinutes"]);//transforme les données du form en donnée lisible par la base
-						$sql = "INSERT INTO `pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NB_FOIS`, `PRA_DUREE`) VALUES ('".$actLib."', '".$_POST["frequence"]."', '".$age."', '"."1"."', '".$_POST["nbFois"]."', '".$temps."')";
+						$sql = "INSERT INTO `pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NB_FOIS`, `PRA_DUREE`) VALUES ('".$act."', '".$_POST["frequence"]."', '".$age."', '"."1"."', '".$_POST["nbFois"]."', '".$temps."')";
 			  			$stmt = $bdd->exec($sql);
 						echo $sql;
 			  			echo "<script> resetFields(); </script>";

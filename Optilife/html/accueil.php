@@ -10,7 +10,7 @@
 	</head>
 	<body>
 
-			<?php include("header.html"); ?>
+			<?php include("header2.php"); ?>
 		
 			<div class="boutonsGroup">
 				<input class="bouton" type=button value="Commencer un projet" onclick="document.location.href='edt.php'"/>

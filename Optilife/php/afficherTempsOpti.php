@@ -13,8 +13,9 @@ function edtVide($bdd, $cat){
 }
 
 function tempsOptiUnAn($bdd, $cat){
-	if(edtVide($bdd, $cat))
+	if(edtVide($bdd, $cat)){
 		return 0;
+	}
 	$som = 0;
 	$emp = 1;
 	$sql = "SELECT * FROM `pratiquer` WHERE `CAT_NUM` = ".$cat." AND `EMP_NUM` = ".$emp." AND `OPTIMISER` = 1 ";

@@ -3,16 +3,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Emploi du temps</title>
+
+
         <script type="text/javascript" src="../js/tableauVie.js"></script>
-        <script type="text/javascript" src="../js/JQueryBBQ.js"></script>
         <!--integration CSS-->
         <link rel="stylesheet" href="../css/edt.css" type="text/css" />
   </head>
 
-  <body onload="preparer();"">
+  <body onload="preparer();">
+
     <?php include('../php/fonctionsUtiles.php') ?>
       
-    <?php include('header.html') ?>
+    <?php //include('header.html') ?>
+
+    <?php include('header2.php') ?>
 
     <?php include('../php/notifications.php')  ?>
 
@@ -32,9 +36,8 @@
     <button type="button" class="bouton"" id="btnModif" href="#modifier" disabled>Modifier</button>
     <button type="button" class="bouton" id="btnSupp" href="#supprimer" disabled>Supprimer</button>
   </div> <!--fin boutons-->
-
    <?php include('footer.html') ?>
-   
+
 </body>
   
 <script type="text/javascript">
@@ -124,8 +127,8 @@ function clicked(){
     modif.disabled = false;
     modif.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
     sup.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
-    document.supprimerActivite.activite.value = this.children[0].innerHTML;
-    document.supprimerActivite.frequence.value = this.children[1].innerHTML;
+    document.supprimerActivite.activite.value = this.children[7].innerHTML;
+    document.supprimerActivite.suppFrequence.value = this.children[1].innerHTML;
     document.supprimerActivite.classeAge.value = this.children[4].innerHTML;
 
     //remplissage formulaire modifier
@@ -155,6 +158,21 @@ function clicked(){
     document.modifierTache.nbMinutes.value = this.children[6].innerHTML;
 
   }
+}
+
+
+function preparer(){
+var hash = window.location.hash;
+  if(hash == "#etudiant")
+    change_onglet('etudiant');
+  else if(hash == "#actif")
+    change_onglet('actif');
+  else if(hash == "#retraite")
+    change_onglet('retraite');
+  else if(hash == "#edt")
+    afficher_onglet();
+  else if(hash == "")
+    afficher_onglet();
 }
 
 

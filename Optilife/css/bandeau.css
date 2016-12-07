@@ -1,4 +1,12 @@
+a {
+   outline: none;
+   text-decoration: none;
+}
+
+
 .header {
+    margin: 0px;
+    padding: 0px;
     height: 100px;
     background-color: white;
 }
@@ -15,13 +23,13 @@
     transition-duration: 0.4s;
     position:absolute;
     margin-top: -10px;
-    height: 28px;
-    width: 110px;
+    height: 41px;
+    width: 111px;
     text-align: center;
     border-radius: 0 0 0 10px;
     background-color: #222;
     padding-top: 13px;
-    color: #6699ff;
+    color:#FF8F15;
     font-size: 12pt;
     font-family: font_title;
 }
@@ -39,13 +47,13 @@
     position:absolute;
     margin-top: -10px;
     margin-left: 110px;
-    height: 28px;
-    width: 110px;
+    height: 41px;
+    width: 111px;
     text-align: center;
     border-radius: 0 0 10px 0;
     background-color: #222;
     padding-top: 13px;
-    color: #6699ff;
+    color:#FF8F15;
     font-size: 12pt;
     font-family: font_title;
 }
@@ -84,20 +92,20 @@
 
 .horloge{
     position: absolute;
-    width: 96px;
-    height: 96px;
-    margin-left: 64px;
+    width: 95px;
+    height: 95px;
+    margin-left: 65px;
     margin-top: 2px;
 }
 
 .logo{
-    border-color: #4477FF;
+    border-color:#FF8F15;
     border-style: solid;
     border-width: 6px;
     border-top-style:double;
 /*    border-bottom-style: double;*/
-    width: 84px;
-    height: 84px;
+    width: 95px;
+    height: 95px;
     margin: auto auto auto auto;
     position: absolute;
     font-size: 15pt;
@@ -109,7 +117,7 @@
     font-family: font_title;
     font-size: 30px;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 28px;
     color:#FF8F15;
 }
 
@@ -120,7 +128,7 @@
     
 .appli_name {
     position: absolute;
-    margin-top: 2px;
+    margin-top: -6px;
     margin-left: 169px;
 }
 
@@ -141,4 +149,51 @@
     margin-top: 10px;
     margin-left: 92%;
     height:80px;
+}
+
+.menu {
+    background-color: #222222;
+    width: 100%;
+    height: 30px;
+}
+
+.icon_return{
+    position: absolute;
+    margin: 6px;
+    transition-property: all;
+    transition-duration: 1s;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+
+.img_return{
+    width:20px;
+    height:20px;
+}
+
+
+.icon_return:hover{
+    -webkit-transform: rotate(-360deg);
+    -moz-transform: rotate(-360deg);
+    -o-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+}
+
+.return_site {
+    position: absolute;
+    margin-left: 30px;
+    margin-top: 4px;
+}
+
+.return_site a {
+    color:#FF8F15;
+    font-size: 12pt;
+    font-family: font_title;
+    text-decoration: none;
+}
+
+.return_site a:hover{
+   color:#959595;
 }
