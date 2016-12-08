@@ -74,7 +74,7 @@ function tempsOptiVieTotal($bdd){
 	return $dureRet + $dureAct + $dureEtu;
 }
 
-function tempsOptiVie($bdd, $dure, $cat){
+function tempsOptiCat($bdd, $dure, $cat){
 	$age = 18;
 	$limiteEtu = 25;
 	$limiteAct = 62;

@@ -54,27 +54,34 @@
         if($reponse->rowCount() == 0){
             echo 'Aucune activité dans cette classe d\'age';
         }else{
-             echo '<table class="table table-condensed" id="table"><thead> <tr> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> ';
+             echo '<table class="table table-condensed" id="table"><thead> <tr> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> <th>NOUVELLE DUREE</th>';
              echo '<th style="display:none;">CA</th><th style="display:none;">nbHeure</th><th style="display:none;">nbMinute</th><th style="display:none;">actNm</th></tr> </thead>';
         }
         while ($donnees = $reponse->fetch())
         {   
             $dure = $donnees['PRA_DUREE'];
+            $dureOpti = 0;
             $opti = estOpti($bdd, $donnees['ACT_NUM'], $donnees['FR_LIBELLE'],$donnees['CAT_NUM'], $donnees['EMP_NUM']);
-            if($opti){
+            if($opti){//ici changement de tps
                 $tpsMini = tempsMini($bdd, $donnees['CAT_NUM'], $donnees['ACT_NUM']);
                 if($tpsMini < $dure){
-                    $dure = $tpsMini;
+                    $dureOpti = $tpsMini;
                 }
             }
             $minute = (int)(($dure%60));
             $heure = (int)($dure - $minute)/60;
+            $minuteOpti = (int)(($dureOpti%60));
+            $heureOpti = (int)($dureOpti - $minuteOpti)/60;
             $activite = utf8_encode($donnees['ACT_LIBELLE']);
             echo '<tr id="ligne"><td>' . $activite . "</td><td>" . $donnees['FR_LIBELLE'] . "</td><td>" . $donnees['PRA_NB_FOIS'] . "</td>";
             echo "<td>";
-            if($opti)
-                echo "<font color='green'>";
             echo  $heure. "h ". $minute . "m" . '</td>'; 
+            echo "<td>";
+            if($opti){
+                echo "<font color='red'>";
+                echo  $heureOpti. "h ". $minuteOpti . "m" ;
+            } 
+            echo '</td>';
             if($opti)
                 echo "</font>";
             echo '<td style="display:none;">'.$categorie. '</td><td style="display:none;">'.$heure. '</td><td style="display:none;">'.$minute. '</td><td style="display:none;">'.$donnees['ACT_NUM']. '</td></tr>';
