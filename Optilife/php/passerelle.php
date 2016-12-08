@@ -8,19 +8,19 @@
 		if(isset($_POST["ajouter"])){
 			try{
 				traiterAjout($bdd);
-				header("location: ../html/edt.php?action=ajout");
+				header("location: ../html/main.php?action=ajout");
 				exit();
 			}catch(PDOException $e){
-				header("location: ../html/edt.php?action=echec");
+				header("location: ../html/main.php?action=echec");
 				exit();
 			}
 		}else if(isset($_POST["modifier"])){
 			try{	
 				modifierTache($bdd);
-				header("location: ../html/edt.php?action=modif");
+				header("location: ../html/main.php?action=modif");
 				exit();
 			}catch(PDOException $e){
-				header("location: ../html/edt.php?action=echec");
+				header("location: ../html/main.php?action=echec");
 				exit();
 			}
 		}else if(isset($_POST["supprimer"])){
@@ -33,15 +33,15 @@
 					$sql = 'DELETE FROM `pratiquer` WHERE `ACT_NUM` = '.$act_num.' AND `pratiquer`.`FR_LIBELLE` = "'.$fr_lib.'" AND `pratiquer`.`CAT_NUM` = '.$cat_num.' AND `pratiquer`.`EMP_NUM` = 1';
 		   			echo $sql;
 		   			$bdd->exec($sql);
-		   			header("location: ../html/edt.php?action=supp");
+		   			header("location: ../html/main.php?action=supp");
 					exit();
 				}catch(PDOException $e){
-					header("location: ../html/edt.php?action=echec");
+					header("location: ../html/main.php?action=echec");
 					exit();
 				}
 			}
 		}else{
-			header("location: ../html/edt.php?action=echec");
+			header("location: ../html/main.php?action=echec");
 			exit();
 		}
 

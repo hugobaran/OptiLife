@@ -83,18 +83,18 @@ function clicked(){
     modif.disabled = false;
     modif.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
     sup.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
-    document.supprimerActivite.activite.value = this.children[7].innerHTML;
+    document.supprimerActivite.activite.value = this.children[8].innerHTML;
     document.supprimerActivite.suppFrequence.value = this.children[1].innerHTML;
-    document.supprimerActivite.classeAge.value = this.children[4].innerHTML;
+    document.supprimerActivite.classeAge.value = this.children[5].innerHTML;
 
     //remplissage formulaire modifier
     document.modifierTache.EXfrequence.value = this.children[1].innerHTML;
-    document.modifierTache.activite.value = this.children[7].innerHTML;
+    document.modifierTache.activite.value = this.children[8].innerHTML;
     $('#affichageActivite').text(this.children[0].innerHTML);
     $('#affichageActiviteS').text(this.children[0].innerHTML);
     document.modifierTache.frequence.value = this.children[1].innerHTML;
-    document.modifierTache.classe_age.value = this.children[4].innerHTML;
-    classeAgeNB = this.children[4].innerHTML;
+    document.modifierTache.classe_age.value = this.children[5].innerHTML;
+    classeAgeNB = this.children[5].innerHTML;
     if(classeAgeNB==1){
       classeAgeTxt = "Etudiant";
     }
