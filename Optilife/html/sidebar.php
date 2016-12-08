@@ -20,7 +20,7 @@
 
 <body>
     <?php include('../php/fonctionsUtiles.php') ?>
-    <?php include('header.html') ?>
+    <?php include('header.php') ?>
 
 
     <div id="wrapper" toggleClass="">
@@ -38,7 +38,7 @@
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Afficher les statistiques</a>
+            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Afficher les statistiques</a></br>
             
             <?php include('../php/notifications.php')  ?>
 
