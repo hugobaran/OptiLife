@@ -12,6 +12,26 @@ function edtVide($bdd, $cat){
 		return false;
 }
 
+function tempsOptiPratique($bdd, $act, $freq, $cat){
+	if(!estOpti($bdd, $act, $freq, $cat,1))
+		return 0;
+	$emp = 1;
+	$sql = "SELECT * FROM `pratiquer` WHERE `ACT_NUM` = ".$act." AND `FR_LIBELLE` LIKE '".$freq."' AND `CAT_NUM` =  ".$cat." AND `EMP_NUM` = ".$emp." ";
+	$tab = lireDonneesPDO1($bdd, $sql);
+	$som = 0;
+	if($freq == "Annuel")
+		$som = $som + (($tab[0]['PRA_DUREE'] - tempsMini($bdd, $cat, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NB_FOIS']);
+	if($freq == "Hebdomadaire")
+		$som = $som + ((($tab[0]['PRA_DUREE'] - tempsMini($bdd, $cat, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NB_FOIS'])*52);
+	if($freq == "Journalier")
+		$som = $som + ((($tab[0]['PRA_DUREE'] - tempsMini($bdd, $cat, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NB_FOIS'])*365);
+	if($freq == "Mensuel")
+		$som = $som + ((($tab[0]['PRA_DUREE'] - tempsMini($bdd, $cat, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NB_FOIS'])*12);
+	if($freq == "Trimestriel")
+		$som = $som + ((($tab[0]['PRA_DUREE'] - tempsMini($bdd, $cat, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NB_FOIS'])*3);
+	return $som;
+}
+
 function tempsOptiUnAn($bdd, $cat){
 	if(edtVide($bdd, $cat))
 		return 0;
@@ -38,7 +58,7 @@ function tempsOptiUnAn($bdd, $cat){
 	return $som;
 }
 
-function tempsOptiVie($bdd){
+function tempsOptiVieTotal($bdd){
 	$dure = 0;
 	$age = 18;
 	$limiteEtu = 25;
@@ -53,8 +73,22 @@ function tempsOptiVie($bdd){
 	return $dureRet + $dureAct + $dureEtu;
 }
 
+function tempsOptiVie($bdd, $dure, $cat){
+	$age = 18;
+	$limiteEtu = 25;
+	$limiteAct = 62;
+	$limiteMort = 81;
+	if($cat == 1)
+		$dure = $dure*($limiteEtu - $age);
+	if($cat == 2)	
+		$dure = $dure*($limiteAct - $limiteEtu);
+	if($cat == 3)
+		$dure = $dure*($limiteMort - $limiteAct);
+	return $dure;
+}
+
 function afficherTempsOpti($bdd){
-	$dure = tempsOptiVie($bdd);
+	$dure = tempsOptiVieTotal($bdd);
 	$minute = (int)(($dure%60));
 	$heure = (int)((($dure)/60)%24);
 	$jour = (int)((($dure)/3600)%31);
