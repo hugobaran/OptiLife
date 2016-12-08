@@ -10,10 +10,10 @@
 	</head>
 	<body>
 
-			<?php include("header2.php"); ?>
+			<?php include("header.php"); ?>
 		
 			<div class="boutonsGroup">
-				<input class="bouton" type=button value="Commencer un projet" onclick="document.location.href='edt.php'"/>
+				<input class="bouton" type=button value="Commencer un projet" onclick="document.location.href='main.php'"/>
 				<?php include("connectacc.php"); ?>
 			</div>
 		

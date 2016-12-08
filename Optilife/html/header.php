@@ -41,8 +41,8 @@
                 </div>
 
                 <div class="login">
-                            <div class="win-open connect" id="#login" style="cursor:pointer">Connexion</div>
-                            <div class="win-open register" id="#register" style="cursor:pointer">Inscription</div>
+                    <div class="win-open connect" id="#login" style="cursor:pointer">Connexion</div>
+                    <div class="win-open register" id="#register" style="cursor:pointer">Inscription</div>
                 </div>
 
             </div>
