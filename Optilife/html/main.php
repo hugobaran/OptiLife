@@ -21,6 +21,5 @@
 
 </body>
 
-</script>
 
 </html>

@@ -11,7 +11,23 @@
 				header("location: ../html/main.php?action=ajout");
 				exit();
 			}catch(PDOException $e){
-				header("location: ../html/main.php?action=echec");
+				$raison="";
+				switch ($e->getMessage()) {
+					case 'activiteTemps':
+						$raison = "&raison=temps";
+						break;
+					case 'activtePres':
+						$raison = "&raison=dejaPresent";
+						break;
+					case 'incomplet':
+						$raison = "&raison=incomplet";
+						break;	
+					default:
+						header("location: ../html/main.php?action=echec".$raison);
+						exit();
+						break;
+				}
+				header("location: ../html/main.php?action=echec".$raison);
 				exit();
 			}
 		}else if(isset($_POST["modifier"])){

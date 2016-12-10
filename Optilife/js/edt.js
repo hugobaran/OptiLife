@@ -1,6 +1,4 @@
 //Affichage des modals
-
-
 $(document).ready(function(){
     $("#btnAdd").click(function(){
         $("#ModalAjout").modal();
@@ -38,7 +36,7 @@ $( window ).on( 'hashchange', function() {
     afficher_onglet();
 });
 
-
+//Initialisation des variables
 var tr = document.querySelectorAll("#table #ligne"),
   modif = document.getElementById('btnModif');
   sup = document.getElementById('btnSupp');
@@ -50,11 +48,12 @@ var tr = document.querySelectorAll("#table #ligne"),
   classeAgeNB = null,
   classeAgeTxt = "";
 
+//Assignation de l'evenement clic sur chaque lignes du tableau
 for (i ; i<l; i++) tr[i].addEventListener("click", clicked, false);
   selected[0]= tr[0];
    
 
-
+//Fonction clic sur les lignes du tableau
 function clicked(){
   var cl = this.className;
   var valeur;

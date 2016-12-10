@@ -52,19 +52,26 @@ function traiterAjout($bdd){
 		//Envoi du formulaire à la base de donnée
 			if (!empty($_POST['classe_age'])) {
     			$array = $_POST['classe_age'];
+    			$act = $_POST["activite"];
+    			$heures = $_POST["nbHeure"];
+    			$minutes = $_POST["nbMinutes"];
+    			$frequence = $_POST["frequence"];
+    			$nbfois = $_POST["nbFois"];
+    			$temps = $heures*60 + ($minutes);//transforme les données du form en donnée lisible par la base
 			    foreach ($array as $age) {
 					//on ajoute uniquement si ce n'est pas déja présent dans l'emploi du tps
-					if(!chercherDejaPresent($bdd, $_POST["activite"], $_POST["frequence"], 1, $age)){
-						echo "passage2";
-						//$actLib = chercherAct($bdd, $_POST["activite"]);
-						//$actLib = utf8_decode($actLib);
-						$act = $_POST["activite"];
-						$temps = $_POST["nbHeure"]*60 + ($_POST["nbMinutes"]);//transforme les données du form en donnée lisible par la base
-						$sql = "INSERT INTO `pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NB_FOIS`, `PRA_DUREE`) VALUES ('".$act."', '".$_POST["frequence"]."', '".$age."', '"."1"."', '".$_POST["nbFois"]."', '".$temps."')";
-			  			$stmt = $bdd->exec($sql);
-						echo $sql;
-			  			echo "<script> resetFields(); </script>";
-						echo "<p id='formSend'>Tache Ajoutée</p>";
+					if(!chercherDejaPresent($bdd, $act, $frequence, 1, $age)){
+						//verification que le temps soit cohérent
+						if(verifierTemps($frequence, $temps, $nbfois)){
+							$sql = "INSERT INTO `pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NB_FOIS`, `PRA_DUREE`) VALUES ('".$act."', '".$frequence."', '".$age."', '"."1"."', '".$nbfois."', '".$temps."')";
+				  			$stmt = $bdd->exec($sql);
+							echo $sql;
+				  			echo "<script> resetFields(); </script>";
+							echo "<p id='formSend'>Tache Ajoutée</p>";
+						}else {
+							echo "<p id='erreur'>Le temps n'est pas cohérent</p>";
+							throw new PDOException('activiteTemps');
+						}
 					}
 					else {
 						echo "<p id='erreur'>Cette activité existe déja avec cette frequence et cette classe d'age</p>";
@@ -122,4 +129,45 @@ function choixTheme($bdd){
 function choixActivite(){
 	
 }
+
+function verifierTemps($frequence, $duree, $nbfois){
+	$duree = $duree/60;
+	switch ($frequence) {
+		case 'Journalier':
+			if($nbfois*$duree < 24)
+				return true;
+			else
+				return false;
+			break;
+		case 'Hebdomadaire':
+			if($nbfois*$duree < 168)
+				return true;
+			else
+				return false;
+			break;
+		case 'Mensuel':
+			if($nbfois*$duree < 744)
+				return true;
+			else
+				return false;
+			break;
+		case 'Trimestriel':
+			if($nbfois*$duree < 2232)
+				return true;
+			else
+				return false;
+			break;
+		case 'Annuel':
+			if($nbfois*$duree < 8928)
+				return true;
+			else
+				return false;
+			break;
+		default:
+			return false;
+			break;
+	}
+}
+
+
 ?>
