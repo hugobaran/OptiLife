@@ -17,7 +17,7 @@ function modifierTache($bdd){
 				$cat_num = $_POST['classe_age'];
 				$nbfois = $_POST["nbFois"];
 				$temps = $_POST["nbHeure"]*60 + ($_POST["nbMinutes"]);
-				$sql = "UPDATE PRATIQUER SET FR_LIBELLE = '" . $fr_lib . "', PRA_NB_FOIS = '" . $nbfois . "' , PRA_DUREE = '" . $temps . "' , OPTIMISER = '0' WHERE ACT_NUM = '" . $act_num . "' AND CAT_NUM = '" . $cat_num . "' AND EMP_NUM = '1'";
+				$sql = "UPDATE PRATIQUER SET FR_LIBELLE = '" . $fr_lib . "', PRA_NBFOIS = '" . $nbfois . "' , PRA_DUREE = '" . $temps . "' , OPTIMISER = '0' WHERE ACT_NUM = '" . $act_num . "' AND CAT_NUM = '" . $cat_num . "' AND EMP_NUM = '1'";
 	   			$bdd->exec($sql);
 		}
 		else{

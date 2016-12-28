@@ -24,16 +24,17 @@ $(document).ready(function(){
 //gestion de sauvegarde des pages
 $( window ).on( 'hashchange', function() {
   var hash = window.location.hash;
-  if(hash == "#etudiant")
-    change_onglet('etudiant');
-  else if(hash == "#actif")
-    change_onglet('actif');
-  else if(hash == "#retraite")
+  if(hash == "#etudes"){
+    change_onglet('etudes');
+  }else if(hash == "#vieActive"){
+    change_onglet('vieActive');
+  }else if(hash == "#retraite"){
     change_onglet('retraite');
-  else if(hash == "#edt")
+  }else if(hash == "#edt"){
     afficher_onglet();
-  else if(hash == "")
+  }else if(hash == ""){
     afficher_onglet();
+  }
 });
 
 //Initialisation des variables
@@ -95,13 +96,13 @@ function clicked(){
     document.modifierTache.classe_age.value = this.children[5].innerHTML;
     classeAgeNB = this.children[5].innerHTML;
     if(classeAgeNB==1){
-      classeAgeTxt = "Etudiant";
+      classeAgeTxt = "Etudes";
     }
     else if(classeAgeNB==2){
-      classeAgeTxt = "Actif";
+      classeAgeTxt = "Vie Active";
     }
     else if(classeAgeNB==3){
-      classeAgeTxt = "Retraité";
+      classeAgeTxt = "Retraite";
     }
     else {
       classeAgeTxt = "Inconnu";
@@ -109,8 +110,8 @@ function clicked(){
     $('#affichageClasseAge').text(classeAgeTxt);
     $('#affichageClasseAgeS').text(classeAgeTxt);
     document.modifierTache.nbFois.value = this.children[2].innerHTML;
-    document.modifierTache.nbHeure.value = this.children[5].innerHTML;
-    document.modifierTache.nbMinutes.value = this.children[6].innerHTML;
+    document.modifierTache.nbHeure.value = this.children[6].innerHTML;
+    document.modifierTache.nbMinutes.value = this.children[7].innerHTML;
 
   }
 }
@@ -118,10 +119,10 @@ function clicked(){
 
 function preparer(){
 var hash = window.location.hash;
-  if(hash == "#etudiant")
-    change_onglet('etudiant');
-  else if(hash == "#actif")
-    change_onglet('actif');
+  if(hash == "#etudes")
+    change_onglet('etudes');
+  else if(hash == "#vieActive")
+    change_onglet('vieActive');
   else if(hash == "#retraite")
     change_onglet('retraite');
   else if(hash == "#edt")

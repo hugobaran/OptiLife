@@ -13,7 +13,7 @@
 </head> 
 <script>
 	function resetFields(){
-		document.getElementById('theme').selectedIndex=0;
+		document.getElementById('domaine').selectedIndex=0;
 		document.getElementById('activite').selectedIndex=0;
 		document.getElementById('classe_age').selectedIndex=0;
 		document.getElementById('nbFois').value="";
@@ -24,29 +24,38 @@
 
 </script>
 <body>
-	<form method="post" action= "../php/passerelle.php" enctype="application/x-www-form-urlencoded" name="ajoutTache" id="formAjout">
-		<label for="theme">Theme :</label>
-		<select name="theme" id="theme" class="form-control" onchange="affiche_bouton()">
-		<option value="">Sélectionner un thème</option>
+	<form method="post" action= "../php/passerelle.php" enctype="application/x-www-form-urlencoded" name="ajoutActivite" id="formAjout">
+		<label for="domaine">Domaine :</label>
+		<select name="domaine" id="domaine" class="form-control" onchange="affiche_bouton()">
+		<option value="">Sélectionner un domaine</option>
 		<?php 
-			choixTheme($bdd);
+			choixDomaine($bdd);
+		?>
+		</select>
+		</br>
+		<label for="sousdomaine">Sous Domaine :</label>
+		<select name="sousdomaine" id="sousdomaine" class="form-control" onchange="affiche_bouton()">
+		<option value="">Sélectionner un sous-domaine</option>
+		<?php  
+			$sql = 'SELECT * FROM sous_domaine JOIN domaine USING(DOM_NUM)';
+			creerListeSousDomaine($bdd,$sql,'SD_LIBELLE');
 		?>
 		</select>
 		</br>
 		<label for="activite">Activité :</label>
 		<select name="activite" id="activite" class="form-control" onchange="affiche_bouton()">
 		<option value="">Sélectionner une activité</option>
-		<?php 
-			$sql = 'SELECT * FROM activite JOIN THEME USING(THM_NUM)';
+		<?php  
+			$sql = 'SELECT * FROM activite JOIN sous_domaine USING(SD_NUM)';
 			creerListeActivite($bdd,$sql,'ACT_LIBELLE', 'activite');
 		?>
 		</select>
 		</br>
 
 			<label>Classe d'age : </label></br>
-			<label for="caEtudiant" class="checkbox-inline"><input type="checkbox" id="caEtudiant" name="classe_age[]" onclick="affiche_bouton()" value="1"/>Etudiant</label>
-		    <label for="caActif" class="checkbox-inline"><input type="checkbox" id="caActif" name="classe_age[]" onclick="affiche_bouton()" value="2"/>Actif </label>
-		    <label for="caRetraite" class="checkbox-inline"><input type="checkbox" id="caRetraite" name="classe_age[]" onclick="affiche_bouton()" value="3"/>Retraité </label>
+			<label for="caEtudes" class="checkbox-inline"><input type="checkbox" id="caEtudes" name="classe_age[]" onclick="affiche_bouton()" value="1"/>Etudes</label>
+		    <label for="caVieActive" class="checkbox-inline"><input type="checkbox" id="caVieActive" name="classe_age[]" onclick="affiche_bouton()" value="2"/>Vie Active </label>
+		    <label for="caRetraite" class="checkbox-inline"><input type="checkbox" id="caRetraite" name="classe_age[]" onclick="affiche_bouton()" value="3"/>Retraite </label>
 			<!--<label for="caVie">Toute la vie </label><input type="checkbox" id="caVie" name="classe_age[]" value="4"/>-->
 			</br></br>
 			<label>Frequence :</label></br>
@@ -78,7 +87,11 @@
 <script type="text/javascript">
 
 $(function(){
-    $("#activite").chained("#theme");
+    $("#sousdomaine").chained("#domaine");
+});
+
+$(function(){
+    $("#activite").chained("#sousdomaine");
 });
 
 </script>

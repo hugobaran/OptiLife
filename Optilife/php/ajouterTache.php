@@ -17,12 +17,26 @@ function creerListeActivite($bdd,$sql,$table, $form){
 	$reponse = $bdd->query($sql);
 	while ($donnees = $reponse->fetch())
 	{
-		$theme = utf8_encode($donnees['THM_LIBELLE']);
+		$sdomaine = utf8_encode($donnees['SD_LIBELLE']);
 		$actLib = utf8_encode($donnees['ACT_LIBELLE']);
 		$act = $donnees['ACT_NUM'];
-		echo '<option class="'.$theme.'" value="' . $act . '" ' ;
+		echo '<option class="'.$sdomaine.'" value="' . $act . '" ' ;
 		VerifSelect($form, $act);
 		echo  ' >'.$actLib . '</option>';
+
+	}
+	$reponse->closeCursor();
+}
+
+function creerListeSousDomaine($bdd,$sql,$table){
+	$reponse = $bdd->query($sql);
+	while ($donnees = $reponse->fetch())
+	{
+		$domaine = utf8_encode($donnees['DOM_LIBELLE']);
+		$sdLib = utf8_encode($donnees['SD_LIBELLE']);
+		echo '<option class="'.$domaine.'" value="' . $sdLib . '" ' ;
+		//VerifSelect($form, $act);
+		echo  ' >'.$sdLib . '</option>';
 
 	}
 	$reponse->closeCursor();
@@ -63,7 +77,7 @@ function traiterAjout($bdd){
 					if(!chercherDejaPresent($bdd, $act, $frequence, 1, $age)){
 						//verification que le temps soit cohérent
 						if(verifierTemps($frequence, $temps, $nbfois)){
-							$sql = "INSERT INTO `pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NB_FOIS`, `PRA_DUREE`) VALUES ('".$act."', '".$frequence."', '".$age."', '"."1"."', '".$nbfois."', '".$temps."')";
+							$sql = "INSERT INTO `pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NBFOIS`, `PRA_DUREE`) VALUES ('".$act."', '".$frequence."', '".$age."', '"."1"."', '".$nbfois."', '".$temps."')";
 				  			$stmt = $bdd->exec($sql);
 							echo $sql;
 				  			echo "<script> resetFields(); </script>";
@@ -112,22 +126,32 @@ function choixClasseAge($bdd){
 	}
 }
 
-function choixTheme($bdd){
-	$tab = LireDonneesPDO1($bdd, 'SELECT * FROM `theme` ');
+function choixDomaine($bdd){
+	$tab = LireDonneesPDO1($bdd, 'SELECT * FROM `domaine` ');
 	foreach($tab as $ligne)
 	{
 		foreach($ligne as $cle =>$valeur)
-		if($cle == "THM_LIBELLE"){
+		if($cle == "DOM_LIBELLE"){
 			$valeur = utf8_encode($valeur);
 			echo "<option value='".$valeur."' ";
-			VerifSelect("theme",$valeur);
+			VerifSelect("domaine",$valeur);
 			echo " >".$valeur."</option>";
 		}
 	}
 }
 
-function choixActivite(){
-	
+function choixSousDomaine($bdd){
+	$tab = LireDonneesPDO1($bdd, 'SELECT * FROM `sous_domaine` ');
+	foreach($tab as $ligne)
+	{
+		foreach($ligne as $cle =>$valeur)
+		if($cle == "SD_LIBELLE"){
+			$valeur = utf8_encode($valeur);
+			echo "<option value='".$valeur."' ";
+			//VerifSelect("domaine",$valeur);
+			echo " >".$valeur."</option>";
+		}
+	}
 }
 
 function verifierTemps($frequence, $duree, $nbfois){

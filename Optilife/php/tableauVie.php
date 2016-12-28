@@ -4,39 +4,39 @@
 
  <div class="systeme_onglets">
         <div class="onglets">
-            <span class="onglet" id="onglet_etudiant" onclick="window.location.href='#etudiant'">Etudiant</span>
-            <span class="onglet" id="onglet_actif" onclick="window.location.href='#actif'">Actif</span>
+            <span class="onglet" id="onglet_etudes" onclick="window.location.href='#etudes'">Etudes</span>
+            <span class="onglet" id="onglet_vieActive" onclick="window.location.href='#vieActive'">Vie Active</span>
             <span class="onglet" id="onglet_retraite" onclick="window.location.href='#retraite'">Retraite</span>
         </div>
         <div class="contenu_onglets">
-            <div class="contenu_onglet" id="contenu_onglet_etudiant">
+            <div class="contenu_onglet" id="contenu_onglet_etudes" style="display:none;">
                 <div class="header_onglet">
                    <img src="../img/retour.gif" class="retour" onclick="window.location.href='#edt'"/>
-                   <h3>Liste d'activités de la classe d'age : Etudiant</h3>
+                   <h3>Liste d'activités de la classe d'age : Etudes</h3>
                 </div>
-                <div class="table-striped" id="activite_etudiant">
+                <div class="table-striped" id="activite_etudes">
                 <?php
                     afficherActivite('1',$bdd);
                 ?>
                 </div>
             </div>
-            <div class="contenu_onglet" id="contenu_onglet_actif">
+            <div class="contenu_onglet" id="contenu_onglet_vieActive" style="display:none;">
                 <div class="header_onglet">
                    <img src="../img/retour.gif" class="retour" onclick="window.location.href='#edt'"/>
-                   <h3>Liste d'activités de la classe d'age : Actif</h3>
+                   <h3>Liste d'activités de la classe d'age : Vie Active</h3>
                 </div>
-                <div class="table-striped" id="activite_actif">
+                <div class="table-striped" id="activite_vieActive">
                      <?php
                         afficherActivite('2',$bdd);
                      ?>
                 </div>
             </div>
-            <div  class="contenu_onglet" id="contenu_onglet_retraite">
+            <div  class="contenu_onglet" id="contenu_onglet_retraite" style="display:none;">
                 <div class="header_onglet">
                    <img src="../img/retour.gif" class="retour" onclick="window.location.href='#edt'"/>
                    <h3>Liste d'activités de la classe d'age : Retraite</h3>
                 </div>
-                <div class="table-striped   " id="activite_retraite">
+                <div class="table-striped" id="activite_retraite">
                 <?php
                     afficherActivite('3',$bdd);
                 ?>
@@ -63,7 +63,7 @@
             $dureOpti = 0;
             $opti = estOpti($bdd, $donnees['ACT_NUM'], $donnees['FR_LIBELLE'],$donnees['CAT_NUM'], $donnees['EMP_NUM']);
             if($opti){//ici changement de tps
-                $tpsMini = tempsMini($bdd, $donnees['CAT_NUM'], $donnees['ACT_NUM']);
+                $tpsMini = tempsMini($bdd, $donnees['ACT_NUM']);
                 if($tpsMini < $dure){
                     $dureOpti = $tpsMini;
                 }
@@ -73,7 +73,7 @@
             $minuteOpti = (int)(($dureOpti%60));
             $heureOpti = (int)($dureOpti - $minuteOpti)/60;
             $activite = utf8_encode($donnees['ACT_LIBELLE']);
-            echo '<tr id="ligne"><td>' . $activite . "</td><td>" . $donnees['FR_LIBELLE'] . "</td><td>" . $donnees['PRA_NB_FOIS'] . "</td>";
+            echo '<tr id="ligne"><td>' . $activite . "</td><td>" . $donnees['FR_LIBELLE'] . "</td><td>" . $donnees['PRA_NBFOIS'] . "</td>";
             echo "<td>";
             echo  $heure. "h ". $minute . "m" . '</td>'; 
             echo "<td>";

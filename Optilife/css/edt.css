@@ -40,13 +40,13 @@ body{
     background-color: #FE9A2E;
 }
 
-#onglet_etudiant{
+#onglet_etudes{
     width: 27%;
     border-radius: 20px 0 0 20px;
 
 }
 
-#onglet_actif{
+#onglet_vieActive{
    width: 43.3%;
 }
 
@@ -60,7 +60,6 @@ body{
     border:1px solid black;
     padding:3px;
     min-height: 50%;
-    display:none;
     border-radius: 20px 20px 20px 20px;
 }
 

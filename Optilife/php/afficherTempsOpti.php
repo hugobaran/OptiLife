@@ -20,15 +20,15 @@ function tempsOptiPratique($bdd, $act, $freq, $cat){
 	$tab = lireDonneesPDO1($bdd, $sql);
 	$som = 0;
 	if($freq == "Annuel")
-		$som = $som + (($tab[0]['PRA_DUREE'] - tempsMini($bdd, $cat, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NB_FOIS']);
+		$som = $som + (($tab[0]['PRA_DUREE'] - tempsMini($bdd, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NBFOIS']);
 	if($freq == "Hebdomadaire")
-		$som = $som + ((($tab[0]['PRA_DUREE'] - tempsMini($bdd, $cat, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NB_FOIS'])*52);
+		$som = $som + ((($tab[0]['PRA_DUREE'] - tempsMini($bdd, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NBFOIS'])*52);
 	if($freq == "Journalier")
-		$som = $som + ((($tab[0]['PRA_DUREE'] - tempsMini($bdd, $cat, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NB_FOIS'])*365);
+		$som = $som + ((($tab[0]['PRA_DUREE'] - tempsMini($bdd, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NBFOIS'])*365);
 	if($freq == "Mensuel")
-		$som = $som + ((($tab[0]['PRA_DUREE'] - tempsMini($bdd, $cat, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NB_FOIS'])*12);
+		$som = $som + ((($tab[0]['PRA_DUREE'] - tempsMini($bdd, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NBFOIS'])*12);
 	if($freq == "Trimestriel")
-		$som = $som + ((($tab[0]['PRA_DUREE'] - tempsMini($bdd, $cat, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NB_FOIS'])*3);
+		$som = $som + ((($tab[0]['PRA_DUREE'] - tempsMini($bdd, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NBFOIS'])*3);
 	return $som;
 }
 
@@ -45,15 +45,15 @@ function tempsOptiUnAn($bdd, $cat){
 	for($i = 0; $i < count($tab); $i++){
 		if(estOpti($bdd, $tab[$i]['ACT_NUM'], $tab[$i]['FR_LIBELLE'], $cat, $emp)){
 			if($tab[$i]['FR_LIBELLE'] == "Annuel")
-				$som = $som + (($tab[$i]['PRA_DUREE'] - tempsMini($bdd, $cat, $tab[$i]['ACT_NUM']))*$tab[$i]['PRA_NB_FOIS']);
+				$som = $som + (($tab[$i]['PRA_DUREE'] - tempsMini($bdd, $tab[$i]['ACT_NUM']))*$tab[$i]['PRA_NBFOIS']);
 			if($tab[$i]['FR_LIBELLE'] == "Hebdomadaire")
-				$som = $som + ((($tab[$i]['PRA_DUREE'] - tempsMini($bdd, $cat, $tab[$i]['ACT_NUM']))*$tab[$i]['PRA_NB_FOIS'])*52);
+				$som = $som + ((($tab[$i]['PRA_DUREE'] - tempsMini($bdd, $tab[$i]['ACT_NUM']))*$tab[$i]['PRA_NBFOIS'])*52);
 			if($tab[$i]['FR_LIBELLE'] == "Journalier")
-				$som = $som + ((($tab[$i]['PRA_DUREE'] - tempsMini($bdd, $cat, $tab[$i]['ACT_NUM']))*$tab[$i]['PRA_NB_FOIS'])*365);
+				$som = $som + ((($tab[$i]['PRA_DUREE'] - tempsMini($bdd, $tab[$i]['ACT_NUM']))*$tab[$i]['PRA_NBFOIS'])*365);
 			if($tab[$i]['FR_LIBELLE'] == "Mensuel")
-				$som = $som + ((($tab[$i]['PRA_DUREE'] - tempsMini($bdd, $cat, $tab[$i]['ACT_NUM']))*$tab[$i]['PRA_NB_FOIS'])*12);
+				$som = $som + ((($tab[$i]['PRA_DUREE'] - tempsMini($bdd, $tab[$i]['ACT_NUM']))*$tab[$i]['PRA_NBFOIS'])*12);
 			if($tab[$i]['FR_LIBELLE'] == "Trimestriel")
-				$som = $som + ((($tab[$i]['PRA_DUREE'] - tempsMini($bdd, $cat, $tab[$i]['ACT_NUM']))*$tab[$i]['PRA_NB_FOIS'])*3);			
+				$som = $som + ((($tab[$i]['PRA_DUREE'] - tempsMini($bdd, $tab[$i]['ACT_NUM']))*$tab[$i]['PRA_NBFOIS'])*3);			
 		}
 	}
 	return $som;
