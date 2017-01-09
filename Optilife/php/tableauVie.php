@@ -55,7 +55,7 @@
             echo 'Aucune activité dans cette classe d\'age';
         }else{
              echo '<table class="table table-condensed" id="table"><thead> <tr> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> <th>NOUVELLE DUREE</th>';
-             echo '<th style="display:none;">CA</th><th style="display:none;">nbHeure</th><th style="display:none;">nbMinute</th><th style="display:none;">actNm</th></tr> </thead>';
+             echo '<th style="display:none;">CA</th><th style="display:none;">nbHeure</th><th style="display:none;">nbMinute</th><th style="display:none;">actNm</th><th style="display:none;">dureeOpti</th></tr> </thead>';
         }
         while ($donnees = $reponse->fetch())
         {   
@@ -78,13 +78,18 @@
             echo  $heure. "h ". $minute . "m" . '</td>'; 
             echo "<td>";
             if($opti){
+                $tps = $dureOpti;
                 echo "<font color='red'>";
                 echo  $heureOpti. "h ". $minuteOpti . "m" ;
+            }else{
+                $tps = $dure;
+                echo "<font color='green'>";
+                echo  $heure. "h ". $minute . "m" ;
             } 
             echo '</td>';
             if($opti)
                 echo "</font>";
-            echo '<td style="display:none;">'.$categorie. '</td><td style="display:none;">'.$heure. '</td><td style="display:none;">'.$minute. '</td><td style="display:none;">'.$donnees['ACT_NUM']. '</td></tr>';
+            echo '<td style="display:none;">'.$categorie. '</td><td style="display:none;">'.$heure. '</td><td style="display:none;">'.$minute. '</td><td style="display:none;">'.$donnees['ACT_NUM']. '</td><td style="display:none;">'.$tps. '</td></tr>';
             $cpt++;
         }
         echo '</table>';

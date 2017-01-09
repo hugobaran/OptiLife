@@ -4,19 +4,13 @@ $(document).ready(function(){
         $("#ModalAjout").modal();
     });
     $("#btnModif").click(function(){
-      if( document.supprimerActivite.activite.value == ""){
-          $("#ModalErreur").modal();
-        }else{
-          $("#ModalModifier").modal();
-        }
+        $("#ModalModifier").modal();
     });
      $("#btnSupp").click(function(){
-        if( document.supprimerActivite.activite.value == ""){
-          $("#ModalErreur").modal();
-        }
-        else{
-          $("#ModalSupprimer").modal();
-        }
+        $("#ModalSupprimer").modal();
+    });
+     $("#btnOptiManuelle").click(function(){
+        $("#ModalOpti").modal();
     });
 });
 
@@ -41,8 +35,10 @@ $( window ).on( 'hashchange', function() {
 var tr = document.querySelectorAll("#table #ligne"),
   modif = document.getElementById('btnModif');
   sup = document.getElementById('btnSupp');
+  opti = document.getElementById('btnOptiManuelle');
   modif.style.background = "#D5CEB5";
   sup.style.background = "#D5CEB5";
+  opti.style.background = "#D5CEB5";
   selected = [],
   i = 0,
   l = tr.length,
@@ -63,16 +59,21 @@ function clicked(){
     selected[0]= tr[0];
     sup.disabled = true;
     modif.disabled = true;
+    opti.disabled = true;
     modif.style.background = "#D5CEB5";
     sup.style.background = "#D5CEB5";
+    opti.style.background = "#D5CEB5";
     document.supprimerActivite.activite.value = "";
     document.supprimerActivite.frequence.value = "";
     document.supprimerActivite.classeAge.value = "";
     document.modifierTache.activite.value = "";
     document.modifierTache.frequence.value = "";
     document.modifierTache.classeAge.value = "";
-    document.modifierTache.classeAge.value = "";
-    document.modifierTache.classeAge.value = "";
+    document.optimiserActivite.classeAge.value = "";
+    document.optimiserActivite.activite.value = "";
+    document.optimiserActivite.activiteNum.value = "";
+    document.optimiserActivite.temps.value = "";
+    $('#activiteO').val("").change();
     //selected.splice(selected.indexOf(this), 2);
   }else {
     selected[0].className = selected[0].className.replace(" selected", "");
@@ -81,8 +82,10 @@ function clicked(){
     selected.push(this);
     sup.disabled = false;
     modif.disabled = false;
+    opti.disabled = false;
     modif.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
     sup.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
+    opti.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
     document.supprimerActivite.activite.value = this.children[8].innerHTML;
     document.supprimerActivite.suppFrequence.value = this.children[1].innerHTML;
     document.supprimerActivite.classeAge.value = this.children[5].innerHTML;
@@ -112,6 +115,30 @@ function clicked(){
     document.modifierTache.nbFois.value = this.children[2].innerHTML;
     document.modifierTache.nbHeure.value = this.children[6].innerHTML;
     document.modifierTache.nbMinutes.value = this.children[7].innerHTML;
+
+
+    //remplissage formulaire Optimisation
+    $('#affichageTemps').text(this.children[9].innerHTML + " MINUTES");
+    $('#affichageTempsOpti').text(this.children[9].innerHTML + " MINUTES");
+    $('#tempsOpti').val(this.children[9].innerHTML);
+    $('#temps').val(this.children[9].innerHTML);
+    $('#activiteO').val(this.children[8].innerHTML).change();
+    $('#affichageActiviteOpti').text(this.children[0].innerHTML);
+    document.optimiserActivite.classe_age.value = this.children[5].innerHTML;
+    classeAgeNB = this.children[5].innerHTML;
+    if(classeAgeNB==1){
+      classeAgeTxt = "Etudes";
+    }
+    else if(classeAgeNB==2){
+      classeAgeTxt = "Vie Active";
+    }
+    else if(classeAgeNB==3){
+      classeAgeTxt = "Retraite";
+    }
+    else {
+      classeAgeTxt = "Inconnu";
+    }
+    $('#affichageClasseAgeOpti').text(classeAgeTxt);
 
   }
 }

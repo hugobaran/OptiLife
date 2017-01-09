@@ -15,8 +15,9 @@
         ?>
 
         <form  class="boutonsGroup" method="post" action= "../php/optiAuto.php" enctype="application/x-www-form-urlencoded" name="optimiser">
-          <input type="submit" class="bouton" value="Optimiser" name="optimiser" id="optimiser"/>
+          <input type="submit" class="bouton" value="Optimiser Automatiquement" name="optimiser" id="optimiser"/>
         </form>
+        <button type="button" class="bouton" id="btnOptiManuelle" href="#optiManuelle" style="margin-bottom: 5%;" disabled>Optimiser Manuellement</button>
 
         <?php include('../php/tableauVie.php') ?>
 
