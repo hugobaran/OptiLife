@@ -39,12 +39,18 @@
                 <div class="appli_name">
                     <div class="titre_appli">pti-Life<a href="http://aatchi.fr" class="byAA">  by Aatchi &amp; Aatchi</a></div>
                 </div>
-
+				
+				<?php if(!isset($_SESSION["usrPseudo"])) { ?>
                 <div class="login">
                     <div class="win-open connect" id="#login" style="cursor:pointer">Connexion</div>
                     <div class="win-open register" id="#register" style="cursor:pointer">Inscription</div>
                 </div>
-
+				<?php } else {?>
+				<div class="login">
+                    <div class="win-open connect" id="#compte" style="cursor:pointer">Compte</div>
+                    <div class="win-open register" id="#signout" style="cursor:pointer">Deconnexion</div>
+                </div>
+				<?php }?>
             </div>
 
 
