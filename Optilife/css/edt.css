@@ -16,10 +16,9 @@ body{
     margin-right: 5%;
 }
 
-
 .onglets{
     vertical-align: middle;
-    line-height: 300px;
+    /*line-height: 300px;*/
 }
 
 .onglet{

@@ -11,7 +11,7 @@
     <title>Emploi du temps</title>
     
     <!-- Custom CSS -->
-    <link href="../css/simple-sidebar.css" rel="stylesheet">
+    <link href="../css/sidebar.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/edt.css" type="text/css" />
     
     <!--integration JS-->
@@ -22,28 +22,29 @@
     <?php include('../php/fonctionsUtiles.php') ?>
     <?php include('header.php') ?>
 
-    <div id="wrapper" toggleClass="">
-      <!-- Sidebar -->
-      <div id="sidebar-wrapper" >
-        <ul class="sidebar-nav">
-          <li class="sidebar-brand">
-            <a href="#">
-              Statistiques
-            </a>
-          </li>
-        </ul>
-      </div>
-      <!-- /#sidebar-wrapper --	>
+    <div id="Page" style="height:80%">
+	    <div id="wrapper" toggleClass="" >
+	      <!-- Sidebar -->
+	      <div id="sidebar-wrapper" >
+	        <ul class="sidebar-nav">
+	          <li class="sidebar-brand">
+	            <a href="#">
+	              Statistiques
+	            </a>
+	          </li>
+	        </ul>
+	      </div>
+	      <!-- /#sidebar-wrapper --	>
 
 
-      <!-- Page Content -->
-      <div id="page-content-wrapper">
-        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Afficher les statistiques</a></br>
-        <?php include('edt.php') ?>
-      </div>
-      <!-- /#page-content-wrapper -->
+	      <!-- Page Content -->
+	      <div id="page-content-wrapper" >
+	        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Afficher les statistiques</a></br>
+	        <?php include('edt.php') ?>
+	      </div>
+	      <!-- /#page-content-wrapper -->
+	    </div>
     </div>
-
     <?php include('footer.html') ?>
     
 </body>
