@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+<?php include("../php/genererSession.php"); ?>
 <html>
 	<head>
 		<meta charset="UTF-8"/>
@@ -14,7 +16,7 @@
 		
 			<div class="boutonsGroup">
 				<input class="bouton" type=button value="Commencer un projet" onclick="document.location.href='main.php'"/>
-				<?php include("connectacc.php"); ?>
+				
 			</div>
 		
  			<div class="acc">
