@@ -21,6 +21,7 @@ if(!empty($_POST["pseudo"])){
 		}
 		if($nb>0){
 			$_SESSION["usrPseudo"]=$pseudo;
+			$_SESSION["usrAdmin"]=1;
 		}
 
 	}
