@@ -43,18 +43,33 @@
                 </div>
             </div>
         </div>
+        <div class="contenu_onglet" id="contenu_onglet_vieComplete" style="display:true;">
+                <div class="header_onglet">
+                   <h3>Liste d'activités de toute la vie</h3>
+                </div>
+                <div class="table-striped" id="activite_vieActive">
+                     <?php
+                        afficherActivite('0',$bdd);
+                     ?>
+                </div>
+            </div>
 </div>
 
  <?php
   
     function afficherActivite($categorie,$bdd){
-        $sql = 'SELECT * FROM pratiquer JOIN activite USING(ACT_NUM) WHERE CAT_NUM = ' . $categorie;
+        if($categorie == 0){
+            $sql = 'SELECT * FROM pratiquer JOIN activite USING(ACT_NUM) order by PRA_NUM';
+        }
+        else{
+            $sql = 'SELECT * FROM pratiquer JOIN activite USING(ACT_NUM) WHERE CAT_NUM = ' . $categorie . ' order by PRA_NUM';
+        }
         $reponse = $bdd->query($sql);
         $cpt = 1;
         if($reponse->rowCount() == 0){
             echo 'Aucune activité dans cette classe d\'age';
         }else{
-             echo '<table class="table table-condensed" id="table"><thead> <tr> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> <th>NOUVELLE DUREE</th>';
+             echo '<table class="table table-condensed" id="table"><thead> <tr><th>NUMERO ACTIVITE</th> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> <th>NOUVELLE DUREE</th>';
              echo '<th style="display:none;">CA</th><th style="display:none;">nbHeure</th><th style="display:none;">nbMinute</th><th style="display:none;">actNm</th><th style="display:none;">dureeOpti</th></tr> </thead>';
         }
         while ($donnees = $reponse->fetch())
@@ -73,7 +88,8 @@
             $minuteOpti = (int)(($dureOpti%60));
             $heureOpti = (int)($dureOpti - $minuteOpti)/60;
             $activite = utf8_encode($donnees['ACT_LIBELLE']);
-            echo '<tr id="ligne"><td>' . $activite . "</td><td>" . $donnees['FR_LIBELLE'] . "</td><td>" . $donnees['PRA_NBFOIS'] . "</td>";
+            $numPra = $donnees['PRA_NUM'];
+            echo '<tr id="ligne"><td>' . $numPra .'</td><td>' . $activite . "</td><td>" . $donnees['FR_LIBELLE'] . "</td><td>" . $donnees['PRA_NBFOIS'] . "</td>";
             echo "<td>";
             echo  $heure. "h ". $minute . "m" . '</td>'; 
             echo "<td>";

@@ -25,9 +25,9 @@ $( window ).on( 'hashchange', function() {
   }else if(hash == "#retraite"){
     change_onglet('retraite');
   }else if(hash == "#edt"){
-    afficher_onglet();
+    change_onglet('vieComplete');
   }else if(hash == ""){
-    afficher_onglet();
+    change_onglet('vieComplete');
   }
 });
 
@@ -86,18 +86,18 @@ function clicked(){
     modif.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
     sup.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
     opti.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
-    document.supprimerActivite.activite.value = this.children[8].innerHTML;
-    document.supprimerActivite.suppFrequence.value = this.children[1].innerHTML;
-    document.supprimerActivite.classeAge.value = this.children[5].innerHTML;
+    document.supprimerActivite.activite.value = this.children[9].innerHTML;
+    document.supprimerActivite.suppFrequence.value = this.children[2].innerHTML;
+    document.supprimerActivite.classeAge.value = this.children[6].innerHTML;
 
     //remplissage formulaire modifier
-    document.modifierTache.EXfrequence.value = this.children[1].innerHTML;
-    document.modifierTache.activite.value = this.children[8].innerHTML;
-    $('#affichageActivite').text(this.children[0].innerHTML);
-    $('#affichageActiviteS').text(this.children[0].innerHTML);
-    document.modifierTache.frequence.value = this.children[1].innerHTML;
-    document.modifierTache.classe_age.value = this.children[5].innerHTML;
-    classeAgeNB = this.children[5].innerHTML;
+    document.modifierTache.EXfrequence.value = this.children[2].innerHTML;
+    document.modifierTache.activite.value = this.children[9].innerHTML;
+    $('#affichageActivite').text(this.children[1].innerHTML);
+    $('#affichageActiviteS').text(this.children[1].innerHTML);
+    document.modifierTache.frequence.value = this.children[2].innerHTML;
+    document.modifierTache.classe_age.value = this.children[6].innerHTML;
+    classeAgeNB = this.children[6].innerHTML;
     if(classeAgeNB==1){
       classeAgeTxt = "Etudes";
     }
@@ -112,20 +112,20 @@ function clicked(){
     }
     $('#affichageClasseAge').text(classeAgeTxt);
     $('#affichageClasseAgeS').text(classeAgeTxt);
-    document.modifierTache.nbFois.value = this.children[2].innerHTML;
-    document.modifierTache.nbHeure.value = this.children[6].innerHTML;
-    document.modifierTache.nbMinutes.value = this.children[7].innerHTML;
+    document.modifierTache.nbFois.value = this.children[3].innerHTML;
+    document.modifierTache.nbHeure.value = this.children[7].innerHTML;
+    document.modifierTache.nbMinutes.value = this.children[8].innerHTML;
 
 
     //remplissage formulaire Optimisation
-    $('#affichageTemps').text(this.children[9].innerHTML + " MINUTES");
-    $('#affichageTempsOpti').text(this.children[9].innerHTML + " MINUTES");
-    $('#tempsOpti').val(this.children[9].innerHTML);
-    $('#temps').val(this.children[9].innerHTML);
-    $('#activiteO').val(this.children[8].innerHTML).change();
-    $('#affichageActiviteOpti').text(this.children[0].innerHTML);
-    document.optimiserActivite.classe_age.value = this.children[5].innerHTML;
-    classeAgeNB = this.children[5].innerHTML;
+    $('#affichageTemps').text(this.children[10].innerHTML + " MINUTES");
+    $('#affichageTempsOpti').text(this.children[10].innerHTML + " MINUTES");
+    $('#tempsOpti').val(this.children[10].innerHTML);
+    $('#temps').val(this.children[10].innerHTML);
+    $('#activiteO').val(this.children[9].innerHTML).change();
+    $('#affichageActiviteOpti').text(this.children[1].innerHTML);
+    document.optimiserActivite.classe_age.value = this.children[6].innerHTML;
+    classeAgeNB = this.children[6].innerHTML;
     if(classeAgeNB==1){
       classeAgeTxt = "Etudes";
     }
@@ -153,7 +153,7 @@ var hash = window.location.hash;
   else if(hash == "#retraite")
     change_onglet('retraite');
   else if(hash == "#edt")
-    afficher_onglet();
+    change_onglet('vieComplete');
   else if(hash == "")
-    afficher_onglet();
+    change_onglet('vieComplete');
 }
