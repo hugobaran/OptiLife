@@ -1,4 +1,4 @@
-<?php session_start();?>
+<?php session_start(); ?>
 
 <?php include("../php/genererSession.php"); ?>
 <html>

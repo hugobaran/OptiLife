@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -48,7 +47,7 @@
 				<?php } else {?>
 				<div class="login">
                     <div class="win-open connect" id="#compte" style="cursor:pointer"><a href="../php/compte.php">Compte</a></div>
-                    <div class="win-open register" id="#signout" style="cursor:pointer">Deconnexion</div>
+                    <div class="win-open register" id="#signout" style="cursor:pointer" onclick="Javascript:window.location.href = '../php/deconnexion.php';">Deconnexion</div>
                 </div>
 				<?php }?>
             </div>
