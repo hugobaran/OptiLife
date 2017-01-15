@@ -10,6 +10,7 @@
             <input type="hidden" id="suppActivite" name="activite" value=""/>
             <input type="hidden" id="suppFrequence" name="frequence" value=""/>  
             <input type="hidden" id="suppCA" name="classeAge" value=""/>
+            <input type="hidden" id="suppPra" name="suppPra" value=""/>
             <label>Activité :</label><p id="affichageActiviteS"></p>
             </br>
             <label>Classe d'age :</label><p id="affichageClasseAgeS"></p>

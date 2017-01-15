@@ -89,7 +89,7 @@ function clicked(){
     document.supprimerActivite.activite.value = this.children[9].innerHTML;
     document.supprimerActivite.suppFrequence.value = this.children[2].innerHTML;
     document.supprimerActivite.classeAge.value = this.children[6].innerHTML;
-
+    document.supprimerActivite.suppPra.value = this.children[0].innerHTML;
     //remplissage formulaire modifier
     document.modifierTache.EXfrequence.value = this.children[2].innerHTML;
     document.modifierTache.activite.value = this.children[9].innerHTML;

@@ -40,30 +40,30 @@
 				exit();
 			}
 		}else if(isset($_POST["supprimer"])){
-			if(isset($_POST['activite']) && isset($_POST['frequence']) && isset($_POST['classeAge'])){
+			if(isset($_POST['suppPra'])){
 				try{
 					//$act_num = chercherAct($bdd,$_POST['activite']);
-					$act_num = $_POST['activite'];
-					$fr_lib = $_POST['frequence'];
-					$cat_num = $_POST['classeAge'];
-					$sql = 'DELETE FROM `pratiquer` WHERE `ACT_NUM` = '.$act_num.' AND `pratiquer`.`FR_LIBELLE` = "'.$fr_lib.'" AND `pratiquer`.`CAT_NUM` = '.$cat_num.' AND `pratiquer`.`EMP_NUM` = 1';
+					$pra_num = $_POST['suppPra'];
+					$sql = 'DELETE FROM `pratiquer` WHERE PRA_NUM = '.$pra_num .' AND `pratiquer`.`EMP_NUM` = 1';
 		   			echo $sql;
+		   			$bdd->exec($sql);
+		   			$sql = 'UPDATE pratiquer SET PRA_NUM = PRA_NUM-1 WHERE PRA_NUM > '.$_POST['suppPra'].' and emp_num = 1';
 		   			$bdd->exec($sql);
 		   			header("location: ../html/main.php?action=supp");
 					exit();
 				}catch(PDOException $e){
+					echo $e->getMessage();
 					header("location: ../html/main.php?action=echec");
 					exit();
 				}
+			}else{
+				header("location: ../html/main.php?action=echec&raison=praInconnue");
+				exit();
 			}
 		}else{
 			header("location: ../html/main.php?action=echec");
 			exit();
 		}
-
-
-	header('Location: ../html/edt.php');
-  	exit();
 	
 
 ?>
