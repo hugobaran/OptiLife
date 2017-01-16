@@ -37,28 +37,56 @@
     }
   }  
 
-      //regarde si une activité précise est optimisé
-    function estOpti($bdd, $act, $lib, $cat, $emp){
-        $sql = "SELECT * FROM `pratiquer` WHERE EMP_NUM = ".$emp." and ACT_NUM=".$act." and FR_LIBELLE='".$lib."' and CAT_NUM=".$cat."";
-        $tab = LireDonneesPDO1($bdd, $sql);
-        //$sql = "SELECT count(*) FROM `dure` WHERE `CAT_NUM` = ".$cat." AND `ACT_NUM` =".$act."";
-        //$tab2 = LireDonneesPDO1($bdd, $sql);
-        if($tab[0]["OPTIMISER"] == 0){
-          return false;
-        }
-        //else if($tab2[0]['count(*)'] == 0)
-          //return false;
-        else if($tab[0]["PRA_DUREE"] < tempsMini($bdd, $act))
-          return false;
-        else
-          return true;
+  //regarde si une activité précise est optimisé
+function estOpti($bdd, $act, $lib, $cat, $emp){
+    $sql = "SELECT * FROM `pratiquer` WHERE EMP_NUM = ".$emp." and ACT_NUM=".$act." and FR_LIBELLE='".$lib."' and CAT_NUM=".$cat."";
+    $tab = LireDonneesPDO1($bdd, $sql);
+    //$sql = "SELECT count(*) FROM `dure` WHERE `CAT_NUM` = ".$cat." AND `ACT_NUM` =".$act."";
+    //$tab2 = LireDonneesPDO1($bdd, $sql);
+    if($tab[0]["OPTIMISER"] == 0){
+      return false;
     }
+    //else if($tab2[0]['count(*)'] == 0)
+      //return false;
+    else if($tab[0]["PRA_DUREE"] < tempsMini($bdd, $act))
+      return false;
+    else
+      return true;
+}
 
-    function tempsMini($bdd, $ACT_NUM){
-        $sql = "SELECT * FROM `activite` WHERE `ACT_NUM` = ".$ACT_NUM."";
-        $tab = LireDonneesPDO3($bdd, $sql);
-        return $tab[0]["ACT_TEMPS"];
+function tempsMini($bdd, $ACT_NUM){
+    $sql = "SELECT * FROM `activite` WHERE `ACT_NUM` = ".$ACT_NUM."";
+    $tab = LireDonneesPDO3($bdd, $sql);
+    return $tab[0]["ACT_TEMPS"];
+}
+
+
+function possedeOptiManuelle($bdd, $activite, $libelle, $cat, $emp){
+    $opti = false;
+    $sql = "SELECT * FROM `est_optimise` JOIN `pratiquer` using(PRA_NUM) WHERE ACT_NUM = ".$activite." AND FR_LIBELLE = '".$libelle."' AND CAT_NUM = ".$cat." AND `est_optimise`.EMP_NUM = ".$emp;
+    $reponse = $bdd->query($sql);
+    $valeur = $reponse->fetchAll();
+    if (count($valeur) != 0)
+      $opti = true;
+    return $opti;
+}  
+
+function tempsOptiManuelle($bdd, $activite, $libelle, $cat, $emp){
+    $tempsOpti = 0;
+    $sql = "SELECT * FROM `est_optimise` join `pratiquer` using(pra_num) where act_num = ".$activite." and fr_libelle = '".$libelle."' and cat_num = ".$cat." and `pratiquer`.emp_num = ".$emp;
+    $reponse = $bdd->query($sql);
+    while ($donnees = $reponse->fetch()){
+      $opti = $donnees['OPTI_NUM'];
+      $sql2 = "SELECT * FROM `optimiser` where OPTI_NUM = ".$opti." and ACT_NUM = ".$activite;
+      $reponse2 = $bdd->query($sql2);
+      $donnees2 = $reponse2->fetch();
+      if(is_null($donnees2['OP_POURCENTAGE']))
+        $tempsOpti += $donnees2['OP_TPS_GAGNE']; 
+      else
+        $tempsOpti += 1;
     }
+    return $tempsOpti;
+} 
 
   
 function LireDonneesPDO1($conn,$sql)

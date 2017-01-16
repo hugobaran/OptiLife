@@ -24,6 +24,12 @@
           case 'incomplet':
             $raison = "Veuillez remplir le formulaire entièrement";
             break;
+          case 'OptiExistante':
+            $raison = "Optimisation déjà existante pour cette activité";
+            break;
+          case 'inconnu':
+            $raison = "Une erreur inconnue est survenue, réesayez plus tard";
+            break;
           default:
             $raison = "";
             break;
@@ -37,6 +43,11 @@
         echo "<div id='notif' style='text-align:center; width:50%; margin:auto; margin-bottom:20px;' class='alert alert-success'>
         <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
         <strong>Un nouveau temps a été attribué à vos activités</strong>
+        </div>";
+      }else if($_GET["action"]=="optiManuelle"){
+        echo "<div id='notif' style='text-align:center; width:50%; margin:auto; margin-bottom:20px;' class='alert alert-success'>
+        <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+        <strong>Optimisation ajoutée</strong>
         </div>";
       }
     }

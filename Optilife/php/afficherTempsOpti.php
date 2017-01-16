@@ -98,4 +98,5 @@ function afficherTempsOpti($bdd){
 	echo "Vous avez gagnés </br>".$annee." année(s) ".$mois." mois ".$jour." jour(s) ".$heure." heure(s) ".$minute." minute(s)";
 }
 
+
 ?>

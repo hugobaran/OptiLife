@@ -70,18 +70,24 @@
             echo 'Aucune activité dans cette classe d\'age';
         }else{
              echo '<table class="table table-condensed" id="table"><thead> <tr><th>NUMERO ACTIVITE</th> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> <th>NOUVELLE DUREE</th>';
-             echo '<th style="display:none;">CA</th><th style="display:none;">nbHeure</th><th style="display:none;">nbMinute</th><th style="display:none;">actNm</th><th style="display:none;">dureeOpti</th></tr> </thead>';
+             echo '<th style="display:none;">CA</th><th style="display:none;">nbHeure</th><th style="display:none;">nbMinute</th><th style="display:none;">actNum</th><th style="display:none;">dureeOpti</th></tr> </thead>';
         }
         while ($donnees = $reponse->fetch())
         {   
             $dure = $donnees['PRA_DUREE'];
             $dureOpti = 0;
-            $opti = estOpti($bdd, $donnees['ACT_NUM'], $donnees['FR_LIBELLE'],$donnees['CAT_NUM'], $donnees['EMP_NUM']);
-            if($opti){//ici changement de tps
+            //verification optimisation Automarique appliquée
+            $optiAuto = estOpti($bdd, $donnees['ACT_NUM'], $donnees['FR_LIBELLE'],$donnees['CAT_NUM'], $donnees['EMP_NUM']);
+            if($optiAuto){
                 $tpsMini = tempsMini($bdd, $donnees['ACT_NUM']);
                 if($tpsMini < $dure){
                     $dureOpti = $tpsMini;
                 }
+            }
+            //Verification optimisation Manuelle appliquée
+            $optiManuelle = possedeOptiManuelle($bdd, $donnees['ACT_NUM'], $donnees['FR_LIBELLE'],$donnees['CAT_NUM'], $donnees['EMP_NUM']);
+            if($optiManuelle){
+                $dureOpti -= tempsOptiManuelle($bdd, $donnees['ACT_NUM'], $donnees['FR_LIBELLE'],$donnees['CAT_NUM'], $donnees['EMP_NUM']);
             }
             $minute = (int)(($dure%60));
             $heure = (int)($dure - $minute)/60;
@@ -93,7 +99,7 @@
             echo "<td>";
             echo  $heure. "h ". $minute . "m" . '</td>'; 
             echo "<td>";
-            if($opti){
+            if($optiAuto){
                 $tps = $dureOpti;
                 echo "<font color='red'>";
                 echo  $heureOpti. "h ". $minuteOpti . "m" ;
@@ -103,7 +109,7 @@
                 echo  $heure. "h ". $minute . "m" ;
             } 
             echo '</td>';
-            if($opti)
+            if($optiAuto)
                 echo "</font>";
             echo '<td style="display:none;">'.$categorie. '</td><td style="display:none;">'.$heure. '</td><td style="display:none;">'.$minute. '</td><td style="display:none;">'.$donnees['ACT_NUM']. '</td><td style="display:none;">'.$tps. '</td></tr>';
             $cpt++;
