@@ -3,15 +3,7 @@ include("../php/connexionBDD.php");
 
 if(!isset ($_SESSION["usrNum"])){
 	
-	$sql = "SELECT max(USR_NUM)+1 as nb FROM `visiteur`;";
-		$stmt =  $bdd->query($sql);
-		$i=0;
-		foreach($stmt as $row){
-		if($i ==0){
-			$nb= $row['nb'];
-			$i++;
-			}
-		}
+	$nb=uniqid();
 	
 	$_SESSION["usrNum"] = $nb;
 	$_SESSION["usrDate"] = date("Y-m-d");
