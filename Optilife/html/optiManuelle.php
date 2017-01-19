@@ -91,7 +91,6 @@
 		}
 		
 		if (opti){
-			alert("kek");
 			document.getElementById('optimiserManuellement').title='';
 			document.getElementById('optimiserManuellement').disabled='';
 		} else {
