@@ -13,36 +13,29 @@
 	</head>
 	<body>
 
-			<?php include("header.php"); ?>
+		<?php include("header.php"); ?>
 		
-			<div class="boutonsGroup">
-				<input class="bouton" type=button value="Commencer un projet" onclick="document.location.href='../php/genererSession.php'"/>
-				
-			</div>
+		<div class="boutonsGroup">
+			<input class="bouton" type=button value="Commencer un projet" onclick="document.location.href='../php/genererSession.php'"/>
+		</div>
 		
- 			<div class="acc">
-				<section id="optiacc" class="demoTime">
-					<div id="demoWrap">
-						<div id="present">
-							<div id="tuto">
-								<div id="background">
-									<ul>
-	                        			<li><a href="#present"><span>Présentation</span></a></li>
-	                        			<li><a href="#tuto"><span>Tutoriel</span></a></li>
-	                            	</ul>
-	                    			<div id="fleche"></div>
-									<div id="textes">
-	                        			<p>Plus qu'a mettre la présentation</p>
-								
-	                        			<p>Mettre le tutoriel</p>
-	                           		</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-			</div>
+ 		<div class="container">
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#presentation">Home</a></li>
+				<li><a data-toggle="tab" href="#tuto">tutoriel</a></li>
+			</ul>
 
+			<div class="tab-content">
+				<div id="presentation" class="tab-pane fade in active">
+					<h3>Presentation</h3>
+					<p>Presentation</p>
+				</div>
+				<div id="tuto" class="tab-pane fade">
+					<h3>Tutoriel</h3>
+					<p>Tutoriel</p>
+				</div> 
+			</div>
+		</div>
 	
 		<?php include("footer.html"); ?>
 		
