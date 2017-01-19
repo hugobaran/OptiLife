@@ -31,8 +31,8 @@
   </body>
 
   <script type="text/javascript">
-    $("#notif").fadeTo(2000, 500).slideUp(500, function(){
-      $("#notif").slideUp(500);
+    $("#notif").fadeTo(2000, 1000).slideUp(1000, function(){
+      $("#notif").slideUp(1000);
   });
   </script>
   <script type="text/javascript" src="../js/edt.js"></script>

@@ -102,13 +102,12 @@ function traiterAjout($bdd){
 }
 
 function choixFrequence($bdd){
-	$tab = LireDonneesPDO1($bdd, 'SELECT * FROM `frequence` ');
+	$tab = LireDonneesPDO1($bdd, 'SELECT * FROM `frequence` order by FR_NUM ');
 	foreach($tab as $ligne)
 	{
-		foreach($ligne as $cle =>$valeur)
-		echo "<label for='".$valeur."' class='radio-inline'><input type='radio' onclick='affiche_bouton()' name='frequence' id='".$valeur."' value='".$valeur."' ";
+		echo "<label for='".$ligne['FR_LIBELLE']."' class='radio-inline'><input type='radio' onclick='affiche_bouton()' name='frequence' id='".$ligne['FR_LIBELLE']."' value='".$ligne['FR_LIBELLE']."' ";
 		//cocherRadio("frequence",$valeur);
-		echo ">".$valeur."</label>";
+		echo ">".$ligne['FR_LIBELLE']."</label>";
 	}
 }
 
