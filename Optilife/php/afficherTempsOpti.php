@@ -74,6 +74,26 @@ function tempsOptiVieTotal($bdd){
 	return $dureRet + $dureAct + $dureEtu;
 }
 
+function tempsOptiManuelleTotal($bdd){
+	$dure = 0;
+	$emp = 1;
+	$sql = "SELECT * FROM EST_OPTIMISE JOIN PRATIQUER USING(PRA_NUM) WHERE PRATIQUER.EMP_NUM = " . $emp;
+	$reponse = $bdd->query($sql);
+	while ($donnees = $reponse->fetch()){
+		$dureePratique = $donnees['PRA_DUREE'];
+		$act = $donnees['ACT_NUM'];
+		$sql2 = "SELECT * FROM OPTIMISER WHERE ACT_NUM = " . $act;
+		$reponse2 = $bdd->query($sql2);
+		while ($donnees2 = $reponse2->fetch()){
+			if(is_null($donnees2['OP_TPS_GAGNE']))
+				$dure += $dureePratique*$donnees2['OP_POURCENTAGE'];
+			else
+				$dure += $donnees2['OP_TPS_GAGNE'];
+		}
+	}
+	return $dure;
+}
+
 function tempsOptiCat($bdd, $dure, $cat){
 	$age = 18;
 	$limiteEtu = 25;
@@ -90,6 +110,7 @@ function tempsOptiCat($bdd, $dure, $cat){
 
 function afficherTempsOpti($bdd){
 	$dure = tempsOptiVieTotal($bdd);
+	$dure += tempsOptiManuelleTotal($bdd);
 	$minute = (int)(($dure%60));
 	$heure = (int)((($dure)/60)%24);
 	$jour = (int)((($dure)/3600)%31);

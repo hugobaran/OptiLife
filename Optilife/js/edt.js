@@ -141,6 +141,19 @@ function clicked(){
     }
     $('#affichageClasseAgeOpti').text(classeAgeTxt);
 
+    var ListeOption = document.getElementById('Optimisation');
+    var temps = document.getElementById('temps').value;
+    for(var i = 0 ,l = ListeOption.options.length; i< l; i++ ){
+      var typeDonnee = ListeOption[i].getAttribute("data-type");
+      var gagne = ListeOption[i].getAttribute('data-value');
+      ListeOption[i].disabled = false;
+      if(typeDonnee == "temps" && temps - gagne <= 0){
+          ListeOption[i].title = "Impossible : Temps final trop faible";
+          ListeOption[i].disabled = true;
+      }
+    }
+
+
   }
 }
 

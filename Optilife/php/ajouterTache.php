@@ -77,7 +77,7 @@ function traiterAjout($bdd){
 					if(!chercherDejaPresent($bdd, $act, $frequence, 1, $age)){
 						//verification que le temps soit cohérent
 						if(verifierTemps($frequence, $temps, $nbfois)){
-							$sql = "INSERT INTO `pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NBFOIS`, `PRA_DUREE`) VALUES ('".$act."', '".$frequence."', '".$age."', '"."1"."', '".$nbfois."', '".$temps."')";
+							$sql = "INSERT INTO `pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NBFOIS`, `PRA_DUREE`, `PRA_DUREE_OPTI`) VALUES ('".$act."', '".$frequence."', '".$age."', '"."1"."', '".$nbfois."', '".$temps."', '".$temps."')";
 				  			$stmt = $bdd->exec($sql);
 							echo $sql;
 				  			echo "<script> resetFields(); </script>";

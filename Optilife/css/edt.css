@@ -18,7 +18,6 @@ body{
 
 .onglets{
     vertical-align: middle;
-    line-height: 30px;
 }
 
 .onglet{
@@ -27,8 +26,6 @@ body{
     padding:3px;
     border:1px solid black;
     cursor:pointer;
-    min-height: 50%;
-    vertical-align:middle;
     background-color: #F3E2A9;
 }
 

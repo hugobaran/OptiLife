@@ -83,7 +83,7 @@ function tempsOptiManuelle($bdd, $activite, $libelle, $cat, $emp){
       if(is_null($donnees2['OP_POURCENTAGE']))
         $tempsOpti += $donnees2['OP_TPS_GAGNE']; 
       else
-        $tempsOpti += 1;
+        $tempsOpti += $donnees['PRA_DUREE']*($donnees2['OP_POURCENTAGE']);
     }
     return $tempsOpti;
 } 

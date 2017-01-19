@@ -7,35 +7,48 @@
 	<head>
 		<meta charset="UTF-8"/>
 		<script type="text/javascript" src="../js/jquery.chained.min.js"></script>
+		<style>
+			.section {
+			    display: inline-block;
+			    margin:auto;
+			}
+		</style>
 	</head>
 	<body>
 		<form method="post" action= "../php/passerelle.php" enctype="application/x-www-form-urlencoded" name="optimiserActivite">
+
 			<label>Activité :</label><p id="affichageActiviteOpti"></p>
 			<input name="pratiqueOpti" id="pratiqueOpti" type="hidden" value=""/>
-			</br>
-			<label>Classe d'age :</label><p id="affichageClasseAgeOpti"></p	>
-			<input name="classe_age" id="classe_age" type="hidden"/>
 
-			<table>
-				<td>
-					<label>Temps Initual:</label><p id="affichageTemps"></p>
-					<input name="temps" id="temps" type="number" style="visibility:hidden;" value=""/>
-				</td>
-				<td>
-					<label>Temps Final :</label><p id="affichageTempsOpti"></p>
-					<input name="tempsOpti" id="tempsOpti" type="number" style="visibility:hidden;" value=""/>
-				</td>
-			</table>
-			<select name="activiteO" id="activiteO" style="visibility:hidden;">
+			<select name="activiteO" id="activiteO" style="visibility:hidden; width: 0; height: 0;">
 				<option value=""></option>
 				<?php 
 					$sql = 'SELECT * FROM activite';
 					creerListeActivites($bdd,$sql);
 				?>
 			</select>
-			<label for="Opti">Opti :</label>
+
+			</br>
+			<label>Classe d'age :</label><p id="affichageClasseAgeOpti"></p	>
+			<input name="classe_age" id="classe_age" type="hidden"/>
+			</br>
+
+		    <div class="section">
+		      	<label>Temps Initual:</label><p id="affichageTemps"></p>
+				<input name="temps" id="temps" type="number" style="visibility:hidden;" value=""/>
+		    </div>
+		    <div class="section">
+		     	<label>Temps Gagné :</label><p id="affichageTempsGagne"></p>
+				<input name="tempsGagne" id="tempsGagne" type="number" style="visibility:hidden;" value=""/>
+		    </div>
+		    <div class="section">
+		     	<label>Temps Final :</label><p id="affichageTempsOpti"></p>
+				<input name="tempsOpti" id="tempsOpti" type="number" style="visibility:hidden;" value=""/>
+		    </div>
+
+			<label for="Opti">Gagner encore plus de temps :</label>
 			<select name="Optimisation" id="Optimisation" class="form-control" onchange="majFormulaire();">
-				<option data-type="null" data-value="0" value="">Sélectionner une Opti</option>
+				<option data-type="null" data-value="0" value="">Selectionner une méthode d'optimisation</option>
 				<?php  
 					$sql = 'SELECT * FROM optimiser JOIN optimisations using(OPTI_NUM)';
 					creerListeOptimisations($bdd,$sql);
@@ -61,11 +74,15 @@
 		if(typeDonnee == "temps"){
 			var tpsFinal = tpsInitial - gagne;
 		}else if(typeDonnee == "pourcentage"){
-			var tpsFinal = tpsInitial - (tpsInitial*gagne);
+			gagne = tpsInitial*gagne;
+			gagne =	Math.round(gagne*100)/100;
+			var tpsFinal = tpsInitial - gagne;
 		}else{
 			var tpsFinal = tpsInitial;
 		}
-		$('#affichageTempsOpti').text(tpsFinal + " minutes");
+
+		$('#affichageTempsGagne').text(Math.round(gagne*100)/100 + " minutes");
+		$('#affichageTempsOpti').text(Math.round(tpsFinal*100)/100 + " minutes");
 
 		var opti=false;
 
@@ -74,6 +91,7 @@
 		}
 		
 		if (opti){
+			alert("kek");
 			document.getElementById('optimiserManuellement').title='';
 			document.getElementById('optimiserManuellement').disabled='';
 		} else {
