@@ -23,7 +23,7 @@ body{
 .onglet{
     text-align: center;
     display: inline-block;
-    padding:3px;
+    padding:5px;
     border:1px solid black;
     cursor:pointer;
     background-color: #F3E2A9;
@@ -79,6 +79,10 @@ tr:hover {
 thead tr:hover {
     cursor:auto;
     background:none;
+}
+
+tr{
+    text-align: left;
 }
 
 #tpsGagneTotal{

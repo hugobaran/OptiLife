@@ -39,7 +39,6 @@
 
 	      <!-- Page Content -->
 	      <div id="page-content-wrapper" >
-	        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Afficher les statistiques</a></br>
 	        <?php include('edt.php') ?>
 	      </div>
 	      <!-- /#page-content-wrapper -->
