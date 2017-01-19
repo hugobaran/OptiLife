@@ -34,7 +34,7 @@
 			</br>
 
 		    <div class="section">
-		      	<label>Temps Initual:</label><p id="affichageTemps"></p>
+		      	<label>Temps Initial:</label><p id="affichageTemps"></p>
 				<input name="temps" id="temps" type="number" style="visibility:hidden;" value=""/>
 		    </div>
 		    <div class="section">
