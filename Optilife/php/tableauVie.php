@@ -89,6 +89,7 @@
             if($optiManuelle){
                 $dureOpti -= tempsOptiManuelle($bdd, $donnees['ACT_NUM'], $donnees['FR_LIBELLE'],$donnees['CAT_NUM'], $donnees['EMP_NUM']);
             }
+            $dureOpti = $donnees['PRA_DUREE_OPTI'];
             $minute = (int)(($dure%60));
             $heure = (int)($dure - $minute)/60;
             $minuteOpti = (int)(($dureOpti%60));
