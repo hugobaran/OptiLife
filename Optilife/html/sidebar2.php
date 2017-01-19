@@ -23,7 +23,7 @@
     <?php include('header.php') ?>
 
     <div id="Page" style="height:80%">
-	    <div id="wrapper" toggleClass="" >
+	    <div id="wrapper" toggleClass="" style="height:100%" >
 	      <!-- Sidebar -->
 	      <div id="sidebar-wrapper" >
 	        <ul class="sidebar-nav">
@@ -45,7 +45,7 @@
 	      <!-- /#page-content-wrapper -->
 	    </div>
     </div>
-    <?php include('footer.html') ?>
+    <?php //include('footer.html') ?>
     
 </body>
 
