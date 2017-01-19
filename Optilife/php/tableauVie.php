@@ -75,7 +75,7 @@
         while ($donnees = $reponse->fetch())
         {   
             $dure = $donnees['PRA_DUREE'];
-            $dureOpti = 0;
+            $dureOpti = $donnees['PRA_DUREE'];
             //verification optimisation Automarique appliquée
             $optiAuto = estOpti($bdd, $donnees['ACT_NUM'], $donnees['FR_LIBELLE'],$donnees['CAT_NUM'], $donnees['EMP_NUM']);
             if($optiAuto){
@@ -99,7 +99,7 @@
             echo "<td>";
             echo  $heure. "h ". $minute . "m" . '</td>'; 
             echo "<td>";
-            if($optiAuto){
+            if($optiAuto || $optiManuelle){
                 $tps = $dureOpti;
                 echo "<font color='red'>";
                 echo  $heureOpti. "h ". $minuteOpti . "m" ;
@@ -109,7 +109,7 @@
                 echo  $heure. "h ". $minute . "m" ;
             } 
             echo '</td>';
-            if($optiAuto)
+            if($optiAuto || $optiManuelle)
                 echo "</font>";
             echo '<td style="display:none;">'.$donnees['CAT_NUM']. '</td><td style="display:none;">'.$heure. '</td><td style="display:none;">'.$minute. '</td><td style="display:none;">'.$donnees['ACT_NUM']. '</td><td style="display:none;">'.$tps. '</td></tr>';
             $cpt++;

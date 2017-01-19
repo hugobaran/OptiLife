@@ -24,7 +24,7 @@ function creerListeOptimisations($bdd,$sql){
 			echo '<option data-type="temps" data-value="'.$donnees['OP_TPS_GAGNE'].'" class="'.$act.'" value="' . $opti . '">'.$optiLib . ' | ';
 			echo '-' . $donnees['OP_TPS_GAGNE'] .  ' MIN';
 		}else{
-			$prc = $donnees['OP_POURCENTAGE'];
+			$prc = $donnees['OP_POURCENTAGE']*100;
 			echo '<option data-type="pourcentage" data-value="'.$donnees['OP_POURCENTAGE'].'" class="'.$act.'" value="' . $opti . '">'.$optiLib . ' | ';
 			echo '-' . $prc .  ' %';
 		}
