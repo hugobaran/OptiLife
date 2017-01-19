@@ -22,7 +22,7 @@
     <?php include('../php/fonctionsUtiles.php') ?>
     <?php include('header.php') ?>
 
-    <div id="Page" style="height:80%">
+    <div id="Page" style="height:100%">
 	    <div id="wrapper" toggleClass="" style="height:100%" >
 	      <!-- Sidebar -->
 	      <div id="sidebar-wrapper" >
