@@ -116,7 +116,7 @@ function afficherTempsOpti($bdd){
 	$jour = (int)((($dure)/3600)%31);
 	$mois = (int)((($dure)/111600)%12);
 	$annee = (int)((($dure)/1314000));
-	echo "Vous avez gagnés </br>".$annee." année(s) ".$mois." mois ".$jour." jour(s) ".$heure." heure(s) ".$minute." minute(s)";
+	echo "<div id='tpsGagneTotal' >Temps total gagné </br><b>".$annee." année(s) ".$mois." mois ".$jour." jour(s) ".$heure." heure(s) ".$minute." minute(s)</b></div>";
 }
 
 

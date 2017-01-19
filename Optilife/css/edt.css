@@ -80,3 +80,10 @@ thead tr:hover {
     cursor:auto;
     background:none;
 }
+
+#tpsGagneTotal{
+    text-align: center;
+    margin : 5px;
+    text-decoration: bold;
+}
+
