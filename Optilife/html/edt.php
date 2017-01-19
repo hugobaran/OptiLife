@@ -8,13 +8,12 @@
   </head>
 
   <body onload="preparer();">
-        <?php include('../php/notifications.php')  ?>
         <?php 
-          require_once('../php/afficherTempsOpti.php');
+          include('../php/notifications.php');
           afficherTempsOpti($bdd); 
         ?>
 
-        <form  class="boutonsGroup" method="post" action= "../php/optiAuto.php" enctype="application/x-www-form-urlencoded" name="optimiser" style="margin-bottom: 5%;">
+        <form class="boutonsGroup" method="post" action= "../php/optiAuto.php" enctype="application/x-www-form-urlencoded" name="optimiser" style="margin-bottom: 5%;">
           <input type="submit" class="bouton" value="Optimiser Automatiquement" name="optimiser" id="optimiser"/>
           <button type="button" class="bouton" id="btnOptiManuelle" href="#optiManuelle" disabled>Optimiser Manuellement</button>
           <button type="button" href="#menu-toggle" class="bouton" id="menu-toggle">Afficher les statistiques</button>

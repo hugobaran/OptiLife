@@ -119,5 +119,15 @@ function afficherTempsOpti($bdd){
 	echo "<div id='tpsGagneTotal' >Temps total gagné </br><b>".$annee." année(s) ".$mois." mois ".$jour." jour(s) ".$heure." heure(s) ".$minute." minute(s)</b></div>";
 }
 
+function afficherListesOptimisationsStatistiques($bdd){
+	echo "Listes des optimisations :";
+}
+
+function afficherTempsOptimisationsStatistiques($bdd){
+	echo "Temps mamene :";
+}
+
+
+
 
 ?>

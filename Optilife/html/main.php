@@ -19,7 +19,10 @@
 </head>
 
 <body>
-    <?php include('../php/fonctionsUtiles.php') ?>
+    <?php 
+    	include('../php/fonctionsUtiles.php');
+        require_once('../php/afficherTempsOpti.php');
+     ?>
     <?php include('header.php') ?>
 
     <div id="Page" style="height:100%">
@@ -28,9 +31,9 @@
 	      <div id="sidebar-wrapper" >
 	        <ul class="sidebar-nav">
 	          <li class="sidebar-brand">
-	            <a href="#">
-	              Statistiques
-	            </a>
+	           	<p>Statistiques</p>
+	           	<?php afficherListesOptimisationsStatistiques($bdd);?>
+	           	<?php afficherTempsOptimisationsStatistiques($bdd);?>
 	          </li>
 	        </ul>
 	      </div>
