@@ -47,8 +47,8 @@
 		    </div>
 
 			<label for="Opti">Gagner encore plus de temps :</label>
-			<select name="Optimisation" id="Optimisation" class="form-control" onchange="majFormulaire();">
-				<option data-type="null" data-value="0" value="">Selectionner une méthode d'optimisation</option>
+			<select name="Optimisation" id="Optimisation" class="form-control" data-show-subtext="true" onchange="majFormulaire();">
+				<option data-type="null" data-subtext="0" value="">Selectionner une méthode d'optimisation</option>
 				<?php  
 					$sql = 'SELECT * FROM optimiser JOIN optimisations using(OPTI_NUM)';
 					creerListeOptimisations($bdd,$sql);
@@ -69,7 +69,7 @@
 	function majFormulaire(){
 
 		var typeDonnee = $('#Optimisation option:selected').attr('data-type');
-		var gagne = $('#Optimisation option:selected').attr('data-value');
+		var gagne = $('#Optimisation option:selected').attr('data-subtext');
 		var tpsInitial = $('#tempsOpti').val();
 		if(typeDonnee == "temps"){
 			var tpsFinal = tpsInitial - gagne;

@@ -21,11 +21,11 @@ function creerListeOptimisations($bdd,$sql){
 		$opti = $donnees['OPTI_NUM'];
 		$act = $donnees['ACT_NUM'];
 		if(is_null($donnees['OP_POURCENTAGE'])){
-			echo '<option data-type="temps" data-value="'.$donnees['OP_TPS_GAGNE'].'" class="'.$act.'" value="' . $opti . '">'.$optiLib . ' | ';
+			echo '<option data-type="temps" data-subtext="'.$donnees['OP_TPS_GAGNE'].'" class="'.$act.'" value="' . $opti . '">'.$optiLib . ' | ';
 			echo '-' . $donnees['OP_TPS_GAGNE'] .  ' MIN';
 		}else{
 			$prc = $donnees['OP_POURCENTAGE']*100;
-			echo '<option data-type="pourcentage" data-value="'.$donnees['OP_POURCENTAGE'].'" class="'.$act.'" value="' . $opti . '">'.$optiLib . ' | ';
+			echo '<option data-type="pourcentage" data-subtext="'.$donnees['OP_POURCENTAGE'].'" class="'.$act.'" value="' . $opti . '">'.$optiLib . ' | ';
 			echo '-' . $prc .  ' %';
 		}
 		echo '</option>';
@@ -38,11 +38,11 @@ function ajouterOptimisationManuelle($bdd){
 		$pratique = $_POST['pratiqueOpti'];
 		$optimisation = $_POST['Optimisation'];
 		$emp = 1;
-		$sql = "SELECT * FROM EST_OPTIMISE where EMP_NUM = ".$emp." and PRA_NUM = ".$pratique." and OPTI_NUM = ".$optimisation;
+		$sql = "SELECT * FROM est_optimise where EMP_NUM = ".$emp." and PRA_NUM = ".$pratique." and OPTI_NUM = ".$optimisation;
 		$reponse = $bdd->query($sql);
     	$valeur = $reponse->fetchAll();
     	if (count($valeur) == 0){
-			$sql2 = "INSERT INTO EST_OPTIMISE (`EMP_NUM`,`PRA_NUM`, `OPTI_NUM`) VALUES (".$emp.", ".$pratique.", ".$optimisation.")";
+			$sql2 = "INSERT INTO est_optimise (`EMP_NUM`,`PRA_NUM`, `OPTI_NUM`) VALUES (".$emp.", ".$pratique.", ".$optimisation.")";
 			echo $sql;
 			$bdd->exec($sql2);
 		}else{

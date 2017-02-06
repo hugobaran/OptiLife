@@ -119,3 +119,13 @@
     color: #fff;
     background: none;
 }
+
+.listeOpti{
+    width: 600px;
+    overflow: auto;
+}
+
+.tabOpti{
+   font-size: 12px;
+
+}

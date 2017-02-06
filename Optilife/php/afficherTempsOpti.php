@@ -66,32 +66,47 @@ function tempsOptiVieTotal($bdd){
 	$limiteAct = 62;
 	$limiteMort = 81;
 	$dureEtu = tempsOptiUnAn($bdd, 1);
+	$dureEtu += tempsOptiManuelleTotal($bdd,1);
 	$dureEtu = $dureEtu*($limiteEtu - $age);
 	$dureAct = tempsOptiUnAn($bdd, 2);
+	$dureAct += tempsOptiManuelleTotal($bdd,2);
 	$dureAct = $dureAct*($limiteAct - $limiteEtu);
 	$dureRet = tempsOptiUnAn($bdd, 3);
+	$dureRet += tempsOptiManuelleTotal($bdd,3);
 	$dureRet = $dureRet*($limiteMort - $limiteAct);
 	return $dureRet + $dureAct + $dureEtu;
 }
 
-function tempsOptiManuelleTotal($bdd){
+function tempsOptiManuelleTotal($bdd, $ca){
 	$dure = 0;
 	$emp = 1;
-	$sql = "SELECT * FROM EST_OPTIMISE JOIN PRATIQUER USING(PRA_NUM) WHERE PRATIQUER.EMP_NUM = " . $emp;
+	$som = 0;
+	$sql = "SELECT * FROM est_optimise JOIN pratiquer USING(PRA_NUM) WHERE pratiquer.EMP_NUM = " . $emp . " AND CAT_NUM = " . $ca;
 	$reponse = $bdd->query($sql);
 	while ($donnees = $reponse->fetch()){
 		$dureePratique = $donnees['PRA_DUREE'];
 		$act = $donnees['ACT_NUM'];
-		$sql2 = "SELECT * FROM OPTIMISER WHERE ACT_NUM = " . $act;
+		$sql2 = "SELECT * FROM optimiser WHERE ACT_NUM = " . $act;
 		$reponse2 = $bdd->query($sql2);
 		while ($donnees2 = $reponse2->fetch()){
 			if(is_null($donnees2['OP_TPS_GAGNE']))
-				$dure += $dureePratique*$donnees2['OP_POURCENTAGE'];
+				$dure = $dureePratique*$donnees2['OP_POURCENTAGE'];
 			else
-				$dure += $donnees2['OP_TPS_GAGNE'];
+				$dure = $donnees2['OP_TPS_GAGNE'];
+
+			if($donnees['FR_LIBELLE'] == "Annuel")
+				$som = $som + ($dure*$donnees['PRA_NBFOIS']);
+			if($donnees['FR_LIBELLE'] == "Hebdomadaire")
+				$som = $som + ($dure*$donnees['PRA_NBFOIS']*52);
+			if($donnees['FR_LIBELLE'] == "Journalier")
+				$som = $som + ($dure*$donnees['PRA_NBFOIS']*365);
+			if($donnees['FR_LIBELLE'] == "Mensuel")
+				$som = $som + ($dure*$donnees['PRA_NBFOIS']*12);
+			if($donnees['FR_LIBELLE'] == "Trimestriel")
+				$som = $som + ($dure*$donnees['PRA_NBFOIS']*3);
 		}
 	}
-	return $dure;
+	return $som;
 }
 
 function tempsOptiCat($bdd, $dure, $cat){
@@ -110,7 +125,6 @@ function tempsOptiCat($bdd, $dure, $cat){
 
 function afficherTempsOpti($bdd){
 	$dure = tempsOptiVieTotal($bdd);
-	$dure += tempsOptiManuelleTotal($bdd);
 	$minute = (int)(($dure%60));
 	$heure = (int)((($dure)/60)%24);
 	$jour = (int)((($dure)/3600)%31);
@@ -120,11 +134,26 @@ function afficherTempsOpti($bdd){
 }
 
 function afficherListesOptimisationsStatistiques($bdd){
-	echo "Listes des optimisations :";
+	$emp = 1;
+	$sql = "SELECT * FROM est_optimise JOIN pratiquer USING(PRA_NUM) WHERE pratiquer.EMP_NUM = " . $emp;
+	$reponse = $bdd->query($sql);
+	while ($donnees = $reponse->fetch()){
+		$act = $donnees['ACT_NUM'];
+		$opti = $donnees['OPTI_NUM'];
+		$sql2 = "SELECT * FROM optimiser JOIN activite USING(ACT_NUM) JOIN optimisations USING(OPTI_NUM) WHERE ACT_NUM = " . $act. " AND OPTI_NUM = " . $opti;
+		$reponse2 = $bdd->query($sql2);
+		while ($donnees2 = $reponse2->fetch()){
+			$activite = utf8_encode($donnees2['ACT_LIBELLE']);
+			$optimisation = utf8_encode($donnees2['OPTI_LIBELLE']);
+
+			echo "<tr><td>".$activite."</td><td>".$optimisation."</td></tr>";
+		}
+	}
+
 }
 
 function afficherTempsOptimisationsStatistiques($bdd){
-	echo "Temps mamene :";
+	echo "En cours de réalisation";
 }
 
 
