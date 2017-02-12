@@ -31,9 +31,17 @@
 	      <div id="sidebar-wrapper" >
 	        <ul class="sidebar-nav">
 	          <li class="sidebar-brand">
-	           	<p>Statistiques</p>
-	           	<?php afficherListesOptimisationsStatistiques($bdd);?>
-	           	<?php afficherTempsOptimisationsStatistiques($bdd);?>
+                <h4><b>Liste des optimisations</b></h4>
+                <div class="table-responsive listeOpti">
+                    <table class="table tabOpti">
+                        <tr><th>Activité</th><th>Optimisation</th></tr>
+	           	        <?php afficherListesOptimisationsStatistiques($bdd);?>
+                    </table>
+                </div>
+                <h4><b>Liste des optimisations</b></h4>
+                <div>
+	           	   <?php afficherTempsOptimisationsStatistiques($bdd);?>
+                </div>
 	          </li>
 	        </ul>
 	      </div>
