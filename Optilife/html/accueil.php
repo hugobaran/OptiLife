@@ -16,7 +16,7 @@
 		<?php include("header.php"); ?>
 		
 		<div class="boutonsGroup">
-			<input class="bouton" type=button value="Commencer un projet" onclick="document.location.href='../php/genererSession.php'"/>
+			<input class="bouton" type=button value="Commencer un projet" onclick="document.location.href='../php/creationEDT.php'"/>
 		</div>
 		
  		<div class="container">

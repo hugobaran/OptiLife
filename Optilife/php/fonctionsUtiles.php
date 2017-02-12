@@ -39,7 +39,7 @@
 
   //regarde si une activité précise est optimisé
 function estOpti($bdd, $act, $lib, $cat, $emp){
-    $sql = "SELECT * FROM `pratiquer` WHERE EMP_NUM = ".$emp." and ACT_NUM=".$act." and FR_LIBELLE='".$lib."' and CAT_NUM=".$cat."";
+    $sql = "SELECT * FROM `pratiquer` WHERE EMP_NUM = ".$_SESSION["EMP_NUM"]." and ACT_NUM=".$act." and FR_LIBELLE='".$lib."' and CAT_NUM=".$cat."";
     $tab = LireDonneesPDO1($bdd, $sql);
     //$sql = "SELECT count(*) FROM `dure` WHERE `CAT_NUM` = ".$cat." AND `ACT_NUM` =".$act."";
     //$tab2 = LireDonneesPDO1($bdd, $sql);
@@ -63,7 +63,7 @@ function tempsMini($bdd, $ACT_NUM){
 
 function possedeOptiManuelle($bdd, $activite, $libelle, $cat, $emp){
     $opti = false;
-    $sql = "SELECT * FROM `est_optimise` JOIN `pratiquer` using(PRA_NUM) WHERE ACT_NUM = ".$activite." AND FR_LIBELLE = '".$libelle."' AND CAT_NUM = ".$cat." AND `est_optimise`.EMP_NUM = ".$emp;
+    $sql = "SELECT * FROM `est_optimise` JOIN `pratiquer` using(PRA_NUM) WHERE ACT_NUM = ".$activite." AND FR_LIBELLE = '".$libelle."' AND CAT_NUM = ".$cat." AND `est_optimise`.EMP_NUM = ".$_SESSION["EMP_NUM"];
     $reponse = $bdd->query($sql);
     $valeur = $reponse->fetchAll();
     if (count($valeur) != 0)
@@ -73,7 +73,7 @@ function possedeOptiManuelle($bdd, $activite, $libelle, $cat, $emp){
 
 function tempsOptiManuelle($bdd, $activite, $libelle, $cat, $emp){
     $tempsOpti = 0;
-    $sql = "SELECT * FROM `est_optimise` join `pratiquer` using(pra_num) where act_num = ".$activite." and fr_libelle = '".$libelle."' and cat_num = ".$cat." and `pratiquer`.emp_num = ".$emp;
+    $sql = "SELECT * FROM `est_optimise` join `pratiquer` using(pra_num) where act_num = ".$activite." and fr_libelle = '".$libelle."' and cat_num = ".$cat." and `pratiquer`.emp_num = ".$_SESSION["EMP_NUM"];
     $reponse = $bdd->query($sql);
     while ($donnees = $reponse->fetch()){
       $opti = $donnees['OPTI_NUM'];

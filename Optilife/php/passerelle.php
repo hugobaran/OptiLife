@@ -1,5 +1,5 @@
 <?php
-
+ 	@session_start(); 
 	include("../php/connexionBDD.php");
 	include("../php/fonctionsUtiles.php");
 	include("../php/ajouterTache.php");
@@ -30,6 +30,8 @@
 				}
 				header("location: ../html/main.php?action=echec".$raison);
 				exit();
+				echo $e->getMessage();
+				echo $raison;
 			}
 		}else if(isset($_POST["modifier"])){
 			try{	
@@ -45,10 +47,10 @@
 				try{
 					//$act_num = chercherAct($bdd,$_POST['activite']);
 					$pra_num = $_POST['suppPra'];
-					$sql = 'DELETE FROM `pratiquer` WHERE PRA_NUM = '.$pra_num .' AND `pratiquer`.`EMP_NUM` = 1';
+					$sql = 'DELETE FROM `pratiquer` WHERE PRA_NUM = '.$pra_num .' AND `pratiquer`.`EMP_NUM` = '.$_SESSION["EMP_NUM"];
 		   			echo $sql;
 		   			$bdd->exec($sql);
-		   			$sql = 'UPDATE pratiquer SET PRA_NUM = PRA_NUM-1 WHERE PRA_NUM > '.$_POST['suppPra'].' and emp_num = 1';
+		   			$sql = 'UPDATE pratiquer SET PRA_NUM = PRA_NUM-1 WHERE PRA_NUM > '.$_POST['suppPra'].' and emp_num = '.$_SESSION["EMP_NUM"];
 		   			$bdd->exec($sql);
 		   			header("location: ../html/main.php?action=supp");
 					exit();

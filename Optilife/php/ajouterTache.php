@@ -51,7 +51,7 @@ function chercherAct($bdd, $lib){
 
 function chercherDejaPresent($bdd, $act, $freq, $emp, $age){
 	//$act = chercherAct($bdd, $act);
-	$sql1 = "SELECT * FROM `pratiquer` WHERE `ACT_NUM` = ".$act." AND `FR_LIBELLE` LIKE '".$freq."' AND `CAT_NUM` = ".$age." AND `EMP_NUM` = ".$emp." ";
+	$sql1 = "SELECT * FROM `pratiquer` WHERE `ACT_NUM` = ".$act." AND `FR_LIBELLE` LIKE '".$freq."' AND `CAT_NUM` = ".$age." AND `EMP_NUM` = ".$_SESSION["EMP_NUM"]." ";
 	$tab = @LireDonneesPDO3($bdd, $sql1);
 	if(empty($tab))
 		return false;
@@ -77,7 +77,7 @@ function traiterAjout($bdd){
 					if(!chercherDejaPresent($bdd, $act, $frequence, 1, $age)){
 						//verification que le temps soit cohérent
 						if(verifierTemps($frequence, $temps, $nbfois)){
-							$sql = "INSERT INTO `pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NBFOIS`, `PRA_DUREE`, `PRA_DUREE_OPTI`) VALUES ('".$act."', '".$frequence."', '".$age."', '"."1"."', '".$nbfois."', '".$temps."', '".$temps."')";
+							$sql = "INSERT INTO `pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NBFOIS`, `PRA_DUREE`, `PRA_DUREE_OPTI`) VALUES ('".$act."', '".$frequence."', '".$age."', '".$_SESSION["EMP_NUM"]."', '".$nbfois."', '".$temps."', '".$temps."')";
 				  			$stmt = $bdd->exec($sql);
 							echo $sql;
 				  			echo "<script> resetFields(); </script>";

@@ -37,7 +37,7 @@
                    <h3>Liste d'activités de la classe d'age : Retraite</h3>
                 </div>
                 <div class="table-striped" id="activite_retraite">
-                <?php
+                <?php$
                     afficherActivite('3',$bdd);
                 ?>
                 </div>
@@ -59,10 +59,10 @@
   
     function afficherActivite($categorie,$bdd){
         if($categorie == 0){
-            $sql = 'SELECT * FROM pratiquer JOIN activite USING(ACT_NUM) order by PRA_NUM';
+            $sql = "SELECT * FROM pratiquer JOIN activite USING(ACT_NUM) Where EMP_NUM = '".$_SESSION["EMP_NUM"]."' order by PRA_NUM";
         }
         else{
-            $sql = 'SELECT * FROM pratiquer JOIN activite USING(ACT_NUM) WHERE CAT_NUM = ' . $categorie . ' order by PRA_NUM';
+            $sql = "SELECT * FROM pratiquer JOIN activite USING(ACT_NUM) WHERE EMP_NUM = '".$_SESSION["EMP_NUM"]."' and CAT_NUM = " . $categorie . " order by PRA_NUM";
         }
         $reponse = $bdd->query($sql);
         $cpt = 1;

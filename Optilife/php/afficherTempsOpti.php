@@ -4,7 +4,7 @@ require_once("../php/fonctionsUtiles.php");
 
 function edtVide($bdd, $cat){
 	$emp = 1;
-	$sql = "SELECT count(*) FROM `pratiquer` WHERE `CAT_NUM` = ".$cat." AND `EMP_NUM` = ".$emp." AND `OPTIMISER` = 1 ";
+	$sql = "SELECT count(*) FROM `pratiquer` WHERE `CAT_NUM` = ".$cat." AND `EMP_NUM` = ".$_SESSION["EMP_NUM"]." AND `OPTIMISER` = 1 ";
 	$tab = lireDonneesPDO1($bdd, $sql);
 	if($tab[0]['count(*)'] == 0)
 		return true;
@@ -16,7 +16,7 @@ function tempsOptiPratique($bdd, $act, $freq, $cat){
 	if(!estOpti($bdd, $act, $freq, $cat,1))
 		return 0;
 	$emp = 1;
-	$sql = "SELECT * FROM `pratiquer` WHERE `ACT_NUM` = ".$act." AND `FR_LIBELLE` LIKE '".$freq."' AND `CAT_NUM` =  ".$cat." AND `EMP_NUM` = ".$emp." ";
+	$sql = "SELECT * FROM `pratiquer` WHERE `ACT_NUM` = ".$act." AND `FR_LIBELLE` LIKE '".$freq."' AND `CAT_NUM` =  ".$cat." AND `EMP_NUM` = ".$_SESSION["EMP_NUM"]." ";
 	$tab = lireDonneesPDO1($bdd, $sql);
 	$som = 0;
 	if($freq == "Annuel")
@@ -38,7 +38,7 @@ function tempsOptiUnAn($bdd, $cat){
 	}
 	$som = 0;
 	$emp = 1;
-	$sql = "SELECT * FROM `pratiquer` WHERE `CAT_NUM` = ".$cat." AND `EMP_NUM` = ".$emp." AND `OPTIMISER` = 1 ";
+	$sql = "SELECT * FROM `pratiquer` WHERE `CAT_NUM` = ".$cat." AND `EMP_NUM` = ".$_SESSION["EMP_NUM"]." AND `OPTIMISER` = 1 ";
 	$tab = lireDonneesPDO1($bdd, $sql);
 	/*print_r($tab);
 	AfficherDonnee2($tab);*/
@@ -77,7 +77,7 @@ function tempsOptiVieTotal($bdd){
 function tempsOptiManuelleTotal($bdd){
 	$dure = 0;
 	$emp = 1;
-	$sql = "SELECT * FROM EST_OPTIMISE JOIN PRATIQUER USING(PRA_NUM) WHERE PRATIQUER.EMP_NUM = " . $emp;
+	$sql = "SELECT * FROM EST_OPTIMISE JOIN PRATIQUER USING(PRA_NUM) WHERE PRATIQUER.EMP_NUM = " . $_SESSION["EMP_NUM"];
 	$reponse = $bdd->query($sql);
 	while ($donnees = $reponse->fetch()){
 		$dureePratique = $donnees['PRA_DUREE'];

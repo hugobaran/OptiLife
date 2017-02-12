@@ -38,11 +38,11 @@ function ajouterOptimisationManuelle($bdd){
 		$pratique = $_POST['pratiqueOpti'];
 		$optimisation = $_POST['Optimisation'];
 		$emp = 1;
-		$sql = "SELECT * FROM EST_OPTIMISE where EMP_NUM = ".$emp." and PRA_NUM = ".$pratique." and OPTI_NUM = ".$optimisation;
+		$sql = "SELECT * FROM EST_OPTIMISE where EMP_NUM = ".$_SESSION["EMP_NUM"]." and PRA_NUM = ".$pratique." and OPTI_NUM = ".$optimisation;
 		$reponse = $bdd->query($sql);
     	$valeur = $reponse->fetchAll();
     	if (count($valeur) == 0){
-			$sql2 = "INSERT INTO EST_OPTIMISE (`EMP_NUM`,`PRA_NUM`, `OPTI_NUM`) VALUES (".$emp.", ".$pratique.", ".$optimisation.")";
+			$sql2 = "INSERT INTO EST_OPTIMISE (`EMP_NUM`,`PRA_NUM`, `OPTI_NUM`) VALUES (".$_SESSION["EMP_NUM"].", ".$pratique.", ".$optimisation.")";
 			echo $sql;
 			$bdd->exec($sql2);
 		}else{
