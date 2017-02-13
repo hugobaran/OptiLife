@@ -1,4 +1,4 @@
-<?php  @session_start(); 
+<?php  
  //echo "usr_num : ".$_SESSION["usrNum"]."</br>";
  //echo "usr_date : ".$_SESSION["usrDate"]."</br>";?>
 <html lang="fr">

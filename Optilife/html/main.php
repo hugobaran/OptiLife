@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
-
+<?php
+@session_start(); 
+if(!isset($_SESSION["EMP_NUM"])){
+  header("location: ../html/accueil.php");
+}
+?>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

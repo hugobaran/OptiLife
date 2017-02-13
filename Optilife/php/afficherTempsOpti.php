@@ -4,7 +4,7 @@ require_once("../php/fonctionsUtiles.php");
 
 function edtVide($bdd, $cat){
 	$emp = 1;
-	$sql = "SELECT count(*) FROM `pratiquer` WHERE `CAT_NUM` = ".$cat." AND `EMP_NUM` = ".$_SESSION["EMP_NUM"]." AND `OPTIMISER` = 1 ";
+	$sql = "SELECT count(*) FROM `pratiquer` WHERE `CAT_NUM` = ".$cat." AND `EMP_NUM` = '".$_SESSION["EMP_NUM"]."' AND `OPTIMISER` = 1 ";
 	$tab = lireDonneesPDO1($bdd, $sql);
 	if($tab[0]['count(*)'] == 0)
 		return true;
@@ -81,7 +81,7 @@ function tempsOptiManuelleTotal($bdd, $ca){
 	$dure = 0;
 	$emp = $_SESSION["EMP_NUM"];;
 	$som = 0;
-	$sql = "SELECT * FROM est_optimise JOIN pratiquer USING(PRA_NUM) WHERE pratiquer.EMP_NUM = " . $emp . " AND CAT_NUM = " . $ca;
+	$sql = "SELECT * FROM est_optimise JOIN pratiquer USING(PRA_NUM) WHERE pratiquer.EMP_NUM = '" . $emp . "' AND CAT_NUM = " . $ca;
 	$reponse = $bdd->query($sql);
 	while ($donnees = $reponse->fetch()){
 		$dureePratique = $donnees['PRA_DUREE'];
