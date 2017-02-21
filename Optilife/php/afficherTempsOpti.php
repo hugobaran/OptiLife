@@ -12,104 +12,7 @@ function edtVide($bdd, $cat){
 		return false;
 }
 
-function tempsOptiPratique($bdd, $act, $freq, $cat){
-	if(!estOpti($bdd, $act, $freq, $cat,1))
-		return 0;
-	$emp = 1;
-	$sql = "SELECT * FROM `pratiquer` WHERE `ACT_NUM` = ".$act." AND `FR_LIBELLE` LIKE '".$freq."' AND `CAT_NUM` =  ".$cat." AND `EMP_NUM` = ".$_SESSION["EMP_NUM"]." ";
-	$tab = lireDonneesPDO1($bdd, $sql);
-	$som = 0;
-	if($freq == "Annuel")
-		$som = $som + (($tab[0]['PRA_DUREE'] - tempsMini($bdd, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NBFOIS']);
-	if($freq == "Hebdomadaire")
-		$som = $som + ((($tab[0]['PRA_DUREE'] - tempsMini($bdd, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NBFOIS'])*52);
-	if($freq == "Journalier")
-		$som = $som + ((($tab[0]['PRA_DUREE'] - tempsMini($bdd, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NBFOIS'])*365);
-	if($freq == "Mensuel")
-		$som = $som + ((($tab[0]['PRA_DUREE'] - tempsMini($bdd, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NBFOIS'])*12);
-	if($freq == "Trimestriel")
-		$som = $som + ((($tab[0]['PRA_DUREE'] - tempsMini($bdd, $tab[0]['ACT_NUM']))*$tab[0]['PRA_NBFOIS'])*3);
-	return $som;
-}
-
-function tempsOptiUnAn($bdd, $cat){
-	if(edtVide($bdd, $cat)){
-		return 0;
-	}
-	$som = 0;
-	$emp = 1;
-	$sql = "SELECT * FROM `pratiquer` WHERE `CAT_NUM` = ".$cat." AND `EMP_NUM` = ".$_SESSION["EMP_NUM"]." AND `OPTIMISER` = 1 ";
-	$tab = lireDonneesPDO1($bdd, $sql);
-	/*print_r($tab);
-	AfficherDonnee2($tab);*/
-	for($i = 0; $i < count($tab); $i++){
-		if(estOpti($bdd, $tab[$i]['ACT_NUM'], $tab[$i]['FR_LIBELLE'], $cat, $emp)){
-			if($tab[$i]['FR_LIBELLE'] == "Annuel")
-				$som = $som + (($tab[$i]['PRA_DUREE'] - tempsMini($bdd, $tab[$i]['ACT_NUM']))*$tab[$i]['PRA_NBFOIS']);
-			if($tab[$i]['FR_LIBELLE'] == "Hebdomadaire")
-				$som = $som + ((($tab[$i]['PRA_DUREE'] - tempsMini($bdd, $tab[$i]['ACT_NUM']))*$tab[$i]['PRA_NBFOIS'])*52);
-			if($tab[$i]['FR_LIBELLE'] == "Journalier")
-				$som = $som + ((($tab[$i]['PRA_DUREE'] - tempsMini($bdd, $tab[$i]['ACT_NUM']))*$tab[$i]['PRA_NBFOIS'])*365);
-			if($tab[$i]['FR_LIBELLE'] == "Mensuel")
-				$som = $som + ((($tab[$i]['PRA_DUREE'] - tempsMini($bdd, $tab[$i]['ACT_NUM']))*$tab[$i]['PRA_NBFOIS'])*12);
-			if($tab[$i]['FR_LIBELLE'] == "Trimestriel")
-				$som = $som + ((($tab[$i]['PRA_DUREE'] - tempsMini($bdd, $tab[$i]['ACT_NUM']))*$tab[$i]['PRA_NBFOIS'])*3);			
-		}
-	}
-	return $som;
-}
-
-function tempsOptiVieTotal($bdd){
-	$dure = 0;
-	$age = 18;
-	$limiteEtu = 25;
-	$limiteAct = 62;
-	$limiteMort = 81;
-	$dureEtu = tempsOptiUnAn($bdd, 1);
-	$dureEtu += tempsOptiManuelleTotal($bdd,1);
-	$dureEtu = $dureEtu*($limiteEtu - $age);
-	$dureAct = tempsOptiUnAn($bdd, 2);
-	$dureAct += tempsOptiManuelleTotal($bdd,2);
-	$dureAct = $dureAct*($limiteAct - $limiteEtu);
-	$dureRet = tempsOptiUnAn($bdd, 3);
-	$dureRet += tempsOptiManuelleTotal($bdd,3);
-	$dureRet = $dureRet*($limiteMort - $limiteAct);
-	return $dureRet + $dureAct + $dureEtu;
-}
-
-function tempsOptiManuelleTotal($bdd, $ca){
-	$dure = 0;
-	$emp = $_SESSION["EMP_NUM"];;
-	$som = 0;
-	$sql = "SELECT * FROM est_optimise JOIN pratiquer USING(PRA_NUM) WHERE pratiquer.EMP_NUM = '" . $emp . "' AND CAT_NUM = " . $ca;
-	$reponse = $bdd->query($sql);
-	while ($donnees = $reponse->fetch()){
-		$dureePratique = $donnees['PRA_DUREE'];
-		$act = $donnees['ACT_NUM'];
-		$sql2 = "SELECT * FROM optimiser WHERE ACT_NUM = " . $act;
-		$reponse2 = $bdd->query($sql2);
-		while ($donnees2 = $reponse2->fetch()){
-			if(is_null($donnees2['OP_TPS_GAGNE']))
-				$dure = $dureePratique*$donnees2['OP_POURCENTAGE'];
-			else
-				$dure = $donnees2['OP_TPS_GAGNE'];
-
-			if($donnees['FR_LIBELLE'] == "Annuel")
-				$som = $som + ($dure*$donnees['PRA_NBFOIS']);
-			if($donnees['FR_LIBELLE'] == "Hebdomadaire")
-				$som = $som + ($dure*$donnees['PRA_NBFOIS']*52);
-			if($donnees['FR_LIBELLE'] == "Journalier")
-				$som = $som + ($dure*$donnees['PRA_NBFOIS']*365);
-			if($donnees['FR_LIBELLE'] == "Mensuel")
-				$som = $som + ($dure*$donnees['PRA_NBFOIS']*12);
-			if($donnees['FR_LIBELLE'] == "Trimestriel")
-				$som = $som + ($dure*$donnees['PRA_NBFOIS']*3);
-		}
-	}
-	return $som;
-}
-
-function tempsOptiCat($bdd, $dure, $cat){
+function tempsOptiCat($dure, $cat){
 	$age = 18;
 	$limiteEtu = 25;
 	$limiteAct = 62;
@@ -123,8 +26,112 @@ function tempsOptiCat($bdd, $dure, $cat){
 	return $dure;
 }
 
+function tempsGagneUnAn($tps, $lib, $nbFois){
+	if($lib == "Annuel")
+		$tps = ($tps*$nbFois);
+	if($lib == "Hebdomadaire")
+		$tps = (($tps*$nbFois)*52);
+	if($lib == "Journalier")
+		$tps = (($tps*$nbFois)*365);
+	if($lib == "Mensuel")
+		$tps = (($tps*$nbFois)*12);
+	if($lib == "Trimestriel")
+		$tps = (($tps*$nbFois)*3);
+	return $tps;
+}
+
+//Fonctions Optimisation Automatique 
+function tempsOptiAutoPratiqueUnAn($bdd, $act){
+	if(!estOpti($bdd, $act))
+		return 0;
+	$emp = 1;
+	$sql = "SELECT * FROM `pratiquer` WHERE `PRA_NUM` = ".$act." AND `EMP_NUM` = ".$_SESSION["EMP_NUM"]." ";
+	$tab = lireDonneesPDO1($bdd, $sql);
+	$tps = $tab[0]['PRA_DUREE'] - tempsMini($bdd, $tab[0]['ACT_NUM']);
+	$tps = tempsGagneUnAn($tps,$tab[0]['FR_LIBELLE'], $tab[0]['PRA_NBFOIS']);
+	return $tps;
+}
+
+function tempsOptiAutoPratiqueVie($bdd, $act, $cat){
+	$dure = tempsOptiAutoPratiqueUnAn($bdd, $act);
+	$dure = tempsOptiCat($dure, $cat);
+	return $dure;
+}
+
+function tempsOptiAutoTotalVie($bdd){
+	$som = 0;
+	$sql = "SELECT * FROM `pratiquer` WHERE `EMP_NUM` = ".$_SESSION["EMP_NUM"]." AND `OPTIMISER` = 1 ";
+	$tab = @lireDonneesPDO1($bdd, $sql);
+	for($i = 0; $i < count($tab); $i++){
+		$som = $som + tempsOptiAutoPratiqueVie($bdd, $tab[$i]['PRA_NUM'], $tab[$i]['CAT_NUM']);
+	}
+	return $som;
+}
+//Fin fonction optimisation automatique
+
+//Fonctions Optimisation Manuelle 
+function tempsOptiManuelle1PratiqueUnAn($bdd, $act){
+	$emp = $_SESSION["EMP_NUM"];;
+	$tps = 0;
+	$sql = "SELECT * FROM est_optimise JOIN pratiquer USING(EMP_NUM, PRA_NUM) WHERE EMP_NUM = " . $emp . " AND PRA_NUM = " . $act;
+	$reponse = $bdd->query($sql);
+	while ($donnees = $reponse->fetch()){
+		$dureePratique = $donnees['PRA_DUREE'];
+		$act = $donnees['ACT_NUM'];
+		$sql2 = "SELECT * FROM optimiser WHERE ACT_NUM = " . $donnees['ACT_NUM'] . " and OPTI_NUM = " . $donnees['OPTI_NUM'];
+		$reponse2 = $bdd->query($sql2);
+		while ($donnees2 = $reponse2->fetch()){
+			if(is_null($donnees2['OP_TPS_GAGNE']))
+				$dure = $dureePratique*$donnees2['OP_POURCENTAGE'];
+			else
+				$dure = $donnees2['OP_TPS_GAGNE'];
+			$tps = $tps + tempsGagneUnAn($dure,$donnees['FR_LIBELLE'], $donnees['PRA_NBFOIS']);
+		}
+	}
+	return $tps;
+}
+
+function tempsOptiManuelle1PratiqueVie($bdd, $act, $cat){
+	$dure = tempsOptiManuelle1PratiqueUnAn($bdd, $act);
+	$dure = tempsOptiCat($dure, $cat);
+	return $dure;
+}
+
+function tempsOptiManuelle1TotalVie($bdd){
+	$som = 0;
+	$sql = "SELECT * FROM `pratiquer` WHERE `EMP_NUM` = ".$_SESSION["EMP_NUM"];
+	$tab = lireDonneesPDO1($bdd, $sql);
+	for($i = 0; $i < count($tab); $i++){
+		$som = $som + tempsOptiManuelle1PratiqueVie($bdd, $tab[$i]['PRA_NUM'], $tab[$i]['CAT_NUM']);
+	}
+	return $som;
+}
+//La deuxieme façon d'optimiser manuellement
+function tempsOptiManuelle2PratiqueUnAn($bdd, $act){
+	return 0;//Pas encore implementé
+}
+
+function tempsOptiManuelle2PratiqueVie($bdd, $act, $cat){
+	$dure = tempsOptiManuelle2PratiqueUnAn($bdd, $act);
+	$dure = tempsOptiCat($dure, $cat);
+	return $dure;
+}
+
+function tempsOptiManuelle2TotalVie($bdd){
+	$som = 0;
+	$sql = "SELECT * FROM `pratiquer` WHERE `EMP_NUM` = ".$_SESSION["EMP_NUM"];
+	$tab = lireDonneesPDO1($bdd, $sql);
+	for($i = 0; $i < count($tab); $i++){
+		$som = $som + tempsOptiManuelle2PratiqueVie($bdd, $tab[$i]['PRA_NUM'], $tab[$i]['CAT_NUM']);
+	}
+	return $som;
+}
+//Fin fonctions Optimisation Manuelle
+
 function afficherTempsOpti($bdd){
-	$dure = tempsOptiVieTotal($bdd);
+	$dure = tempsOptiManuelle1TotalVie($bdd);
+	$dure = $dure + tempsOptiManuelle2TotalVie($bdd);
+	$dure = $dure  + tempsOptiAutoTotalVie($bdd);
 	$minute = (int)(($dure%60));
 	$heure = (int)((($dure)/60)%24);
 	$jour = (int)((($dure)/3600)%31);

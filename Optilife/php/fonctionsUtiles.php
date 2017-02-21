@@ -38,8 +38,8 @@
   }  
 
   //regarde si une activité précise est optimisé
-function estOpti($bdd, $act, $lib, $cat, $emp){
-    $sql = "SELECT * FROM `pratiquer` WHERE EMP_NUM = ".$_SESSION["EMP_NUM"]." and ACT_NUM=".$act." and FR_LIBELLE='".$lib."' and CAT_NUM=".$cat."";
+function estOpti($bdd, $act){
+    $sql = "SELECT * FROM `pratiquer` WHERE EMP_NUM = ".$_SESSION["EMP_NUM"]." and PRA_NUM=".$act;
     $tab = LireDonneesPDO1($bdd, $sql);
     //$sql = "SELECT count(*) FROM `dure` WHERE `CAT_NUM` = ".$cat." AND `ACT_NUM` =".$act."";
     //$tab2 = LireDonneesPDO1($bdd, $sql);

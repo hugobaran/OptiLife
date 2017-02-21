@@ -77,7 +77,7 @@
             $dure = $donnees['PRA_DUREE'];
             $dureOpti = $donnees['PRA_DUREE'];
             //verification optimisation Automarique appliquée
-            $optiAuto = estOpti($bdd, $donnees['ACT_NUM'], $donnees['FR_LIBELLE'],$donnees['CAT_NUM'], $donnees['EMP_NUM']);
+            $optiAuto = estOpti($bdd, $donnees['PRA_NUM']);
             if($optiAuto){
                 $tpsMini = tempsMini($bdd, $donnees['ACT_NUM']);
                 if($tpsMini < $dure){
