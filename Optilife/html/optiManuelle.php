@@ -7,12 +7,7 @@
 	<head>
 		<meta charset="UTF-8"/>
 		<script type="text/javascript" src="../js/jquery.chained.min.js"></script>
-		<style>
-			.section {
-			    display: inline-block;
-			    margin:auto;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="../css/formulaireOptiManuelle.css">
 	</head>
 	<body>
 		<form method="post" action= "../php/passerelle.php" enctype="application/x-www-form-urlencoded" name="optimiserActivite">
@@ -47,17 +42,21 @@
 		    </div>
 
 			<label for="Opti">Gagner encore plus de temps :</label>
-			<select name="Optimisation" id="Optimisation" class="form-control" data-show-subtext="true" onchange="majFormulaire();">
+			<select name="Optimisation" id="Optimisation" class="form-control" data-show-subtext="true" onchange="listeOptiAjout();">
 				<option data-type="null" data-subtext="0" value="">Selectionner une méthode d'optimisation</option>
 				<?php  
 					$sql = 'SELECT * FROM optimiser JOIN optimisations using(OPTI_NUM)';
 					creerListeOptimisations($bdd,$sql);
 				?>
 			</select>
+
+			<ul id="liste"></ul>
+
 			</br>
 			<input type="submit" disabled="disabled" class="btn btn-primary btn-lg btn-block" id="optimiserManuellement" name="optimiserManuellement" value="Optimiser">
 		</form>
 	</body>
+
 
 	<script type="text/javascript">
 
@@ -66,23 +65,45 @@
 	});
 
 
-	function majFormulaire(){
+	function MAJTemps(){
 
-		var typeDonnee = $('#Optimisation option:selected').attr('data-type');
-		var gagne = $('#Optimisation option:selected').attr('data-subtext');
-		var tpsInitial = $('#tempsOpti').val();
-		if(typeDonnee == "temps"){
-			var tpsFinal = tpsInitial - gagne;
-		}else if(typeDonnee == "pourcentage"){
-			gagne = tpsInitial*gagne;
-			gagne =	Math.round(gagne*100)/100;
-			var tpsFinal = tpsInitial - gagne;
-		}else{
-			var tpsFinal = tpsInitial;
-		}
+		var cpt = 0;
+		$("#tempsGagne").val(0);
+		$("#tempsOpti").val($("#temps"));
+		$("#affichageTempsGagne").text(0 + " minutes(s)");
+		$("#affichageTempsOpti").text($("#temps").val() + " minutes(s)");
 
-		$('#affichageTempsGagne').text(Math.round(gagne*100)/100 + " minutes");
-		$('#affichageTempsOpti').text(Math.round(tpsFinal*100)/100 + " minutes");
+
+		$("li" ).each(function() {
+
+			if(cpt!=0){
+				var liType = $(this).attr('data-type');
+				var liGagne = parseInt($(this).attr('data-subtext'),10);
+				var tpsInitVal = parseInt($("#temps").val(),10);
+				var tpsGagneVal = parseInt($("#tempsGagne").val(),10);
+				var gagne = 0;
+
+				if(liType = "temps"){
+					gagne = tpsGagneVal + liGagne;
+				}else if(liType = "pourcentage"){
+					gagne = tpsGagneVal + liGagne;
+				}else{
+					gagne = tpsGagneVal;
+				}
+
+				alert("kek");
+
+				var tpsFinal = tpsInitVal - gagne;
+
+				$("#tempsGagne").val(gagne);
+				$("#tempsOpti").val(tpsFinal);
+				$("#affichageTempsGagne").text(gagne + " minutes(s)");
+				$("#affichageTempsOpti").text(tpsFinal + " minutes(s)");
+			}
+			alert(cpt);
+			cpt++;
+
+		});
 
 		var opti=false;
 
@@ -99,6 +120,30 @@
 		}
     	
 	}
+
+
+	function listeOptiEnlever(li){
+		 $(li).remove();
+		 MAJTemps();
+	}
+
+
+	function listeOptiAjout()
+    {
+      var ul = $("#liste");
+      var select = $("#Optimisation");
+      var optiName = $('#Optimisation option:selected').attr('data-name');
+      var optiVal = $('#Optimisation option:selected').attr('data-subtext');
+      var optiType = $('#Optimisation option:selected').attr('data-type');
+
+      if (select.val() != "" && ul.find('input[value=' + select.val() + ']').length == 0)
+        ul.append('<li id="listeOpti" data-name="'+optiName+'" data-subtext="'+optiVal+'" data-type="'+optiType+'" onclick="listeOptiEnlever(this);">' +
+          '<input type="hidden" name="optimisation[]" value="' + 
+          select.val() + '" /> <img id="imgSupp" src="../img/supprimer.png" />' +
+          optiName + '</li>');
+
+      MAJTemps();
+    }
 
 	</script>
 

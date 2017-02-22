@@ -1,0 +1,18 @@
+.section {
+    display: inline-block;
+    margin:auto;
+}
+
+#listeOpti{
+	border: 1px solid blue;
+	padding: 3px;
+}
+
+#imgSupp{
+	float:right;
+	margin-left: 3px;
+	margin: auto;
+	height: 4%;
+	width: 4%;
+}
+

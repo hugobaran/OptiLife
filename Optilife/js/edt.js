@@ -120,8 +120,10 @@ function clicked(){
     //remplissage formulaire Optimisation
     $('#affichageTemps').text(this.children[10].innerHTML + " minutes");
     $('#affichageTempsOpti').text(this.children[10].innerHTML + " minutes");
+    $('#affichageTempsGagne').text(0 + " minutes");
     $('#tempsOpti').val(this.children[10].innerHTML);
     $('#temps').val(this.children[10].innerHTML);
+    $('#tempsGagne').val(0);
     $('#activiteO').val(this.children[9].innerHTML).change();
     $('#pratiqueOpti').val(this.children[0].innerHTML);
     $('#affichageActiviteOpti').text(this.children[1].innerHTML);

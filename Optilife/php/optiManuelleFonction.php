@@ -21,11 +21,11 @@ function creerListeOptimisations($bdd,$sql){
 		$opti = $donnees['OPTI_NUM'];
 		$act = $donnees['ACT_NUM'];
 		if(is_null($donnees['OP_POURCENTAGE'])){
-			echo '<option data-type="temps" data-subtext="'.$donnees['OP_TPS_GAGNE'].'" class="'.$act.'" value="' . $opti . '">'.$optiLib . ' | ';
+			echo '<option data-name="'.$optiLib.'" data-type="temps" data-subtext="'.$donnees['OP_TPS_GAGNE'].'" class="'.$act.'" value="' . $opti . '">'.$optiLib . ' | ';
 			echo '-' . $donnees['OP_TPS_GAGNE'] .  ' MIN';
 		}else{
 			$prc = $donnees['OP_POURCENTAGE']*100;
-			echo '<option data-type="pourcentage" data-subtext="'.$donnees['OP_POURCENTAGE'].'" class="'.$act.'" value="' . $opti . '">'.$optiLib . ' | ';
+			echo '<option data-name="'.$optiLib.'" data-type="pourcentage" data-subtext="'.$donnees['OP_POURCENTAGE'].'" class="'.$act.'" value="' . $opti . '">'.$x . ' | ';
 			echo '-' . $prc .  ' %';
 		}
 		echo '</option>';

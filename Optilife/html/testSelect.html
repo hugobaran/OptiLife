@@ -1,0 +1,47 @@
+ <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Opti-Life</title>
+
+        <link rel="icon" type="image/png" href="../../Images/optilife.png"/>
+        
+        <!-- CSS -->
+        <link rel="stylesheet" href="../../Font/font.css" type="text/css" media="all">
+        <link rel="stylesheet" href="../css/bandeau.css" type="text/css">
+        <link rel="stylesheet" href="../css/utilities.css" type="text/css" />
+        <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css"/>
+
+
+        <!-- JS -->
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap/bootstrap.min.js"></script>
+   
+        <script type="text/javascript" src="../../Js/jquery.corner.js"></script>
+        <script type="text/javascript" src="../../Js/jQueryRotate.js"></script>
+
+    </head>
+
+<ul id="liste">
+</ul>
+
+<select id="kek" onchange="selectIngredient();">
+ <option value="Cheese">Cheese</option>
+ <option value="Olives">Olives</option>
+ <option value="Pepperoni">Pepperoni</option>
+ ...
+</select>
+
+<script type="text/javascript">
+    
+   function selectIngredient()
+    {
+      var ul = $("#liste");
+       
+      if (ul.find('input[value=' + $("#kek").val() + ']').length == 0)
+        ul.append('<li onclick="$(this).remove();">' +
+          '<input type="hidden" name="ingredients[]" value="' + 
+          $("#kek").val() + '" /> ' +
+          $("#kek").val() + '</li>');
+    }
+
+</script>
