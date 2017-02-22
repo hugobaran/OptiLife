@@ -100,7 +100,7 @@ function tempsOptiManuelle1PratiqueVie($bdd, $act, $cat){
 function tempsOptiManuelle1TotalVie($bdd){
 	$som = 0;
 	$sql = "SELECT * FROM `pratiquer` WHERE `EMP_NUM` = ".$_SESSION["EMP_NUM"];
-	$tab = lireDonneesPDO1($bdd, $sql);
+	$tab = @lireDonneesPDO1($bdd, $sql);
 	for($i = 0; $i < count($tab); $i++){
 		$som = $som + tempsOptiManuelle1PratiqueVie($bdd, $tab[$i]['PRA_NUM'], $tab[$i]['CAT_NUM']);
 	}
@@ -120,7 +120,7 @@ function tempsOptiManuelle2PratiqueVie($bdd, $act, $cat){
 function tempsOptiManuelle2TotalVie($bdd){
 	$som = 0;
 	$sql = "SELECT * FROM `pratiquer` WHERE `EMP_NUM` = ".$_SESSION["EMP_NUM"];
-	$tab = lireDonneesPDO1($bdd, $sql);
+	$tab = @lireDonneesPDO1($bdd, $sql);
 	for($i = 0; $i < count($tab); $i++){
 		$som = $som + tempsOptiManuelle2PratiqueVie($bdd, $tab[$i]['PRA_NUM'], $tab[$i]['CAT_NUM']);
 	}
