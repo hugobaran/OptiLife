@@ -47,10 +47,14 @@
 				try{
 					//$act_num = chercherAct($bdd,$_POST['activite']);
 					$pra_num = $_POST['suppPra'];
+					$sql = "DROP TRIGGER trigger_pratiquer_opti_manuelle_delete";
+		   			$bdd->exec($sql);
 					$sql = 'DELETE FROM `pratiquer` WHERE PRA_NUM = '.$pra_num .' AND `pratiquer`.`EMP_NUM` = '.$_SESSION["EMP_NUM"];
 		   			echo $sql;
 		   			$bdd->exec($sql);
 		   			$sql = 'UPDATE pratiquer SET PRA_NUM = PRA_NUM-1 WHERE PRA_NUM > '.$_POST['suppPra'].' and emp_num = '.$_SESSION["EMP_NUM"];
+		   			$bdd->exec($sql);
+		   			$sql = "CREATE TRIGGER `trigger_pratiquer_opti_manuelle_delete` BEFORE DELETE ON `est_optimise` FOR EACH ROW BEGIN DECLARE act bigint(4); DECLARE tps decimal(10,2); DECLARE prc float; SELECT act_num into act from pratiquer where pra_num = old.pra_num and emp_num = old.emp_num; SELECT op_tps_gagne into tps from optimiser where act_num = act and opti_num = old.opti_num; SELECT op_pourcentage into prc from optimiser where act_num = act and opti_num = old.opti_num; IF tps is not null THEN update pratiquer set PRA_DUREE_OPTI = PRA_DUREE_OPTI + tps where pra_num = old.pra_num and emp_num = old.emp_num; ELSE update pratiquer set PRA_DUREE_OPTI = PRA_DUREE_OPTI+(PRA_DUREE_OPTI*prc) where pra_num = old.pra_num and emp_num = old.emp_num; END IF; END";
 		   			$bdd->exec($sql);
 		   			header("location: ../html/main.php?action=supp");
 					exit();
@@ -65,7 +69,7 @@
 			}
 		}else if(isset($_POST['optimiserManuellement'])){
 			try{
-				ajouterOptimisationManuelle($bdd);
+				ajouterOptimisationManuelle2($bdd);
 				header("location: ../html/main.php?action=optiManuelle");
 				exit();
 			}catch(PDOException $e){

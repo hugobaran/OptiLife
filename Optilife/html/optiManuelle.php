@@ -45,15 +45,22 @@
 			<select name="Optimisation" id="Optimisation" class="form-control" data-show-subtext="true" onchange="listeOptiAjout();">
 				<option data-type="null" data-subtext="0" value="">Selectionner une méthode d'optimisation</option>
 				<?php  
-					$sql = 'SELECT * FROM optimiser JOIN optimisations using(OPTI_NUM)';
+					$sql = 'SELECT * FROM optimiser JOIN optimisations using(OPTI_NUM) where (OPTI_NUM, ACT_NUM, OP_TPS_GAGNE, OP_POURCENTAGE, OPTI_LIBELLE) not in( SELECT OPTI_NUM, pratiquer.ACT_NUM, OP_TPS_GAGNE, OP_POURCENTAGE, OPTI_LIBELLE FROM est_optimise JOIN optimisations using(OPTI_NUM) join optimiser USING(OPTI_NUM) join pratiquer USING(PRA_NUM) WHERE pratiquer.ACT_NUM = optimiser.ACT_NUM AND pratiquer.EMP_NUM = ' .$_SESSION["EMP_NUM"] .')';
 					creerListeOptimisations($bdd,$sql);
 				?>
 			</select>
 
 			<ul id="liste"></ul>
 
+			<select name="Optimisation2" id="Optimisation2" class="form-control" style="visibility:hidden;" onchange="MAJListe();">
+				<?php  
+					$sql = "SELECT OPTI_NUM, pratiquer.ACT_NUM, OP_TPS_GAGNE, OP_POURCENTAGE, OPTI_LIBELLE FROM est_optimise JOIN optimisations using(OPTI_NUM) join optimiser USING(OPTI_NUM) join pratiquer USING(PRA_NUM) WHERE pratiquer.ACT_NUM = optimiser.ACT_NUM AND pratiquer.EMP_NUM = " . $_SESSION["EMP_NUM"];
+					creerListeOptimisations($bdd,$sql);
+				?>
+			</select>
+
 			</br>
-			<input type="submit" disabled="disabled" class="btn btn-primary btn-lg btn-block" id="optimiserManuellement" name="optimiserManuellement" value="Optimiser">
+			<input type="submit" class="btn btn-primary btn-lg btn-block" id="optimiserManuellement" name="optimiserManuellement" value="Optimiser">
 		</form>
 	</body>
 
@@ -64,6 +71,40 @@
 	    $("#Optimisation").chained("#activiteO");
 	});
 
+	$(function(){
+	    $("#Optimisation2").chained("#activiteO");
+	});
+
+	function MAJListe(){
+		var ul = $("#liste");
+
+		$('#Optimisation').prop('disabled', false);
+
+		$("#Optimisation2 option").each(function(){
+   			var optiName = $(this).attr('data-name');
+      		var optiVal = $(this).attr('data-subtext');
+      		var optiType = $(this).attr('data-type');
+      		
+      		if (ul.find('input[value=' + $(this).val() + ']').length == 0)
+	      		ul.append('<li id="listeOpti" data-name="'+optiName+'" data-subtext="'+optiVal+'" data-type="'+optiType+'" onclick="listeOptiEnlever(this);">' +
+	          		'<input type="hidden" name="optimisation[]" value="' + 
+	          		$(this).val() + '" /> <img id="imgSupp" src="../img/supprimer.png" />' +
+	          		optiName + '</li>');
+		});
+		MAJTemps();
+	}
+
+	function resetListe(){
+		$("li" ).each(function() {
+			$(this).remove();
+		});
+	}
+
+	function kek(){
+		$("#Optimisation2 option").each(function(){
+			alert($(this).attr('data-name'));
+		});
+	}
 
 	function MAJTemps(){
 
@@ -91,8 +132,6 @@
 					gagne = tpsGagneVal;
 				}
 
-				alert("kek");
-
 				var tpsFinal = tpsInitVal - gagne;
 
 				$("#tempsGagne").val(gagne);
@@ -100,49 +139,64 @@
 				$("#affichageTempsGagne").text(gagne + " minutes(s)");
 				$("#affichageTempsOpti").text(tpsFinal + " minutes(s)");
 			}
-			alert(cpt);
+
 			cpt++;
 
 		});
-
-		var opti=false;
-
-		if(document.getElementById('Optimisation').value!=''){
-			opti = true;
-		}
-		
-		if (opti){
-			document.getElementById('optimiserManuellement').title='';
-			document.getElementById('optimiserManuellement').disabled='';
-		} else {
-			document.getElementById('optimiserManuellement').title='Selectionnez une optimisation';
-			document.getElementById('optimiserManuellement').disabled='disabled';
-		}
     	
 	}
 
 
 	function listeOptiEnlever(li){
-		 $(li).remove();
-		 MAJTemps();
+		var select = $('#Optimisation');
+		var valeur = $(li).find('input').val();
+		var option = $('#Optimisation2 option[value='+valeur+']');
+
+		var optiName = option.attr('data-name');
+	    var optiVal = option.attr('data-subtext');
+	    var optiType = option.attr('data-type');
+	    var optiAct = option.attr('class');
+	    var optiNum = option.val();
+
+	    var newOption = '<option data-name="'+optiName+'" data-type="temps" data-subtext="'+optiVal+'" class="'+optiAct+'" value="' +optiNum+ '">'+optiName+ ' | -' +optiVal;
+     	if(optiType == "temps"){
+      		newOption += ' MIN';
+      	}else if(optiType == "pourcentage"){
+      		newOption += ' %';
+     	}
+
+		select.append(newOption);
+		option.remove();
+		$(li).remove();
+		MAJTemps();
 	}
 
 
 	function listeOptiAjout()
     {
-      var ul = $("#liste");
-      var select = $("#Optimisation");
-      var optiName = $('#Optimisation option:selected').attr('data-name');
-      var optiVal = $('#Optimisation option:selected').attr('data-subtext');
-      var optiType = $('#Optimisation option:selected').attr('data-type');
+	    var ul = $("#liste");
+	    var select = $("#Optimisation2");
+	    var option = $('#Optimisation option:selected');
 
-      if (select.val() != "" && ul.find('input[value=' + select.val() + ']').length == 0)
-        ul.append('<li id="listeOpti" data-name="'+optiName+'" data-subtext="'+optiVal+'" data-type="'+optiType+'" onclick="listeOptiEnlever(this);">' +
-          '<input type="hidden" name="optimisation[]" value="' + 
-          select.val() + '" /> <img id="imgSupp" src="../img/supprimer.png" />' +
-          optiName + '</li>');
+	    var optiName = option.attr('data-name');
+	    var optiVal = option.attr('data-subtext');
+	    var optiType = option.attr('data-type');
+	    var optiAct = option.attr('class');
+	    var optiNum = option.val();
 
-      MAJTemps();
+	    if(optiType != "null"){
+
+	      var newOption = '<option data-name="'+optiName+'" data-type="temps" data-subtext="'+optiVal+'" class="'+optiAct+'" value="' +optiNum+ '">'+optiName+ ' | -' +optiVal;
+	      if(optiType == "temps"){
+	      	newOption += ' MIN';
+	      }else if(optiType == "pourcentage"){
+	      	newOption += ' %';
+	      }
+
+	      select.append(newOption);
+	      option.remove();
+	      MAJListe();
+		}
     }
 
 	</script>

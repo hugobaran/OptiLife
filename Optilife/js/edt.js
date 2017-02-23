@@ -118,11 +118,14 @@ function clicked(){
 
 
     //remplissage formulaire Optimisation
-    $('#affichageTemps').text(this.children[10].innerHTML + " minutes");
-    $('#affichageTempsOpti').text(this.children[10].innerHTML + " minutes");
+    if(this.children[11].innerHTML == 1)
+      var tps = this.children[12].innerHTML;
+    else var tps = this.children[13].innerHTML;
+    $('#affichageTemps').text(tps + " minutes");
+    $('#affichageTempsOpti').text(tps + " minutes");
     $('#affichageTempsGagne').text(0 + " minutes");
-    $('#tempsOpti').val(this.children[10].innerHTML);
-    $('#temps').val(this.children[10].innerHTML);
+    $('#tempsOpti').val(tps);
+    $('#temps').val(tps);
     $('#tempsGagne').val(0);
     $('#activiteO').val(this.children[9].innerHTML).change();
     $('#pratiqueOpti').val(this.children[0].innerHTML);

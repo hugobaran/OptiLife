@@ -70,7 +70,7 @@
             echo 'Aucune activité dans cette classe d\'age';
         }else{
              echo '<table class="table table-condensed" id="table"><thead> <tr><th>NUMERO ACTIVITE</th> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> <th>NOUVELLE DUREE</th>';
-             echo '<th style="display:none;">CA</th><th style="display:none;">nbHeure</th><th style="display:none;">nbMinute</th><th style="display:none;">actNum</th><th style="display:none;">dureeOpti</th></tr> </thead>';
+             echo '<th style="display:none;">CA</th><th style="display:none;">nbHeure</th><th style="display:none;">nbMinute</th><th style="display:none;">actNum</th><th style="display:none;">dureeOpti</th><th style="display:none;">optimiser</th><th style="display:none;">actDuree</th><th style="display:none;">praDuree</th></tr> </thead>';
         }
         while ($donnees = $reponse->fetch())
         {   
@@ -112,7 +112,7 @@
             echo '</td>';
             if($optiAuto || $optiManuelle)
                 echo "</font>";
-            echo '<td style="display:none;">'.$donnees['CAT_NUM']. '</td><td style="display:none;">'.$heure. '</td><td style="display:none;">'.$minute. '</td><td style="display:none;">'.$donnees['ACT_NUM']. '</td><td style="display:none;">'.$tps. '</td></tr>';
+            echo '<td style="display:none;">'.$donnees['CAT_NUM']. '</td><td style="display:none;">'.$heure. '</td><td style="display:none;">'.$minute. '</td><td style="display:none;">'.$donnees['ACT_NUM']. '</td><td style="display:none;">'.$tps. '</td><td style="display:none;">'.$donnees['OPTIMISER']. '</td><td style="display:none;">'.$donnees['ACT_TEMPS']. '</td><td style="display:none;">'.$donnees['PRA_DUREE']. '</td></tr>';
             $cpt++;
         }
         echo '</table>';

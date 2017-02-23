@@ -25,7 +25,7 @@ function creerListeOptimisations($bdd,$sql){
 			echo '-' . $donnees['OP_TPS_GAGNE'] .  ' MIN';
 		}else{
 			$prc = $donnees['OP_POURCENTAGE']*100;
-			echo '<option data-name="'.$optiLib.'" data-type="pourcentage" data-subtext="'.$donnees['OP_POURCENTAGE'].'" class="'.$act.'" value="' . $opti . '">'.$x . ' | ';
+			echo '<option data-name="'.$optiLib.'" data-type="pourcentage" data-subtext="'.$donnees['OP_POURCENTAGE'].'" class="'.$act.'" value="' . $opti . '">'.$optiLib . ' | ';
 			echo '-' . $prc .  ' %';
 		}
 		echo '</option>';
@@ -48,6 +48,23 @@ function ajouterOptimisationManuelle($bdd){
 		}else{
 			echo "<p id='erreur'> Optimisation existante </p>";
 			throw new PDOException('OptiExistante');
+		}
+	}else{
+		echo "<p id='erreur'> Optimisation non réussie </p>";
+		throw new PDOException('inconnu');
+	}
+}
+
+function ajouterOptimisationManuelle2($bdd){
+	if(isset($_POST['pratiqueOpti']) && isset($_POST['Optimisation'])){
+		$pratique = $_POST['pratiqueOpti'];
+		$emp = $_SESSION["EMP_NUM"];
+		$sql2 = "DELETE FROM est_optimise WHERE EMP_NUM = " .$emp. " AND PRA_NUM = " . $pratique;
+		$bdd->exec($sql2);
+		foreach ($_POST['optimisation'] as $optimisation) {
+			$sql2 = "INSERT INTO est_optimise (`EMP_NUM`,`PRA_NUM`, `OPTI_NUM`) VALUES (".$emp.", ".$pratique.", ".$optimisation.")";
+			echo $sql;
+			$bdd->exec($sql2);
 		}
 	}else{
 		echo "<p id='erreur'> Optimisation non réussie </p>";
