@@ -147,6 +147,8 @@ function MiseEnFormTemps1($dure){
 	return $annee." année(s) ".$mois." mois ".$jour." jour(s) ".$heure." heure(s) ".$minute." minute(s)";
 }
 function MiseEnFormTemps2($dure){
+	if($dure == 0)
+		return "0 minute";
 	$minute = (int)(($dure%60));
 	$dure = $dure - $minute;
 	$heure = (int)((($dure)/60)%24);
@@ -178,7 +180,7 @@ function afficherTempsOpti($bdd){
 
 
 function afficherListesOptimisationsStatistiques($bdd){
-	$sql = "SELECT * FROM est_optimise JOIN pratiquer USING(PRA_NUM, EMP_NUM) JOIN activite USING(ACT_NUM) WHERE EMP_NUM = " . $_SESSION["EMP_NUM"]." group by ACT_NUM";
+	$sql = "SELECT * FROM est_optimise JOIN pratiquer USING(PRA_NUM, EMP_NUM) JOIN activite USING(ACT_NUM) WHERE EMP_NUM = " . $_SESSION["EMP_NUM"]." group by PRA_NUM";
 	$reponse = $bdd->query($sql);
 	while ($donnees = $reponse->fetch()){
 		$tpsAuto =tempsOptiAutoPratiqueVie($bdd, $donnees['PRA_NUM'], $donnees['CAT_NUM']);
