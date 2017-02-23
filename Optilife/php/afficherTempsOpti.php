@@ -181,15 +181,17 @@ function afficherListesOptimisationsStatistiques($bdd){
 	$sql = "SELECT * FROM est_optimise JOIN pratiquer USING(PRA_NUM, EMP_NUM) JOIN activite USING(ACT_NUM) WHERE EMP_NUM = " . $_SESSION["EMP_NUM"]." group by ACT_NUM";
 	$reponse = $bdd->query($sql);
 	while ($donnees = $reponse->fetch()){
-		echo "<tr><td>".$donnees['PRA_NUM']."</td><td>".utf8_encode($donnees['ACT_LIBELLE'])."</td><td>".MiseEnFormTemps2(tempsOptiManuelle1PratiqueVie($bdd, $donnees['PRA_NUM'], $donnees['CAT_NUM']))."</td></tr>";
-		$act = $donnees['ACT_NUM'];
-		$opti = $donnees['OPTI_NUM'];
+		$tpsAuto =tempsOptiAutoPratiqueVie($bdd, $donnees['PRA_NUM'], $donnees['CAT_NUM']);
+		$tpsManu =tempsOptiManuelle1PratiqueVie($bdd, $donnees['PRA_NUM'], $donnees['CAT_NUM']);
+		$tpsTotal = $tpsAuto + $tpsManu;
+		echo "<tr><td>".$donnees['PRA_NUM']."</td><td>".utf8_encode($donnees['ACT_LIBELLE'])."</td>";
+		echo "<td>".MiseEnFormTemps2($tpsTotal)."</td><td>".MiseEnFormTemps2($tpsAuto)."</td><td>".MiseEnFormTemps2($tpsManu)."</td></tr>";
 		$sql2 = "SELECT * FROM `pratiquer` join est_optimise using(PRA_NUM, EMP_NUM) join optimisations using(OPTI_NUM) WHERE EMP_NUM = ".$_SESSION["EMP_NUM"] ." and PRA_NUM = ".$donnees['PRA_NUM'];
-		//echo $sql2;
-		echo '<tr><td colspan=3><table class="table tabOpti">';
+		//On créé un tableau dans le tableau pour afficher toute les optimisations
+		echo '<tr><td colspan=5><table class="table tabOpti">';
 		echo "<th>Optimisation</th><th>TempsGagné</th>";
 		$reponse2 = $bdd->query($sql2);
-		while ($donnees2 = $reponse2->fetch()){
+		while ($donnees2 = $reponse2->fetch()){//Boucle qui parcours toute les optimisations
 			$optimisation = utf8_encode($donnees2['OPTI_LIBELLE']);
 			$tps = tempsOptiManuelle1OptiUnAn($bdd, $donnees['FR_LIBELLE'], $donnees['PRA_NBFOIS'], $donnees2['OPTI_NUM'], $donnees2['ACT_NUM'],  $donnees['PRA_DUREE']);
 			$tps = tempsOptiCat($tps, $donnees['CAT_NUM']);
@@ -201,10 +203,49 @@ function afficherListesOptimisationsStatistiques($bdd){
 }
 
 function afficherTempsOptimisationsStatistiques($bdd){
-	echo "En cours de réalisation";
+	echo "<table class='table tabOpti'>";
+	echo "<tr><th>Période</th><th>Temps total activités</th><th>Temps Total Optimisé</th>";
+	echo "<tr><td>Toute la vie</td><td>" . MiseEnFormTemps2(tempsTotalActivite($bdd)) . " </td><td>".MiseEnFormTemps2(tempsOptiParCat($bdd, 0))."</td></tr>";
+	echo "<tr><td>Etudiant</td><td>" . MiseEnFormTemps2(tempsTotalActiviteCat($bdd, 1)) . " </td><td>".MiseEnFormTemps2(tempsOptiParCat($bdd, 1))."</td></tr>";
+	echo "<tr><td>Actif</td><td>" . MiseEnFormTemps2(tempsTotalActiviteCat($bdd, 2)) . " </td><td>".MiseEnFormTemps2(tempsOptiParCat($bdd, 2))."</td></tr>";
+	echo "<tr><td>Retraité</td><td>" . MiseEnFormTemps2(tempsTotalActiviteCat($bdd, 3)) . " </td><td>".MiseEnFormTemps2(tempsOptiParCat($bdd, 3))."</td></tr>";
+	echo "</table>";
 }
 
+function tempsTotalActivite($bdd){
+	$tps = 0;
+	$sql = "SELECT * from pratiquer where EMP_NUM = " .  $_SESSION["EMP_NUM"];
+	$reponse = $bdd->query($sql);
+	while ($donnees = $reponse->fetch()){
+		$tps  = $tps + tempsOptiCat(tempsGagneUnAn($donnees['PRA_DUREE_OPTI'], $donnees['FR_LIBELLE'], $donnees['PRA_NBFOIS']),  $donnees['CAT_NUM']);
+	}
+	return $tps;
+}
 
+function tempsTotalActiviteCat($bdd, $cat){
+	$tps = 0;
+	$sql = "SELECT * from pratiquer where EMP_NUM = " .  $_SESSION["EMP_NUM"] . " and CAT_NUM = ". $cat;
+	$reponse = $bdd->query($sql);
+	while ($donnees = $reponse->fetch()){
+		$tps  = $tps + tempsOptiCat(tempsGagneUnAn($donnees['PRA_DUREE_OPTI'], $donnees['FR_LIBELLE'], $donnees['PRA_NBFOIS']),  $donnees['CAT_NUM']);
+	}
+	return $tps;
+}
+
+function tempsOptiParCat($bdd, $cat){
+	$som = 0;
+	if($cat == 0)
+		$sql = "SELECT * FROM `pratiquer` WHERE `EMP_NUM` = ".$_SESSION["EMP_NUM"];
+	else
+		$sql = "SELECT * FROM `pratiquer` WHERE `EMP_NUM` = ".$_SESSION["EMP_NUM"] . " and CAT_NUM = " . $cat;
+	$tab = @lireDonneesPDO1($bdd, $sql);//C'est dégueux mais je m'en bats les couilles
+	for($i = 0; $i < count($tab); $i++){
+		$som = $som + tempsOptiAutoPratiqueVie($bdd, $tab[$i]['PRA_NUM'], $tab[$i]['CAT_NUM']);
+		$som = $som + tempsOptiManuelle1PratiqueVie($bdd, $tab[$i]['PRA_NUM'], $tab[$i]['CAT_NUM']);
+		$som = $som + tempsOptiManuelle2PratiqueVie($bdd, $tab[$i]['PRA_NUM'], $tab[$i]['CAT_NUM']);
+	}
+	return $som;
+}
 
 
 ?>

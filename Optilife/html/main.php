@@ -36,10 +36,14 @@ if(!isset($_SESSION["EMP_NUM"])){
 	      <div id="sidebar-wrapper" >
 	        <ul class="sidebar-nav">
 	          <li class="sidebar-brand">
+                <h4><b>Informations générales</b></h4>
+                <div class="table-responsive listeOpti">
+                   <?php afficherTempsOptimisationsStatistiques($bdd);?>
+               </div>
                 <h4><b>Liste des optimisations</b></h4>
                 <div class="table-responsive listeOpti">
                     <table class="table tabOpti">
-                        <tr><th>Numero Activité</th><th>Activité</th><th>Temps Total Gagné</th></tr>
+                        <tr><th>Numero Activité</th><th>Activité</th><th>Temps Total Gagné</th><th>Temps par Optimisation Automatique Gagné</th><th>Temps par Optimisation Manuel Gagné</th></tr>
 	           	        <?php afficherListesOptimisationsStatistiques($bdd);?>
                     </table>
                 </div>
@@ -67,5 +71,6 @@ if(!isset($_SESSION["EMP_NUM"])){
         $("#wrapper").toggleClass("toggled");
     });
  </script>
+    <?php include('footer.html') ?>
 
 </html>
