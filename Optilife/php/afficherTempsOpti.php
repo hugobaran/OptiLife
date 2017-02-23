@@ -70,23 +70,30 @@ function tempsOptiAutoTotalVie($bdd){
 //Fin fonction optimisation automatique
 
 //Fonctions Optimisation Manuelle 
+
+/*
+	Donne le temps gagné pour une optimisation sur une pratique
+**/
+function tempsOptiManuelle1OptiUnAn($bdd, $freq, $nbFois, $opti, $act,  $dureePratique){
+	$tps = 0;
+	$sql2 = "SELECT * FROM optimiser WHERE ACT_NUM = " . $act . " and OPTI_NUM = " . $opti;
+	$reponse2 = $bdd->query($sql2);
+	while ($donnees2 = $reponse2->fetch()){
+		if(is_null($donnees2['OP_TPS_GAGNE']))
+			$dure = $dureePratique*$donnees2['OP_POURCENTAGE'];
+		else
+			$dure = $donnees2['OP_TPS_GAGNE'];
+		$tps = $tps + tempsGagneUnAn($dure,$freq, $nbFois);
+	}
+	return $tps;
+}
 function tempsOptiManuelle1PratiqueUnAn($bdd, $act){
 	$emp = $_SESSION["EMP_NUM"];;
 	$tps = 0;
 	$sql = "SELECT * FROM est_optimise JOIN pratiquer USING(EMP_NUM, PRA_NUM) WHERE EMP_NUM = " . $emp . " AND PRA_NUM = " . $act;
 	$reponse = $bdd->query($sql);
 	while ($donnees = $reponse->fetch()){
-		$dureePratique = $donnees['PRA_DUREE'];
-		$act = $donnees['ACT_NUM'];
-		$sql2 = "SELECT * FROM optimiser WHERE ACT_NUM = " . $donnees['ACT_NUM'] . " and OPTI_NUM = " . $donnees['OPTI_NUM'];
-		$reponse2 = $bdd->query($sql2);
-		while ($donnees2 = $reponse2->fetch()){
-			if(is_null($donnees2['OP_TPS_GAGNE']))
-				$dure = $dureePratique*$donnees2['OP_POURCENTAGE'];
-			else
-				$dure = $donnees2['OP_TPS_GAGNE'];
-			$tps = $tps + tempsGagneUnAn($dure,$donnees['FR_LIBELLE'], $donnees['PRA_NBFOIS']);
-		}
+		$tps = $tps + tempsOptiManuelle1OptiUnAn($bdd, $donnees['FR_LIBELLE'], $donnees['PRA_NBFOIS'],  $donnees['OPTI_NUM'], $donnees['ACT_NUM'], $donnees['PRA_DUREE']);
 	}
 	return $tps;
 }
@@ -100,7 +107,7 @@ function tempsOptiManuelle1PratiqueVie($bdd, $act, $cat){
 function tempsOptiManuelle1TotalVie($bdd){
 	$som = 0;
 	$sql = "SELECT * FROM `pratiquer` WHERE `EMP_NUM` = ".$_SESSION["EMP_NUM"];
-	$tab = @lireDonneesPDO1($bdd, $sql);
+	$tab = @lireDonneesPDO1($bdd, $sql);//C'est dégueux mais je m'en bats les couilles
 	for($i = 0; $i < count($tab); $i++){
 		$som = $som + tempsOptiManuelle1PratiqueVie($bdd, $tab[$i]['PRA_NUM'], $tab[$i]['CAT_NUM']);
 	}
@@ -127,34 +134,68 @@ function tempsOptiManuelle2TotalVie($bdd){
 	return $som;
 }
 //Fin fonctions Optimisation Manuelle
-
+function MiseEnFormTemps1($dure){
+	$minute = (int)(($dure%60));
+	$dure = $dure - $minute;
+	$heure = (int)((($dure)/60)%24);
+	$dure = $dure - ($heure*60);
+	$jour = (int)((($dure)/1400)%31);
+	$dure = $dure - ($jour*1400);
+	$mois = (int)((($dure)/44640)%12);
+	$dure = $dure - ($mois*44640);
+	$annee = (int)((($dure)/525600));
+	return $annee." année(s) ".$mois." mois ".$jour." jour(s) ".$heure." heure(s) ".$minute." minute(s)";
+}
+function MiseEnFormTemps2($dure){
+	$minute = (int)(($dure%60));
+	$dure = $dure - $minute;
+	$heure = (int)((($dure)/60)%24);
+	$dure = $dure - ($heure*60);
+	$jour = (int)((($dure)/1400)%31);
+	$dure = $dure - ($jour*1400);
+	$mois = (int)((($dure)/44640)%12);
+	$dure = $dure - ($mois*44640);
+	$annee = (int)((($dure)/525600));
+	$res = "";
+	if($annee > 0)
+		$res = $res . $annee." année(s) ";
+	if($mois > 0)
+		$res = $res . $mois." mois ";
+	if($jour > 0)
+		$res = $res . $jour." jour(s) ";
+	if($heure > 0)
+		$res = $res . $heure." heure(s) ";
+	if($minute > 0)
+		$res = $res . $minute." minute(s)";
+	return $res;
+}
 function afficherTempsOpti($bdd){
 	$dure = tempsOptiManuelle1TotalVie($bdd);
 	$dure = $dure + tempsOptiManuelle2TotalVie($bdd);
 	$dure = $dure  + tempsOptiAutoTotalVie($bdd);
-	$minute = (int)(($dure%60));
-	$heure = (int)((($dure)/60)%24);
-	$jour = (int)((($dure)/3600)%31);
-	$mois = (int)((($dure)/111600)%12);
-	$annee = (int)((($dure)/1314000));
-	echo "<div id='tpsGagneTotal' >Temps total gagné </br><b>".$annee." année(s) ".$mois." mois ".$jour." jour(s) ".$heure." heure(s) ".$minute." minute(s)</b></div>";
+	echo "<div id='tpsGagneTotal' >Temps total gagné </br><b>".MiseEnFormTemps1($dure)."</b></div>";
 }
 
+
 function afficherListesOptimisationsStatistiques($bdd){
-	$emp = 1;
-	$sql = "SELECT * FROM est_optimise JOIN pratiquer USING(PRA_NUM) WHERE pratiquer.EMP_NUM = " . $emp;
+	$sql = "SELECT * FROM est_optimise JOIN pratiquer USING(PRA_NUM, EMP_NUM) JOIN activite USING(ACT_NUM) WHERE EMP_NUM = " . $_SESSION["EMP_NUM"]." group by ACT_NUM";
 	$reponse = $bdd->query($sql);
 	while ($donnees = $reponse->fetch()){
+		echo "<tr><td>".$donnees['PRA_NUM']."</td><td>".utf8_encode($donnees['ACT_LIBELLE'])."</td><td>".MiseEnFormTemps2(tempsOptiManuelle1PratiqueVie($bdd, $donnees['PRA_NUM'], $donnees['CAT_NUM']))."</td></tr>";
 		$act = $donnees['ACT_NUM'];
 		$opti = $donnees['OPTI_NUM'];
-		$sql2 = "SELECT * FROM optimiser JOIN activite USING(ACT_NUM) JOIN optimisations USING(OPTI_NUM) WHERE ACT_NUM = " . $act. " AND OPTI_NUM = " . $opti;
+		$sql2 = "SELECT * FROM `pratiquer` join est_optimise using(PRA_NUM, EMP_NUM) join optimisations using(OPTI_NUM) WHERE EMP_NUM = ".$_SESSION["EMP_NUM"] ." and PRA_NUM = ".$donnees['PRA_NUM'];
+		//echo $sql2;
+		echo '<tr><td colspan=3><table class="table tabOpti">';
+		echo "<th>Optimisation</th><th>TempsGagné</th>";
 		$reponse2 = $bdd->query($sql2);
 		while ($donnees2 = $reponse2->fetch()){
-			$activite = utf8_encode($donnees2['ACT_LIBELLE']);
 			$optimisation = utf8_encode($donnees2['OPTI_LIBELLE']);
-
-			echo "<tr><td>".$activite."</td><td>".$optimisation."</td></tr>";
+			$tps = tempsOptiManuelle1OptiUnAn($bdd, $donnees['FR_LIBELLE'], $donnees['PRA_NBFOIS'], $donnees2['OPTI_NUM'], $donnees2['ACT_NUM'],  $donnees['PRA_DUREE']);
+			$tps = tempsOptiCat($tps, $donnees['CAT_NUM']);
+			echo "<tr><td>".$optimisation."</td><td>". MiseEnFormTemps2($tps)."</td></tr>";
 		}
+		echo "</table></tr>";
 	}
 
 }
