@@ -30,7 +30,7 @@
 
 		    <div class="section">
 		      	<label>Temps Initial:</label><p id="affichageTemps"></p>
-				<input name="temps" id="temps" type="number" style="visibility:hidden;" value=""/>
+				<input name="temps" id="temps" type="number" style="visibility:hidden; height: 0px" value=""/>
 		    </div>
 		    <div class="section">
 		     	<label>Temps Gagné :</label><p id="affichageTempsGagne"></p>
@@ -69,13 +69,14 @@
 
 	$(function(){
 	    $("#Optimisation").chained("#activiteO");
-	});
-
-	$(function(){
 	    $("#Optimisation2").chained("#activiteO");
+	    MAJListe();
 	});
 
 	function MAJListe(){
+
+		resetListe();
+
 		var ul = $("#liste");
 
 		$('#Optimisation').prop('disabled', false);
@@ -95,14 +96,8 @@
 	}
 
 	function resetListe(){
-		$("li" ).each(function() {
+		$("#listeOpti" ).each(function() {
 			$(this).remove();
-		});
-	}
-
-	function kek(){
-		$("#Optimisation2 option").each(function(){
-			alert($(this).attr('data-name'));
 		});
 	}
 
@@ -111,36 +106,33 @@
 		var cpt = 0;
 		$("#tempsGagne").val(0);
 		$("#tempsOpti").val($("#temps"));
-		$("#affichageTempsGagne").text(0 + " minutes(s)");
-		$("#affichageTempsOpti").text($("#temps").val() + " minutes(s)");
+		$("#affichageTempsGagne").text(formaterTemps(0));
+		$("#affichageTempsOpti").text(formaterTemps($("#temps").val()));
 
 
-		$("li" ).each(function() {
+		$("#Optimisation2 option").each(function() {
 
-			if(cpt!=0){
-				var liType = $(this).attr('data-type');
-				var liGagne = parseInt($(this).attr('data-subtext'),10);
-				var tpsInitVal = parseInt($("#temps").val(),10);
-				var tpsGagneVal = parseInt($("#tempsGagne").val(),10);
-				var gagne = 0;
+			var liType = $(this).attr('data-type');
+			var liGagne = parseFloat($(this).attr('data-subtext'),10);
+			var tpsInitVal = parseFloat($("#temps").val(),10);
+			var tpsPratiqueVal = parseFloat($("#tempsPratique").val(),10);
+			var tpsGagneVal = parseFloat($("#tempsGagne").val(),10);
+			var gagne = 0;
 
-				if(liType = "temps"){
-					gagne = tpsGagneVal + liGagne;
-				}else if(liType = "pourcentage"){
-					gagne = tpsGagneVal + liGagne;
-				}else{
-					gagne = tpsGagneVal;
-				}
-
-				var tpsFinal = tpsInitVal - gagne;
-
-				$("#tempsGagne").val(gagne);
-				$("#tempsOpti").val(tpsFinal);
-				$("#affichageTempsGagne").text(gagne + " minutes(s)");
-				$("#affichageTempsOpti").text(tpsFinal + " minutes(s)");
+			if(liType = "temps"){
+				gagne = tpsGagneVal + liGagne;
+			}else if(liType = "pourcentage"){
+				gagne = tpsGagneVal + (tpsPratiqueVal*liGagne);
+			}else{
+				gagne = tpsGagneVal;
 			}
 
-			cpt++;
+			var tpsFinal = tpsInitVal - gagne;
+
+			$("#tempsGagne").val(gagne);
+			$("#tempsOpti").val(tpsFinal);
+			$("#affichageTempsGagne").text(formaterTemps(gagne));
+			$("#affichageTempsOpti").text(formaterTemps(tpsFinal));
 
 		});
     	
@@ -148,6 +140,7 @@
 
 
 	function listeOptiEnlever(li){
+
 		var select = $('#Optimisation');
 		var valeur = $(li).find('input').val();
 		var option = $('#Optimisation2 option[value='+valeur+']');
@@ -168,12 +161,12 @@
 		select.append(newOption);
 		option.remove();
 		$(li).remove();
-		MAJTemps();
+		MAJListe();
 	}
 
 
-	function listeOptiAjout()
-    {
+	function listeOptiAjout(){
+
 	    var ul = $("#liste");
 	    var select = $("#Optimisation2");
 	    var option = $('#Optimisation option:selected');

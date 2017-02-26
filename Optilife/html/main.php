@@ -44,7 +44,7 @@ if(!isset($_SESSION["EMP_NUM"])){
                 <div class="table-responsive listeOpti">
                     <table class="table tabOpti">
                         <tr><th>Numero Activité</th><th>Activité</th><th>Temps Total Gagné</th><th>Temps par Optimisation Automatique Gagné</th><th>Temps par Optimisation Manuel Gagné</th></tr>
-	           	        <?php afficherListesOptimisationsStatistiques($bdd);?>
+	           	        <?php afficherListesOptimisationsStatistiques($bdd)?>
                     </table>
                 </div>
 	          </li>

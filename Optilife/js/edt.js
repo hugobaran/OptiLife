@@ -90,9 +90,11 @@ function clicked(){
     document.supprimerActivite.suppFrequence.value = this.children[2].innerHTML;
     document.supprimerActivite.classeAge.value = this.children[6].innerHTML;
     document.supprimerActivite.suppPra.value = this.children[0].innerHTML;
+
     //remplissage formulaire modifier
     document.modifierTache.EXfrequence.value = this.children[2].innerHTML;
     document.modifierTache.activite.value = this.children[9].innerHTML;
+    document.modifierTache.pratique.value = this.children[0].innerHTML;
     $('#affichageActivite').text(this.children[1].innerHTML);
     $('#affichageActiviteS').text(this.children[1].innerHTML);
     document.modifierTache.frequence.value = this.children[2].innerHTML;
@@ -121,12 +123,13 @@ function clicked(){
     if(this.children[11].innerHTML == 1)
       var tps = this.children[12].innerHTML;
     else var tps = this.children[13].innerHTML;
-    $('#affichageTemps').text(tps + " minutes");
-    $('#affichageTempsOpti').text(tps + " minutes");
-    $('#affichageTempsGagne').text(0 + " minutes");
+    $('#affichageTemps').text(formaterTemps(tps));
+    $('#affichageTempsOpti').text(formaterTemps(tps));
+    $('#affichageTempsGagne').text(formaterTemps(0));
     $('#tempsOpti').val(tps);
     $('#temps').val(tps);
     $('#tempsGagne').val(0);
+    $('#tempsPratique').val(this.children[4].innerHTML);
     $('#activiteO').val(this.children[9].innerHTML).change();
     $('#pratiqueOpti').val(this.children[0].innerHTML);
     $('#affichageActiviteOpti').text(this.children[1].innerHTML);
@@ -146,6 +149,9 @@ function clicked(){
     }
     $('#affichageClasseAgeOpti').text(classeAgeTxt);
 
+    resetListe(); 
+    MAJListe();
+
     var ListeOption = document.getElementById('Optimisation');
     var temps = document.getElementById('temps').value;
     for(var i = 0 ,l = ListeOption.options.length; i< l; i++ ){
@@ -157,8 +163,6 @@ function clicked(){
           ListeOption[i].disabled = true;
       }
     }
-
-
   }
 }
 
@@ -175,4 +179,11 @@ var hash = window.location.hash;
     change_onglet('vieComplete');
   else if(hash == "")
     change_onglet('vieComplete');
+}
+
+function formaterTemps(temps){
+  var heures = parseInt(temps/60,10);
+  var minutes = parseInt(((temps/60)-heures)*60,10);
+  var secondes = parseInt((temps - heures*60 - minutes)*60,10);
+  return heures + 'h ' + minutes + 'm ' + secondes + 's';
 }
