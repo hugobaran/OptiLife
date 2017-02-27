@@ -180,7 +180,7 @@ function afficherTempsOpti($bdd){
 
 
 function afficherListesOptimisationsStatistiques($bdd){
-	$sql = "SELECT * FROM est_optimise JOIN pratiquer USING(PRA_NUM, EMP_NUM) JOIN activite USING(ACT_NUM) WHERE EMP_NUM = " . $_SESSION["EMP_NUM"]." group by PRA_NUM";
+	$sql = "SELECT * FROM est_optimise JOIN pratiquer USING(PRA_NUM, EMP_NUM) JOIN activite USING(ACT_NUM) WHERE EMP_NUM = " . $_SESSION["EMP_NUM"];
 	$reponse = $bdd->query($sql);
 	while ($donnees = $reponse->fetch()){
 		$tpsAuto =tempsOptiAutoPratiqueVie($bdd, $donnees['PRA_NUM'], $donnees['CAT_NUM']);

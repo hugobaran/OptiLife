@@ -10,6 +10,7 @@
 		<form method="post" action= "../php/passerelle.php" enctype="application/x-www-form-urlencoded" name="modifierTache">
 			<label>Activité :</label><p id="affichageActivite"></p>
 			<input name="activite" id="activite" type="hidden" value=<?php if(isset($_POST["activite"])) echo '"'.$_POST["activite"].'"'; ?>/>
+			<input name="pratique" id="pratique" type="hidden" value=<?php if(isset($_POST["pratique"])) echo '"'.$_POST["pratique"].'"'; ?>/>
 			</br>
 			<label>Classe d'age :</label><p id="affichageClasseAge"></p>
 			<input name="classe_age" id="classe_age" type="hidden" value=<?php if(isset($_POST["classe_age"])) echo '"'.$_POST["classe_age"].'"'; ?>/>

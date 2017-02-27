@@ -63,7 +63,6 @@ function ajouterOptimisationManuelle2($bdd){
 		$bdd->exec($sql2);
 		foreach ($_POST['optimisation'] as $optimisation) {
 			$sql2 = "INSERT INTO est_optimise (`EMP_NUM`,`PRA_NUM`, `OPTI_NUM`) VALUES (".$emp.", ".$pratique.", ".$optimisation.")";
-			echo $sql;
 			$bdd->exec($sql2);
 		}
 	}else{
