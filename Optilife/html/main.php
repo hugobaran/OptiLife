@@ -71,6 +71,6 @@ if(!isset($_SESSION["EMP_NUM"])){
         $("#wrapper").toggleClass("toggled");
     });
  </script>
-    <?php include('footer.html') ?>
+    <?php //include('footer.html') ?>
 
 </html>
