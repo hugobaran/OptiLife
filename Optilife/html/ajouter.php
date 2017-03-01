@@ -10,6 +10,10 @@
 
 <script type="text/javascript" src="../js/formulaireAjout.js"></script>
 <script type="text/javascript" src="../js/jquery.chained.min.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+
 </head> 
 <script>
 	function resetFields(){
@@ -43,8 +47,8 @@
 		</select>
 		</br>
 		<label for="activite">Activité :</label>
-		<select name="activite" id="activite" class="form-control" onchange="affiche_bouton()">
-		<option value="">Sélectionner une activité</option>
+		<select name="activite" id="activite" class="form-control" onchange="affiche_bouton();">
+		<option value="" data-temps="null">Sélectionner une activité</option>
 		<?php  
 			$sql = 'SELECT * FROM activite JOIN sous_domaine USING(SD_NUM)';
 			creerListeActivite($bdd,$sql,'ACT_LIBELLE', 'activite');
@@ -66,21 +70,25 @@
 		
 		</br>	</br>
 		<div class="row">
-			<div class="col-xs-4">
+			<div class="col-xs-3">
 				<label for="nbFois">Nombre de fois : </label>
 				<input type="number" class="form-control" id="nbFois" name="nbFois"  min="1" max="1000" onclick="affiche_bouton()" onchange="affiche_bouton()" value=<?php verifierRempli("nbFois"); ?> >
 			</div>
-			<div class="col-xs-4">
+			<div class="col-xs-3">
+				<label for="TempsPerso">Temps : </label>
+				<input id="TempsPerso" type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-width="100" data-height="30"  data-on="Personnel" data-off="Défaut" onchange="  tempsPerso();">
+			</div>
+			<div class="col-xs-3">
 				<label for="nbHeure">Heure(s) : </label>
 				<input type="number" class="form-control" id="nbHeure" name="nbHeure"  min="0" onclick="affiche_bouton()" onchange="affiche_bouton()" value=<?php verifierRempli("nbHeure"); ?> >
 			</div>
-			<div class="col-xs-4">
+			<div class="col-xs-3">
 				<label for="nbMinutes">Minute(s) : </label>
 				<input type="number" class="form-control" id="nbMinutes" name="nbMinutes"  min="0" max="59" onclick="affiche_bouton()" onchange="affiche_bouton()" value=<?php verifierRempli("nbMinutes"); ?> >
 			</div>
 		</div>
 		</br>	</br>
-		<input type="submit" disabled="disabled" class="btn btn-success btn-lg btn-block" id="ajouter" name="ajouter" value="Ajouter" title="Remplissez tous les champs">
+		<input type="submit" disabled="disabled" class="btn btn-success btn-lg btn-block" id="ajouter" name="ajouter" value="Ajouter" title="Remplissez tous les champs" onclick="envoi();">
 	</form>
 </body>
 
@@ -93,6 +101,35 @@ $(function(){
 $(function(){
     $("#activite").chained("#sousdomaine");
 });
+
+function envoi(){
+	$('#nbHeure').prop('disabled', false);
+	$('#nbMinutes').prop('disabled', false);
+}
+
+function tempsPerso(){
+	var option = $('#activite option:selected');
+	var temps = option.attr('data-temps');
+	$('#nbHeure').prop('disabled', false);
+	$('#nbMinutes').prop('disabled', false);
+	if($('#TempsPerso').is(':checked')){
+	  	$('#nbHeure').val(0);
+	  	$('#nbMinutes').val(0);
+ 	}else{
+	  	if(temps == 'null' || temps == 0){
+	  		$('#nbHeure').val(0);
+	  		$('#nbMinutes').val(0);
+	  		alert('Pas de temps par défaut');
+	  	}else{
+	  		var heures = parseInt(temps/60,10);
+		  	var minutes = parseInt(((temps/60)-heures)*60,10);
+		  	$('#nbHeure').val(heures);
+		  	$('#nbHeure').prop('disabled', true);
+		  	$('#nbMinutes').val(minutes);
+		  	$('#nbMinutes').prop('disabled', true);
+	  	}
+  	}
+}
 
 </script>
 

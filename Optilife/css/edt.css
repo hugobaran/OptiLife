@@ -67,21 +67,21 @@ body{
     width: 30px;
 }
 
-tr.selected {
+#ligne.selected {
     color:#fff;background:#444 !important;
 }
 
-tr:hover {
+#ligne:hover {
     cursor:pointer;
     background:#eee;
 }
 
-thead tr:hover {
+thead #ligne:hover {
     cursor:auto;
     background:none;
 }
 
-tr{
+#ligne{
     text-align: left;
 }
 

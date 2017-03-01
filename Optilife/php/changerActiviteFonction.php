@@ -22,7 +22,6 @@ function creerListeActivite($bdd,$sql,$table, $form){
 		$actTemps = $donnees['ACT_TEMPS'];
 		$act = $donnees['ACT_NUM'];
 		echo '<option class="'.$sdomaine.'" value="' . $act . '" ' ;
-		VerifSelect($form, $act);
 		echo  ' data-temps="'. $actTemps .'">'.$actLib . '</option>';
 
 	}
@@ -64,7 +63,7 @@ function chercherDejaPresent($bdd, $act, $freq, $emp, $age){
 function traiterAjout($bdd){
 		if(!empty($_POST["activite"]) && !empty($_POST["frequence"]) && !empty($_POST["nbFois"]) && isset($_POST["nbHeure"]) &&
 		isset($_POST["nbMinutes"]) && !empty($_POST["classe_age"])){
-		//Envoi du formulaire à la base de donnée
+		//Envoi du formulaire Ã  la base de donnÃ©e
 			if (!empty($_POST['classe_age'])) {
     			$array = $_POST['classe_age'];
     			$act = $_POST["activite"];
@@ -72,24 +71,24 @@ function traiterAjout($bdd){
     			$minutes = $_POST["nbMinutes"];
     			$frequence = $_POST["frequence"];
     			$nbfois = $_POST["nbFois"];
-    			$temps = $heures*60 + ($minutes);//transforme les données du form en donnée lisible par la base
+    			$temps = $heures*60 + ($minutes);//transforme les donnÃ©es du form en donnÃ©e lisible par la base
 			    foreach ($array as $age) {
-					//on ajoute uniquement si ce n'est pas déja présent dans l'emploi du tps
+					//on ajoute uniquement si ce n'est pas dÃ©ja prÃ©sent dans l'emploi du tps
 					if(!chercherDejaPresent($bdd, $act, $frequence, 1, $age)){
-						//verification que le temps soit cohérent
+						//verification que le temps soit cohÃ©rent
 						if(verifierTemps($frequence, $temps, $nbfois)){
 							$sql = "INSERT INTO `pratiquer` (`ACT_NUM`, `FR_LIBELLE`, `CAT_NUM`, `EMP_NUM`, `PRA_NBFOIS`, `PRA_DUREE`, `PRA_DUREE_OPTI`) VALUES ('".$act."', '".$frequence."', '".$age."', '".$_SESSION["EMP_NUM"]."', '".$nbfois."', '".$temps."', '".$temps."')";
 				  			$stmt = $bdd->exec($sql);
 							echo $sql;
 				  			echo "<script> resetFields(); </script>";
-							echo "<p id='formSend'>Tache Ajoutée</p>";
+							echo "<p id='formSend'>Tache AjoutÃ©e</p>";
 						}else {
-							echo "<p id='erreur'>Le temps n'est pas cohérent</p>";
+							echo "<p id='erreur'>Le temps n'est pas cohÃ©rent</p>";
 							throw new PDOException('activiteTemps');
 						}
 					}
 					else {
-						echo "<p id='erreur'>Cette activité existe déja avec cette frequence et cette classe d'age</p>";
+						echo "<p id='erreur'>Cette activitÃ© existe dÃ©ja avec cette frequence et cette classe d'age</p>";
 						throw new PDOException('activtePres');
 					}
 
