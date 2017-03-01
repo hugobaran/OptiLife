@@ -212,6 +212,14 @@ function afficherTempsOptimisationsStatistiques($bdd){
 	echo "<tr><td>Actif</td><td>" . MiseEnFormTemps2(tempsTotalActiviteCat($bdd, 2)) . " </td><td>".MiseEnFormTemps2(tempsOptiParCat($bdd, 2))."</td></tr>";
 	echo "<tr><td>Retraité</td><td>" . MiseEnFormTemps2(tempsTotalActiviteCat($bdd, 3)) . " </td><td>".MiseEnFormTemps2(tempsOptiParCat($bdd, 3))."</td></tr>";
 	echo "</table>";
+	echo "<table class='table tabOpti'>";
+	echo "<tr><th>Domaine</th><th>Temps total activités</th><th>Temps Total Optimisé</th>";
+	$sql = "SELECT * FROM `domaine` ";
+	$tab = @lireDonneesPDO1($bdd, $sql);
+	for($i = 0; $i < count($tab); $i++){
+		echo "<tr><td>". utf8_encode($tab[$i]['DOM_LIBELLE']). "</td><td>" . MiseEnFormTemps2(tempsTotalActiviteDomaine($bdd, $tab[$i]['DOM_NUM'])) . " </td><td>".MiseEnFormTemps2(tempsOptiParDomaine($bdd, $tab[$i]['DOM_NUM']))."</td></tr>";
+	}
+	echo "</table>";
 }
 
 function tempsTotalActivite($bdd){
@@ -240,6 +248,28 @@ function tempsOptiParCat($bdd, $cat){
 		$sql = "SELECT * FROM `pratiquer` WHERE `EMP_NUM` = ".$_SESSION["EMP_NUM"];
 	else
 		$sql = "SELECT * FROM `pratiquer` WHERE `EMP_NUM` = ".$_SESSION["EMP_NUM"] . " and CAT_NUM = " . $cat;
+	$tab = @lireDonneesPDO1($bdd, $sql);//C'est dégueux mais je m'en bats les couilles
+	for($i = 0; $i < count($tab); $i++){
+		$som = $som + tempsOptiAutoPratiqueVie($bdd, $tab[$i]['PRA_NUM'], $tab[$i]['CAT_NUM']);
+		$som = $som + tempsOptiManuelle1PratiqueVie($bdd, $tab[$i]['PRA_NUM'], $tab[$i]['CAT_NUM']);
+		$som = $som + tempsOptiManuelle2PratiqueVie($bdd, $tab[$i]['PRA_NUM'], $tab[$i]['CAT_NUM']);
+	}
+	return $som;
+}
+
+function tempsTotalActiviteDomaine($bdd, $dom){
+	$tps = 0;
+	$sql = "SELECT * from pratiquer join activite using(ACT_NUM) where EMP_NUM = " .  $_SESSION["EMP_NUM"]. " and DOM_NUM = " . $dom;
+	$reponse = $bdd->query($sql);
+	while ($donnees = $reponse->fetch()){
+		$tps  = $tps + tempsOptiCat(tempsGagneUnAn($donnees['PRA_DUREE_OPTI'], $donnees['FR_LIBELLE'], $donnees['PRA_NBFOIS']),  $donnees['CAT_NUM']);
+	}
+	return $tps;
+}
+
+function tempsOptiParDomaine($bdd, $dom){
+	$som = 0;
+	$sql = "SELECT * FROM `pratiquer` join activite using(ACT_NUM)  WHERE `EMP_NUM` = ".$_SESSION["EMP_NUM"] . " and DOM_NUM = " . $dom;
 	$tab = @lireDonneesPDO1($bdd, $sql);//C'est dégueux mais je m'en bats les couilles
 	for($i = 0; $i < count($tab); $i++){
 		$som = $som + tempsOptiAutoPratiqueVie($bdd, $tab[$i]['PRA_NUM'], $tab[$i]['CAT_NUM']);
