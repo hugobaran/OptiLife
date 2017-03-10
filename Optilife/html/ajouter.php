@@ -10,8 +10,9 @@
 
 <script type="text/javascript" src="../js/formulaireAjout.js"></script>
 <script type="text/javascript" src="../js/jquery.chained.min.js"></script>
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap-toggle.min.js"></script>
+<link href="../css/bootstrap-toggle.min.css" rel="stylesheet">
+
 
 
 </head> 
@@ -75,7 +76,7 @@
 				<input type="number" class="form-control" id="nbFois" name="nbFois"  min="1" max="1000" onclick="affiche_bouton()" onchange="affiche_bouton()" value=<?php verifierRempli("nbFois"); ?> >
 			</div>
 			<div class="col-xs-3">
-				<label for="TempsPerso">Temps : </label>
+				<label for="TempsPerso">Durée : </label>
 				<input id="TempsPerso" type="checkbox" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-width="100" data-height="30"  data-on="Personnel" data-off="Défaut" onchange="  tempsPerso();">
 			</div>
 			<div class="col-xs-3">
@@ -102,6 +103,19 @@ $(function(){
     $("#activite").chained("#sousdomaine");
 });
 
+function MAJbutton(){
+	var option = $('#activite option:selected');
+	var temps = option.attr('data-temps');
+	if(temps == 'null' || temps == 0){
+		$('#TempsPerso').bootstrapToggle('on');
+	  	$('#TempsPerso').bootstrapToggle('disable');
+	}
+	else
+		$('#TempsPerso').bootstrapToggle('enable');
+	tempsPerso();
+
+}
+
 function envoi(){
 	$('#nbHeure').prop('disabled', false);
 	$('#nbMinutes').prop('disabled', false);
@@ -112,14 +126,10 @@ function tempsPerso(){
 	var temps = option.attr('data-temps');
 	$('#nbHeure').prop('disabled', false);
 	$('#nbMinutes').prop('disabled', false);
-	if($('#TempsPerso').is(':checked')){
-	  	$('#nbHeure').val(0);
-	  	$('#nbMinutes').val(0);
- 	}else{
+	if(!$('#TempsPerso').is(':checked')){
 	  	if(temps == 'null' || temps == 0){
 	  		$('#nbHeure').val(0);
 	  		$('#nbMinutes').val(0);
-	  		alert('Pas de temps par défaut');
 	  	}else{
 	  		var heures = parseInt(temps/60,10);
 		  	var minutes = parseInt(((temps/60)-heures)*60,10);

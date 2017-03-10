@@ -1,5 +1,6 @@
 function affiche_bouton() 
 { 
+	MAJbutton();
 	var ca=false,
 	activite=false,
 	frequence=false,

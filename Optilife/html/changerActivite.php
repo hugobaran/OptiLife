@@ -19,12 +19,16 @@
 		<label>Activité Initiale :</label><p id="affichageActiviteChange"></p>
 		<input name="pratiqueChange" id="pratiqueChange" type="hidden" value=""/>
 
+		<select name="ChangerActNature" id="ChangerActNature" class="form-control" hidden>
+		
+		</select>
+
 		<label for="activiteChange">Nouvelle activité :</label>
-		<select name="activiteChange" id="activiteCHange" class="form-control">
+		<select name="activiteChange" id="activiteChange" class="form-control">
 		<option value="" data-temps="null">Sélectionner une activité</option>
 		<?php  
-			$sql = 'SELECT * FROM activite JOIN sous_domaine USING(SD_NUM)';
-			creerListeActivite($bdd,$sql,'ACT_LIBELLE', 'activite');
+			$sql = 'SELECT * FROM activite JOIN sous_domaine USING(SD_NUM) JOIN nature USING(SD_NUM) WHERE nature.NAT_NUM = activite.NAT_NUM AND nature.SD_NUM = activite.SD_NUM';
+			creerListeActiviteNature($bdd,$sql);
 		?>
 		</select>
 		</br>
@@ -35,6 +39,9 @@
 
 <script type="text/javascript">
 
+$(function(){
+    $("#activiteChanger").chained("#ChangerActNature");
+});
 </script>
 
 </html>

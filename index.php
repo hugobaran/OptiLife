@@ -14,14 +14,14 @@
             <div id="gauche" class="demiPage" onmouseover="mOver('Gauche')" onmouseout="mOut('Gauche')">
                 <div class="circle" id="circleGauche">
                 </div>
-                <h1 id="hOptiday">Optiday</h1>
+                <h1 id="hOptiday">Opti-Day</h1>
             </div>
         </a>
         <a href="Optilife/html/accueil.php">
             <div id="droite" class="demiPage" onmouseover="mOver('Droit')" onmouseout="mOut('Droit')">
                 <div class="circle" id="circleDroit">
                 </div>
-                <h1 id="hOptilife">Optilife</h1>
+                <h1 id="hOptilife">Opti-Life</h1>
             </div>
         </a>
     </body>

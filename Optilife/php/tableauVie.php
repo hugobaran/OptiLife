@@ -59,10 +59,10 @@
   
     function afficherActivite($categorie,$bdd){
         if($categorie == 0){
-            $sql = "SELECT * FROM pratiquer JOIN activite USING(ACT_NUM) Where EMP_NUM = '".$_SESSION["EMP_NUM"]."' order by PRA_NUM";
+            $sql = "SELECT * FROM pratiquer JOIN activite USING(ACT_NUM) JOIN nature USING(NAT_NUM) Where EMP_NUM = '".$_SESSION["EMP_NUM"]."' AND activite.NAT_NUM = nature.NAT_NUM AND activite.SD_NUM = nature.SD_NUM order by PRA_NUM";
         }
         else{
-            $sql = "SELECT * FROM pratiquer JOIN activite USING(ACT_NUM) WHERE EMP_NUM = '".$_SESSION["EMP_NUM"]."' and CAT_NUM = " . $categorie . " order by PRA_NUM";
+            $sql = "SELECT * FROM pratiquer JOIN activite USING(ACT_NUM) JOIN nature USING(NAT_NUM) WHERE EMP_NUM = '".$_SESSION["EMP_NUM"]."' and CAT_NUM = " . $categorie . " AND activite.NAT_NUM = nature.NAT_NUM AND activite.SD_NUM = nature.SD_NUM order by PRA_NUM";
         }
         $reponse = $bdd->query($sql);
         $cpt = 1;
@@ -70,7 +70,7 @@
             echo 'Aucune activité dans cette classe d\'age';
         }else{
              echo '<table class="table table-condensed" id="table"><thead> <tr><th>NUMERO ACTIVITE</th> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> <th>NOUVELLE DUREE</th>';
-             echo '<th style="display:none;">CA</th><th style="display:none;">nbHeure</th><th style="display:none;">nbMinute</th><th style="display:none;">actNum</th><th style="display:none;">dureeOpti</th><th style="display:none;">optimiser</th><th style="display:none;">actDuree</th><th style="display:none;">praDuree</th></tr> </thead>';
+             echo '<th style="display:none;">CA</th><th style="display:none;">nbHeure</th><th style="display:none;">nbMinute</th><th style="display:none;">actNum</th><th style="display:none;">dureeOpti</th><th style="display:none;">optimiser</th><th style="display:none;">actDuree</th><th style="display:none;">praDuree</th><th style="display:none;">Domaine</th><th style="display:none;">SDomaine</th><th style="display:none;">Nature</th><th style="display:none;">Nature</th></tr> </thead>';
         }
         while ($donnees = $reponse->fetch())
         {   
@@ -112,7 +112,7 @@
             echo '</td>';
             if($optiAuto || $optiManuelle)
                 echo "</font>";
-            echo '<td style="display:none;">'.$donnees['CAT_NUM']. '</td><td style="display:none;">'.$heure. '</td><td style="display:none;">'.$minute. '</td><td style="display:none;">'.$donnees['ACT_NUM']. '</td><td style="display:none;">'.$tps. '</td><td style="display:none;">'.$donnees['OPTIMISER']. '</td><td style="display:none;">'.$donnees['ACT_TEMPS']. '</td><td style="display:none;">'.$donnees['PRA_DUREE']. '</td></tr>';
+            echo '<td style="display:none;">'.$donnees['CAT_NUM']. '</td><td style="display:none;">'.$heure. '</td><td style="display:none;">'.$minute. '</td><td style="display:none;">'.$donnees['ACT_NUM']. '</td><td style="display:none;">'.$tps. '</td><td style="display:none;">'.$donnees['OPTIMISER']. '</td><td style="display:none;">'.$donnees['ACT_TEMPS']. '</td><td style="display:none;">'.$donnees['PRA_DUREE']. '</td><td style="display:none;">'.$donnees['DOM_NUM']. '</td><td style="display:none;">'.$donnees['SD_NUM']. '</td><td style="display:none;">'.$donnees['NAT_NUM']. '</td><td style="display:none;">'.utf8_encode($donnees['NAT_LIBELLE']). '</td></tr>';
             $cpt++;
         }
         echo '</table>';

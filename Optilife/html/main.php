@@ -16,7 +16,7 @@ if(!isset($_SESSION["EMP_NUM"])){
     <title>Emploi du temps</title>
     
     <!-- Custom CSS -->
-    <link href="../css/sidebar.css" rel="stylesheet">
+  
     <link rel="stylesheet" href="../css/edt.css" type="text/css" />
     
     <!--integration JS-->
@@ -24,43 +24,40 @@ if(!isset($_SESSION["EMP_NUM"])){
 </head>
 
 <body>
-    <?php 
-    	include('../php/fonctionsUtiles.php');
-        require_once('../php/afficherTempsOpti.php');
-     ?>
-    <?php include('header.php') ?>
 
-    <div id="Page" style="height:100%">
-	    <div id="wrapper" toggleClass="" style="height:100%" >
-	      <!-- Sidebar -->
-	      <div id="sidebar-wrapper" >
-	        <ul class="sidebar-nav">
-	          <li class="sidebar-brand">
-                <h4><b>Informations générales</b></h4>
-                <div class="table-responsive listeOpti">
-                   <?php afficherTempsOptimisationsStatistiques($bdd);?>
-               </div>
-                <h4><b>Liste des optimisations</b></h4>
-                <div class="table-responsive listeOpti">
-                    <table class="table tabOpti">
-                        <tr><th>Numero Activité</th><th>Activité</th><th>Temps Total Gagné</th><th>Temps par Optimisation Automatique Gagné</th><th>Temps par Optimisation Manuel Gagné</th></tr>
-	           	        <?php afficherListesOptimisationsStatistiques($bdd)?>
-                    </table>
-                </div>
-	          </li>
-	        </ul>
-	      </div>
-	      <!-- /#sidebar-wrapper --	>
+        <?php 
+        	include('../php/fonctionsUtiles.php');
+            require_once('../php/afficherTempsOpti.php');
+         ?>
+        <?php include('header.php') ?>
 
 
-	      <!-- Page Content -->
-	      <div id="page-content-wrapper" >
-	        <?php include('edt.php') ?>
-	      </div>
-	      <!-- /#page-content-wrapper -->
-	    </div>
+
+    <div id="statistiques" class="collapse">
+        <div id="sidebar-wrapper" style="display:hidden;" >
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <h4><b>Informations générales</b></h4>
+                    <div class="table-responsive listeOpti">
+                        <?php afficherTempsOptimisationsStatistiques($bdd);?>
+                    </div>
+                    <h4><b>Liste des optimisations</b></h4>
+                    <div class="table-responsive listeOpti">
+                        <table class="table tabOpti">
+                            <tr><th>Numero Activité</th><th>Activité</th><th>Temps Total Gagné</th><th>Temps par Optimisation Automatique Gagné</th><th>Temps par Optimisation Manuel Gagné</th></tr>
+                            <?php afficherListesOptimisationsStatistiques($bdd)?>
+                        </table>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
-    <?php //include('footer.html') ?>
+
+      <div id="content" >
+        <?php include('edt.php') ?>
+      </div>
+
+    <?php include('footer.html') ?>
     
 </body>
 
