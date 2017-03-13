@@ -9,8 +9,6 @@
 <title>Echange d'une activité</title>	
 
 <script type="text/javascript" src="../js/formulaireAjout.js"></script>
-<script type="text/javascript" src="../js/jquery.chained.min.js"></script>
-
 
 </head> 
 
@@ -19,8 +17,12 @@
 		<label>Activité Initiale :</label><p id="affichageActiviteChange"></p>
 		<input name="pratiqueChange" id="pratiqueChange" type="hidden" value=""/>
 
-		<select name="ChangerActNature" id="ChangerActNature" class="form-control" hidden>
-		
+		<select name="ChangerActNature" id="ChangerActNature" class="form-control" >
+		<option value="" data-temps="null">NADA</option>
+			<?php 
+				//$sql = 'SELECT * FROM nature';
+				//creerListeNature($bdd,$sql);
+			?>
 		</select>
 
 		<label for="activiteChange">Nouvelle activité :</label>
@@ -39,9 +41,8 @@
 
 <script type="text/javascript">
 
-$(function(){
-    $("#activiteChanger").chained("#ChangerActNature");
-});
+$("#activiteChange").chained("#ChangerActNature");
+
 </script>
 
 </html>

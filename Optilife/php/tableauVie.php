@@ -7,6 +7,7 @@
             <span class="onglet" id="onglet_etudes" onclick="window.location.href='#etudes'">Etudes</span>
             <span class="onglet" id="onglet_vieActive" onclick="window.location.href='#vieActive'">Vie Active</span>
             <span class="onglet" id="onglet_retraite" onclick="window.location.href='#retraite'">Retraite</span>
+            <span class="onglet" id="onglet_vie" onclick="window.location.href='#edt'">Toute la vie</span>
         </div>
         <div class="contenu_onglets">
             <div class="contenu_onglet" id="contenu_onglet_etudes" style="display:none;">
@@ -37,7 +38,7 @@
                    <h3>Liste d'activités de la classe d'age : Retraite</h3>
                 </div>
                 <div class="table-striped" id="activite_retraite">
-                <?php$
+                <?php
                     afficherActivite('3',$bdd);
                 ?>
                 </div>
@@ -69,14 +70,14 @@
         if($reponse->rowCount() == 0){
             echo 'Aucune activité dans cette classe d\'age';
         }else{
-             echo '<table class="table table-condensed" id="table"><thead> <tr><th>NUMERO ACTIVITE</th> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> <th>NOUVELLE DUREE</th>';
+             echo '<table class="table table-condensed" id="table"><thead> <tr><th>N° ACTIVITE</th> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> <th>NOUVELLE DUREE</th>';
              echo '<th style="display:none;">CA</th><th style="display:none;">nbHeure</th><th style="display:none;">nbMinute</th><th style="display:none;">actNum</th><th style="display:none;">dureeOpti</th><th style="display:none;">optimiser</th><th style="display:none;">actDuree</th><th style="display:none;">praDuree</th><th style="display:none;">Domaine</th><th style="display:none;">SDomaine</th><th style="display:none;">Nature</th><th style="display:none;">Nature</th></tr> </thead>';
         }
         while ($donnees = $reponse->fetch())
         {   
             $dure = $donnees['PRA_DUREE'];
             $dureOpti = $donnees['PRA_DUREE'];
-            //verification optimisation Automarique appliquée
+            //verification optimisation Automatique appliquée
             $optiAuto = estOpti($bdd, $donnees['PRA_NUM']);
             if($optiAuto){
                 $tpsMini = tempsMini($bdd, $donnees['ACT_NUM']);

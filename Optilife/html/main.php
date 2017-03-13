@@ -34,23 +34,40 @@ if(!isset($_SESSION["EMP_NUM"])){
 
 
     <div id="statistiques" class="collapse">
-        <div id="sidebar-wrapper" style="display:hidden;" >
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <h4><b>Informations générales</b></h4>
-                    <div class="table-responsive listeOpti">
+
+            <div id="pannel-stat" class="panel panel-warning">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <div class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                            <b>Informations générales</b>
+                        </div>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <div class="table-responsive">
                         <?php afficherTempsOptimisationsStatistiques($bdd);?>
                     </div>
-                    <h4><b>Liste des optimisations</b></h4>
-                    <div class="table-responsive listeOpti">
-                        <table class="table tabOpti">
-                            <tr><th>Numero Activité</th><th>Activité</th><th>Temps Total Gagné</th><th>Temps par Optimisation Automatique Gagné</th><th>Temps par Optimisation Manuel Gagné</th></tr>
-                            <?php afficherListesOptimisationsStatistiques($bdd)?>
+                </div>
+            </div>
+
+            <div id="pannel-stat" class="panel panel-warning">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <div class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                            <b>Liste des optimisations</b>
+                        </div>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="table-responsive">
+                        <table class="table" id="tabListeActivite">
+                            <tr><th>N° Activité</th><th>Activité</th><th>Temps Total Gagné</th><th>Temps par Optimisation Automatique Gagné</th><th>Temps par Optimisation Manuel Gagné</th></tr>
+                            <?php afficherListesOptimisationsStatistiques2($bdd)?>
                         </table>
                     </div>
-                </li>
-            </ul>
-        </div>
+                </div>
+            </div>
+
     </div>
 
       <div id="content" >
@@ -63,11 +80,8 @@ if(!isset($_SESSION["EMP_NUM"])){
 
 
  <script type="text/javascript">
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
+
+
  </script>
-    <?php //include('footer.html') ?>
 
 </html>

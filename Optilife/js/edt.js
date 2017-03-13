@@ -111,8 +111,6 @@ function clicked(){
     var nature = this.children[16].innerHTML;
     var natureLibelle = this.children[17].innerHTML;
 
-    alert(natureLibelle);
-
     //remplissage du formulaire de suppression
     document.supprimerActivite.activite.value = actNum;
     document.supprimerActivite.suppFrequence.value = frequence;
@@ -148,7 +146,7 @@ function clicked(){
 
     //remplissage formulaire de changement d'activité
     $('#affichageActiviteChange').text(actLibelle);
-    var optionNature = '<option value="Courses pour 1 à 3 jours">'+natureLibelle+'</option>';
+    var optionNature = '<option value="'+natureLibelle+'">'+ natureLibelle+'</option>';
     $('#ChangerActNature').append(optionNature);
 
 

@@ -49,12 +49,17 @@ body {
 }
 
 #onglet_vieActive{
-   width: 43.3%;
+   width: 44%;
 }
 
 #onglet_retraite{
     width: 27%;
     border-radius: 0 20px 20px 0;
+}
+
+#onglet_vie{
+    width: 99%;
+    border-radius: 20px 20px 20px 20px;
 }
 
 .contenu_onglet{
@@ -103,5 +108,72 @@ thead #ligne:hover {
 #statistiques{
     background-color:#F3E2A9;
     border-bottom: black solid 2px;
+}
+
+#pannel-stat{
+    width: 98%;
+    margin:auto;
+}
+
+.panel-heading{
+    text-align:center;
+    font-weight: bold;
+    border: solid black 2px;
+}
+
+.panel-heading:hover{
+    cursor: pointer;
+}
+
+.panel-collapse{
+    margin:20px;
+    border:solid black 1px;
+}
+
+.panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}
+
+
+#tabListeOpti{
+    text-align: center;
+    width: 95%;
+    margin: auto;
+}
+
+#tabListeActivite{
+     text-align: center;
+}
+
+#tabListeActivite th{
+     text-align: center;
+}
+
+#listeOpti{
+    border-bottom: solid black 1px;
+}
+
+#statOptiLib{
+    width: 70%;
+}
+
+#statOptiTps{
+    width: 30%;
+}
+
+#statOptiTh1{
+    width: 20%;
+}
+
+#statOptiTh{
+    width: 40%;
 }
 
