@@ -16,12 +16,13 @@
 	<form method="post" action= "../php/passerelle.php" enctype="application/x-www-form-urlencoded" name="echangeActivite" id="formChange">
 		<label>Activité Initiale :</label><p id="affichageActiviteChange"></p>
 		<input name="pratiqueChange" id="pratiqueChange" type="hidden" value=""/>
+		<input name="CAChange" id="CAChange" type="hidden" value=""/>
 
-		<select name="ChangerActNature" id="ChangerActNature" class="form-control" >
+		<select name="ChangerActNature" id="ChangerActNature" class="form-control" style="display:none;" >
 		<option value="" data-temps="null">NADA</option>
 			<?php 
-				//$sql = 'SELECT * FROM nature';
-				//creerListeNature($bdd,$sql);
+				$sql = 'SELECT * FROM nature';
+				creerListeNature($bdd,$sql);
 			?>
 		</select>
 
@@ -35,7 +36,7 @@
 		</select>
 		</br>
 	</br>
-		<input type="submit" disabled="disabled" class="btn btn-success btn-lg btn-block" id="ajouter" name="ajouter" value="Ajouter" title="Remplissez tous les champs">
+		<input type="submit" /*disabled="disabled"*/ class="btn btn-success btn-lg btn-block" id="echangerActivite" name="echangerActivite" value="Echanger les activités" title="Remplissez tous les champs">
 	</form>
 </body>
 

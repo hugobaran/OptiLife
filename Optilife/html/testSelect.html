@@ -1,47 +1,49 @@
- <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Opti-Life</title>
+<!-- Include jQuery Steps file -->
+<link rel="stylesheet" href="/vendor/jquery.steps/css/jquery.steps.css">
+<script src="/vendor/jquery.steps/js/jquery.steps.min.js"></script>
 
-        <link rel="icon" type="image/png" href="../../Images/optilife.png"/>
-        
-        <!-- CSS -->
-        <link rel="stylesheet" href="../../Font/font.css" type="text/css" media="all">
-        <link rel="stylesheet" href="../css/bandeau.css" type="text/css">
-        <link rel="stylesheet" href="../css/utilities.css" type="text/css" />
-        <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css"/>
-
-
-        <!-- JS -->
-
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script type="text/javascript" src="../js/bootstrap/bootstrap.min.js"></script>
-   
-        <script type="text/javascript" src="../../Js/jquery.corner.js"></script>
-        <script type="text/javascript" src="../../Js/jQueryRotate.js"></script>
-
-    </head>
-
-<ul id="liste">
-</ul>
-
-<select id="kek" onchange="selectIngredient();">
- <option value="Cheese">Cheese</option>
- <option value="Olives">Olives</option>
- <option value="Pepperoni">Pepperoni</option>
- ...
-</select>
+<div id="example-manipulation">
+    <h3>Add Step</h3>
+    <section>
+        <p>
+            <label for="title-3">HTML Title *</label><br />
+            <input id="title-3" type="text"><br />
+            <label for="text-3">HTML Content *</label><br />
+            <textarea id="text-3" rows="5"></textarea>
+        </p>
+        <p><a href="javascript:void(0);" onclick="$('#wizard-4').steps('add', { title: $('#title-3').val(), content: $('#text-3').val() });">Add</a></p>
+        <p>(*) Mandatory</p>
+    </section>
+    <h3>Insert Step</h3>
+    <section>
+        <p>
+            <label for="position-3">Position (zero-based) *</label><br />
+            <input id="position-3" type="text"><br />
+            <label for="title2-3">HTML Title *</label><br />
+            <input id="title2-3" type="text"><br />
+            <label for="text2-3">HTML Content *</label><br />
+            <textarea id="text2-3" rows="5"></textarea>
+        </p>
+        <p><a href="javascript:void(0);" onclick="$('#wizard-4').steps('insert', Number($('#position-3').val()), { title: $('#title2-3').val(), content: $('#text2-3').val() });">Insert</a></p>
+        <p>(*) Mandatory</p>
+    </section>
+    <h3>Remove Step</h3>
+    <section>
+        <p>
+            <label for="position2-3">Position (zero-based) *</label><br />
+            <input id="position2-3" type="text">
+        </p>
+        <p><a href="javascript:void(0);" onclick="$('#wizard-4').steps('remove', Number($('#position2-3').val()));">Remove</a></p>
+        <p>(*) Mandatory</p>
+    </section>
+</div>
 
 <script type="text/javascript">
-    
-   function selectIngredient()
-    {
-      var ul = $("#liste");
-       
-      if (ul.find('input[value=' + $("#kek").val() + ']').length == 0)
-        ul.append('<li onclick="$(this).remove();">' +
-          '<input type="hidden" name="ingredients[]" value="' + 
-          $("#kek").val() + '" /> ' +
-          $("#kek").val() + '</li>');
-    }
-
+    $("#example-manipulation").steps({
+    headerTag: "h3",
+    bodyTag: "section",
+    enableAllSteps: true,
+    enablePagination: false
+});
 </script>
+

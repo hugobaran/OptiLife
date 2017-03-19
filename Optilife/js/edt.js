@@ -40,9 +40,11 @@ var tr = document.querySelectorAll("#table #ligne"),
   modif = document.getElementById('btnModif');
   sup = document.getElementById('btnSupp');
   opti = document.getElementById('btnOptiManuelle');
+  echange = document.getElementById('btnChanger');
   modif.style.background = "#D5CEB5";
   sup.style.background = "#D5CEB5";
   opti.style.background = "#D5CEB5";
+  echange.style.background = "#D5CEB5";
   selected = [],
   i = 0,
   l = tr.length,
@@ -64,9 +66,11 @@ function clicked(){
     sup.disabled = true;
     modif.disabled = true;
     opti.disabled = true;
+    echange.disabled = true;
     modif.style.background = "#D5CEB5";
     sup.style.background = "#D5CEB5";
     opti.style.background = "#D5CEB5";
+    echange.style.background = "#D5CEB5";
     document.supprimerActivite.activite.value = "";
     document.supprimerActivite.frequence.value = "";
     document.supprimerActivite.classeAge.value = "";
@@ -87,9 +91,11 @@ function clicked(){
     sup.disabled = false;
     modif.disabled = false;
     opti.disabled = false;
+    echange.disabled = false;
     modif.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
     sup.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
     opti.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
+    echange.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
 
     //initialisation des variables récupérée par le tableau
     var praNum = this.children[0].innerHTML;
@@ -145,13 +151,13 @@ function clicked(){
     document.modifierTache.nbMinutes.value = nbMinutes;
 
     //remplissage formulaire de changement d'activité
+    $('#pratiqueChange').val(praNum);
     $('#affichageActiviteChange').text(actLibelle);
-    var optionNature = '<option value="'+natureLibelle+'">'+ natureLibelle+'</option>';
-    $('#ChangerActNature').append(optionNature);
-
+    $('#ChangerActNature option[value="'+natureLibelle+'"]').prop('selected', true);
+    $('#ChangerActNature').change();
 
     //remplissage formulaire Optimisation
-    if(optiAutoFLag == 1)
+    if(optiAutoFLag == 1 && actDuree != 0 )
       var tps = actDuree;
     else var tps = duree;
     $('#affichageTemps').text(formaterTemps(tps));
@@ -216,5 +222,9 @@ function formaterTemps(temps){
   var heures = parseInt(temps/60,10);
   var minutes = parseInt(((temps/60)-heures)*60,10);
   var secondes = parseInt((temps - heures*60 - minutes)*60,10);
+  if(secondes == 60){
+    minutes ++;
+    secondes = 00;
+  }
   return heures + 'h ' + minutes + 'm ' + secondes + 's';
 }
