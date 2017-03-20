@@ -38,7 +38,7 @@ if(!isset($_SESSION["EMP_NUM"])){
             <div id="pannel-stat" class="panel panel-warning">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <div class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                        <div class="accordion-toggle" data-toggle="collapse" data-target="#collapse1">
                             <b>Informations générales</b>
                         </div>
                     </h4>
@@ -50,20 +50,18 @@ if(!isset($_SESSION["EMP_NUM"])){
                 </div>
             </div>
 
+
             <div id="pannel-stat" class="panel panel-warning">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <div class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                        <div class="accordion-toggle" data-toggle="collapse" data-target="#collapse2">
                             <b>Liste des optimisations</b>
                         </div>
                     </h4>
                 </div>
                 <div id="collapse2" class="panel-collapse collapse">
                     <div class="table-responsive">
-                        <table class="table" id="tabListeActivite">
-                            <tr><th>N° Activité</th><th>Activité</th><th>Temps Total Gagné</th><th>Temps par Optimisation Automatique Gagné</th><th>Temps par Optimisation Manuel Gagné</th></tr>
-                            <?php afficherListesOptimisationsStatistiques2($bdd)?>
-                        </table>
+                        <?php afficherListesOptimisationsStatistiques2($bdd)?>
                     </div>
                 </div>
             </div>

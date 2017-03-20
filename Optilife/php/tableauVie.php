@@ -70,7 +70,7 @@
         if($reponse->rowCount() == 0){
             echo 'Aucune activité dans cette classe d\'age';
         }else{
-             echo '<table class="table table-condensed" id="table"><thead> <tr><th>N° ACTIVITE</th> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> <th>NOUVELLE DUREE</th>';
+             echo '<table class="table table-condensed" id="table"><thead> <tr><th>N°</th> <th>ACTIVITE</th> <th>FREQUENCE</th> <th>NB FOIS</th> <th>DUREE</th> <th>NOUVELLE DUREE</th>';
              echo '<th style="display:none;">CA</th><th style="display:none;">nbHeure</th><th style="display:none;">nbMinute</th><th style="display:none;">actNum</th><th style="display:none;">dureeOpti</th><th style="display:none;">optimiser</th><th style="display:none;">actDuree</th><th style="display:none;">praDuree</th><th style="display:none;">Domaine</th><th style="display:none;">SDomaine</th><th style="display:none;">Nature</th><th style="display:none;">Nature</th></tr> </thead>';
         }
         while ($donnees = $reponse->fetch())
@@ -92,23 +92,32 @@
             }
             $dureOpti = $donnees['PRA_DUREE_OPTI'];
             $minute = (int)(($dure%60));
+            if($minute < 10) $minute = "0" . $minute;
             $heure = (int)($dure - $minute)/60;
+            $secondes = round(($dure - floor($dure))*60);
+            if($secondes < 10) $secondes = "0" . $secondes;
             $minuteOpti = (int)(($dureOpti%60));
+            if($minuteOpti < 10) $minuteOpti = "0" . $minuteOpti;
             $heureOpti = (int)($dureOpti - $minuteOpti)/60;
+            $secondesOpti = round(($dureOpti - floor($dureOpti))*60);
+            if($secondesOpti < 10) $secondesOpti = "0" . $secondesOpti;
             $activite = utf8_encode($donnees['ACT_LIBELLE']);
             $numPra = $donnees['PRA_NUM'];
             echo '<tr id="ligne"><td>' . $numPra .'</td><td>' . $activite . "</td><td>" . $donnees['FR_LIBELLE'] . "</td><td>" . $donnees['PRA_NBFOIS'] . "</td>";
             echo "<td>";
-            echo  $heure. "h ". $minute . "m" . '</td>'; 
+            echo  $heure. "h ". $minute . "mn " . $secondes . 's</td>'; 
             echo "<td>";
             if($optiAuto || $optiManuelle){
                 $tps = $dureOpti;
-                echo "<font color='red'>";
-                echo  $heureOpti. "h ". $minuteOpti . "m" ;
+                if($optiAuto)
+                    echo "<font color='red'>";
+                else
+                    echo "<font color='green'>";
+                echo  $heureOpti. "h ". $minuteOpti . "mn " . $secondesOpti . "s" ;
             }else{
                 $tps = $dure;
                 echo "<font color='green'>";
-                echo  $heure. "h ". $minute . "m" ;
+                echo  $heure. "h ". $minute . "mn " . $secondesOpti . "s" ;
             } 
             echo '</td>';
             if($optiAuto || $optiManuelle)

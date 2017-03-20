@@ -47,7 +47,10 @@ function tempsOptiAutoPratiqueUnAn($bdd, $act){
 	$emp = 1;
 	$sql = "SELECT * FROM `pratiquer` WHERE `PRA_NUM` = ".$act." AND `EMP_NUM` = ".$_SESSION["EMP_NUM"]." ";
 	$tab = lireDonneesPDO1($bdd, $sql);
-	$tps = $tab[0]['PRA_DUREE'] - tempsMini($bdd, $tab[0]['ACT_NUM']);
+	$mini = tempsMini($bdd, $tab[0]['ACT_NUM']);
+	if($mini > 0)
+		$tps = $tab[0]['PRA_DUREE'] - $mini;
+	else $tps = 0;
 	$tps = tempsGagneUnAn($tps,$tab[0]['FR_LIBELLE'], $tab[0]['PRA_NBFOIS']);
 	return $tps;
 }
@@ -146,6 +149,7 @@ function MiseEnFormTemps1($dure){
 	$annee = (int)((($dure)/525600));
 	return $annee." année(s) ".$mois." mois ".$jour." jour(s) ".$heure." heure(s) ".$minute." minute(s)";
 }
+
 function MiseEnFormTemps2($dure){
 	if($dure == 0)
 		return "0 minute";
@@ -171,6 +175,7 @@ function MiseEnFormTemps2($dure){
 		$res = $res . $minute." minute(s)";
 	return $res;
 }
+
 function afficherTempsOpti($bdd){
 	$dure = tempsOptiManuelle1TotalVie($bdd);
 	$dure = $dure + tempsOptiManuelle2TotalVie($bdd);
@@ -180,6 +185,8 @@ function afficherTempsOpti($bdd){
 
 
 function afficherListesOptimisationsStatistiques2($bdd){
+	echo '<table class="table" id="tabListeActivite">
+                            <tr><th>N° Activité</th><th>Activité</th><th>Temps Total Gagné</th><th>Temps par Optimisation Automatique Gagné</th><th>Temps par Optimisation Manuel Gagné</th></tr>';
 	$sql2 = "SELECT PRA_NUM FROM pratiquer WHERE PRA_NUM in(SELECT PRA_NUM FROM est_optimise) AND EMP_NUM =  ". $_SESSION["EMP_NUM"] ;
 	$reponse2 = $bdd->query($sql2);
 	while ($donnees2 = $reponse2->fetch()){
@@ -207,6 +214,7 @@ function afficherListesOptimisationsStatistiques2($bdd){
 		echo "</table></tr>";
 		}
 	}
+	echo '</table>';
 
 }
 

@@ -20,3 +20,11 @@ ul{
 list-style-type: none;
 }
 
+#steps{
+	display : none;
+}
+
+#step0Next{
+	float: left;
+	text-decoration: none;
+}

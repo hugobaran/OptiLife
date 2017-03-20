@@ -23,3 +23,19 @@ body {
 #tuto, #presentation{
   margin:30px;
 }
+
+#formCreationEDT{
+	margin-right : 15%;
+	margin-left : 15%;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+#titreFormEDT{
+	text-align: center;
+	font-weight: bold;
+}
+
+#age{
+	text-align: center;
+}

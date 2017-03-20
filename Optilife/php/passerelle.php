@@ -5,6 +5,7 @@
 	include("../php/ajouterTache.php");
 	include("../php/modifierTache.php");
 	include("../php/optiManuelleFonction.php");
+	include("../php/changerActiviteFonction.php");
 
 		if(isset($_POST["ajouter"])){
 			try{
@@ -79,6 +80,28 @@
 						$raison = "&raison=OptiExistante";
 						break;
 					case 'OptiNope':
+						$raison = "&raison=inconnu";
+						break;	
+					default:
+						header("location: ../html/main.php?action=echec".$raison);
+						exit();
+						break;
+					}
+				header("location: ../html/main.php?action=echec");
+				exit();
+			}
+		}else if(isset($_POST['echangerActivite'])){
+			try{
+				echangerActivite($bdd);
+				header("location: ../html/main.php?action=echangeActivite");
+				exit();
+			}catch(PDOException $e){
+				$raison="";
+				switch ($e->getMessage()) {
+					case 'ActiviteExistante':
+						$raison = "&raison=ActiviteExistante";
+						break;
+					case 'ActiviteNope':
 						$raison = "&raison=inconnu";
 						break;	
 					default:

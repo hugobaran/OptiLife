@@ -10,27 +10,27 @@
     </head>
 
     <body onload="responsive()" onresize="responsive()">
-        <a href="Optiday">
-            <div id="gauche" class="demiPage" onmouseover="mOver('Gauche')" onmouseout="mOut('Gauche')">
-                <div class="circle" id="circleGauche">
+            <a href="Optiday">
+                <div id="gauche" class="demiPage" onmouseover="mOver('Gauche')" onmouseout="mOut('Gauche')">
+                    <div class="circle" id="circleGauche">
+                    </div>
+                    <h1 id="hOptiday">Opti-Day</h1>
                 </div>
-                <h1 id="hOptiday">Opti-Day</h1>
-            </div>
-        </a>
-        <a href="Optilife/html/accueil.php">
-            <div id="droite" class="demiPage" onmouseover="mOver('Droit')" onmouseout="mOut('Droit')">
-                <div class="circle" id="circleDroit">
+            </a>
+            <a href="Optilife/html/accueil.php">
+                <div id="droite" class="demiPage" onmouseover="mOver('Droit')" onmouseout="mOut('Droit')">
+                    <div class="circle" id="circleDroit">
+                    </div>
+                    <h1 id="hOptilife">Opti-Life</h1>
                 </div>
-                <h1 id="hOptilife">Opti-Life</h1>
-            </div>
-        </a>
+            </a>
     </body>
 
     <script>
         function responsive()
         {
-            var hauteur = window.innerHeight;
-            var largeur = window.innerWidth;
+            var hauteur = $(window).height();
+            var largeur = $(window).width();
 
             var divDroite = document.getElementById("droite");
             var divGauche = document.getElementById("gauche");
@@ -68,12 +68,12 @@
 
         function mOver(cote)
         {
-            document.getElementById('circle'+cote).style.boxShadow = "0px 0px 20px #FFF, 0px 0px 20px #FFF inset";
+           document.getElementById('circle'+cote).style.boxShadow = "0px 0px 20px #FFF, 0px 0px 20px #FFF inset";
         }
 
         function mOut(cote)
         {
-            document.getElementById('circle'+cote).style.boxShadow = "0px 0px 20px rgba(34, 34, 34, 1), 0px 0px 20px rgba(34, 34, 34, 1) inset";
+           document.getElementById('circle'+cote).style.boxShadow = "0px 0px 20px rgba(34, 34, 34, 1), 0px 0px 20px rgba(34, 34, 34, 1) inset";
         }        
     </script>
     <script>
