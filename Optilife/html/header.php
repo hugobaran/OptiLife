@@ -42,7 +42,7 @@
 				<?php if(!isset($_SESSION["usrPseudo"])) { ?>
                 <div class="login">
                     <div class="win-open connect" id="#login" style="cursor:pointer"><a href="connexion.php">Connexion</a></div>
-                    <div class="win-open register" id="#register" style="cursor:pointer">Inscription</div>
+                    <div class="win-open register" id="#register" style="cursor:pointer"><a href="inscription.php">Inscription</a></div>
                 </div>
 				<?php } else {?>
 				<div class="login">
