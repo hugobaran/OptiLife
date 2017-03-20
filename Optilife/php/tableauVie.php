@@ -92,16 +92,20 @@
             }
             $dureOpti = $donnees['PRA_DUREE_OPTI'];
             $minute = (int)(($dure%60));
+            if($minute < 10) $minute = "0" . $minute;
             $heure = (int)($dure - $minute)/60;
             $secondes = round(($dure - floor($dure))*60);
+            if($secondes < 10) $secondes = "0" . $secondes;
             $minuteOpti = (int)(($dureOpti%60));
+            if($minuteOpti < 10) $minuteOpti = "0" . $minuteOpti;
             $heureOpti = (int)($dureOpti - $minuteOpti)/60;
             $secondesOpti = round(($dureOpti - floor($dureOpti))*60);
+            if($secondesOpti < 10) $secondesOpti = "0" . $secondesOpti;
             $activite = utf8_encode($donnees['ACT_LIBELLE']);
             $numPra = $donnees['PRA_NUM'];
             echo '<tr id="ligne"><td>' . $numPra .'</td><td>' . $activite . "</td><td>" . $donnees['FR_LIBELLE'] . "</td><td>" . $donnees['PRA_NBFOIS'] . "</td>";
             echo "<td>";
-            echo  $heure. "h ". $minute . "m " . $secondes . 's</td>'; 
+            echo  $heure. "h ". $minute . "mn " . $secondes . 's</td>'; 
             echo "<td>";
             if($optiAuto || $optiManuelle){
                 $tps = $dureOpti;
@@ -109,11 +113,11 @@
                     echo "<font color='red'>";
                 else
                     echo "<font color='green'>";
-                echo  $heureOpti. "h ". $minuteOpti . "m " . $secondesOpti . "s" ;
+                echo  $heureOpti. "h ". $minuteOpti . "mn " . $secondesOpti . "s" ;
             }else{
                 $tps = $dure;
                 echo "<font color='green'>";
-                echo  $heure. "h ". $minute . "m " . $secondesOpti . "s" ;
+                echo  $heure. "h ". $minute . "mn " . $secondesOpti . "s" ;
             } 
             echo '</td>';
             if($optiAuto || $optiManuelle)

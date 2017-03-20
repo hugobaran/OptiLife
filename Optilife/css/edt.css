@@ -10,7 +10,7 @@ body {
   margin: 0;
   padding-bottom: 6rem;
   min-height: 100%;
-  background-color: #FAFAFA;
+  background-color: #FBF8EF;
 }
 
 *,
@@ -19,15 +19,24 @@ body {
   box-sizing: inherit;
 }
 
+#formBouton{
+    margin-bottom: 25px;
+}
+
+#content{
+    margin-bottom: 25px;
+}
 
 .systeme_onglets{
     text-align: center;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .onglets{
     vertical-align: middle;
+    margin-left : -5px;
+    margin-right: -5px;
 }
 
 .onglet{
@@ -45,7 +54,7 @@ body {
 
 #onglet_etudes{
     width: 27%;
-    border-radius: 20px 0 0 20px;
+    border-radius: 10px 0 0 10px;
 
 }
 
@@ -55,12 +64,12 @@ body {
 
 #onglet_retraite{
     width: 27%;
-    border-radius: 0 20px 20px 0;
+    border-radius: 0 10px 10px 0;
 }
 
 #onglet_vie{
     width: 99%;
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 10px 10px 10px 10px;
 }
 
 .contenu_onglet{
@@ -68,8 +77,22 @@ body {
     border:1px solid black;
     padding:3px;
     min-height: 50%;
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 10px 10px 10px 10px;
+    margin-bottom: 10px;
 }
+
+#activite_vieActive{
+    margin-bottom: 20px;
+}
+
+ #activite_etudes{
+    margin-bottom: 20px;
+}
+
+#activite_retraite{
+    margin-bottom: 20px;
+}
+
 
 .header_onglet{
     display: inline;

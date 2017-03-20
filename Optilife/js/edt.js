@@ -226,5 +226,7 @@ function formaterTemps(temps){
     minutes ++;
     secondes = 00;
   }
-  return heures + 'h ' + minutes + 'm ' + secondes + 's';
+  if(minutes < 10) minutes = "0" + minutes;
+  if(secondes < 10) secondes = "0" + secondes;
+  return heures + 'h ' + minutes + 'mn ' + secondes + 's';
 }

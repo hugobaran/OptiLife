@@ -5,7 +5,7 @@
 	<head>
 		<meta charset="UTF-8"/>
 		<title>OptiLife</title>
-		<link rel="stylesheet"  href="../css/accueil.css" type="text/CSS"/>
+		
 		<link rel="stylesheet" href="../css/utilities.css" type="text/css" />
 	
 
@@ -16,7 +16,14 @@
 			<?php include("header.php"); ?>
 	
 			<div class="boutonsGroup">
-				<input class="bouton" type=button value="Commencer une nouvelle optimisation" onclick="document.location.href='../php/creationEDT.php'"/>
+				<?php
+					if(!isset($_SESSION["EMP_NUM"]))
+						echo '<input class="bouton" type=button value="Commencer une nouvelle optimisation" onclick="document.location.href=\'creationEDT.php\'"/>';
+					else{
+						echo '<input class="bouton" type=button value="Continuer l\'optimisation actuelle" onclick="document.location.href=\'main.php\'"/>';
+						echo '<input class="bouton" type=button value="Commencer une nouvelle optimisation" onclick="document.location.href=\'creationEDT.php\'"/>';
+					}
+				?>
 			</div>
 			<br/>
 	 		<div class="container">
