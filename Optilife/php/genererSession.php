@@ -1,5 +1,6 @@
 <?php 
- @session_start();
+
+@session_start();
 include("../php/connexionBDD.php");
 if(empty($_SESSION["usrNum"])){
 	

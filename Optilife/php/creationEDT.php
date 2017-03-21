@@ -1,4 +1,5 @@
 <?php
+
 include("../php/connexionBDD.php");
 require_once("../php/fonctionsUtiles.php");
 @session_start(); 
