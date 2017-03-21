@@ -19,19 +19,17 @@ if(isset($_POST['creationEDTSubmit'])){
 		}else{
 			$num = 3;
 		}
-		$numEDT = 1;
-		echo $num;
-		if($tab[0]["count(*)"] == 0){
-			$sql = "INSERT INTO `emploidutemps` (`EMP_NUM`, `CAT_NUM`, `USR_NUM_VISITEUR`, `USR_NUM_INSCRIT`) VALUES (".$numEDT.", '".$num."', '".$_SESSION["usrNum"]."', NULL)";
-			$bdd ->exec($sql);
-		}else{
-			$sql = "select max(emp_num)+1 as max from emploidutemps";
-			$tab = LireDonneesPDO1($bdd, $sql);
-			$numEDT = $tab[0]['max'];
-			$sql = "INSERT INTO `emploidutemps` (`EMP_NUM`, `CAT_NUM`, `USR_NUM_VISITEUR`, `USR_NUM_INSCRIT`) VALUES (".$numEDT.", '".$num."', '".$_SESSION["usrNum"]."', NULL)";
-			$bdd ->exec($sql);
+		if(isset($_SESSION["EMP_NUM"])){
+			$sql2 = "DELETE FROM emploidutemps WHERE EMP_NUM = ". $_SESSION["EMP_NUM"];
+			echo $sql2;
+			$bdd ->exec($sql2);
 		}
-	$_SESSION["EMP_NUM"] = $numEDT;
+		$sql = "INSERT INTO `emploidutemps` (`CAT_NUM`, `USR_NUM_VISITEUR`, `USR_NUM_INSCRIT`, `EMP_DATE`) VALUES ('".$num."', '".$_SESSION["usrNum"]."', NULL, sysdate())";
+		$bdd ->exec($sql);
+		$sql = "SELECT EMP_NUM FROM emploidutemps WHERE USR_NUM_VISITEUR = '" . $_SESSION["usrNum"]. "'";
+		$tab = LireDonneesPDO1($bdd, $sql);
+		$_SESSION["EMP_NUM"] = $tab[0]["EMP_NUM"];
+		echo $numEDT;
 	}
 }
 header("location: ../html/main.php");
