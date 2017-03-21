@@ -1,3 +1,46 @@
+﻿
 ﻿.container{
 	
+=======
+﻿/**
+ * Demo Styles
+ */
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
+}
+
+#tuto, #presentation{
+  margin:30px;
+}
+
+#formCreationEDT{
+	margin-right : 15%;
+	margin-left : 15%;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+#titreFormEDT{
+	text-align: center;
+	font-weight: bold;
+}
+
+#age{
+	text-align: center;
+
 }
