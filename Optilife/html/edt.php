@@ -1,6 +1,3 @@
-<?php  
- //echo "usr_num : ".$_SESSION["usrNum"]."</br>";
- //echo "usr_date : ".$_SESSION["usrDate"]."</br>";?>
 <html lang="fr">
   <head>
         <meta charset="utf-8">
@@ -16,10 +13,11 @@
           afficherTempsOpti($bdd); 
         ?>
 
-        <form class="boutonsGroup" method="post" action= "../php/optiAuto.php" enctype="application/x-www-form-urlencoded" name="optimiser" style="margin-bottom: 5%;">
+        <form class="boutonsGroup" method="post" action= "../php/optiAuto.php" enctype="application/x-www-form-urlencoded" name="optimiser" id="formBouton">
           <input type="submit" class="bouton" value="Optimiser Automatiquement" name="optimiser" id="optimiser"/>
           <button type="button" class="bouton" id="btnOptiManuelle" href="#optiManuelle" disabled>Optimiser Manuellement</button>
-          <button type="button" href="#menu-toggle" class="bouton" id="menu-toggle">Afficher les statistiques</button>
+          <button type="button" class="bouton" id="btnChanger" href="#changer" disabled>Echanger l'activité</button>
+          <button type="button" class="bouton" data-toggle="collapse" data-target="#statistiques">Afficher les statistiques</button>
 		    </form>
 
         <?php include('../php/tableauVie.php') ?>
@@ -27,7 +25,7 @@
         <?php include('Modals.php') ?>
 
       <div class="boutonsGroup"> <!--debut boutons-->
-        <button type="button" class="bouton" id="btnAdd" href="#ajouter">Ajouter</button>
+        <button type="button" class="bouton" id="btnAdd" href="#ajouter">Ajouter une activité</button>
         <button type="button" class="bouton"" id="btnModif" href="#modifier" disabled>Modifier</button>
         <button type="button" class="bouton" id="btnSupp" href="#supprimer" disabled>Supprimer</button>
       </div> <!--fin boutons-->

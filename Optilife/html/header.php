@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="../../Font/font.css" type="text/css" media="all">
         <link rel="stylesheet" href="../css/bandeau.css" type="text/css">
         <link rel="stylesheet" href="../css/utilities.css" type="text/css" />
-        <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../css/bootstrap.min.css"/>
 
 
         <!-- JS -->

@@ -1,8 +1,20 @@
-<!-- Include jQuery Steps file -->
-<link rel="stylesheet" href="/vendor/jquery.steps/css/jquery.steps.css">
-<script src="/vendor/jquery.steps/js/jquery.steps.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<div id="example-manipulation">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="OptiLife/js/jquery.steps.min.js"></script>
+
+</head>
+
+  <body>
+
+      <div id="example-manipulation">
     <h3>Add Step</h3>
     <section>
         <p>
@@ -38,12 +50,17 @@
     </section>
 </div>
 
-<script type="text/javascript">
+  </body>
+
+  <script type="text/javascript">
     $("#example-manipulation").steps({
     headerTag: "h3",
     bodyTag: "section",
     enableAllSteps: true,
     enablePagination: false
 });
-</script>
+  </script>
 
+ 
+
+</html>

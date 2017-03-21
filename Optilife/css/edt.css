@@ -1,23 +1,42 @@
-html, body { 
-    height: 100%; 
+html {
+  height: 100%;
+  box-sizing: border-box;
+  min-width: 600px;
 }
 
-html{
-    min-width: 600px;
+
+body {
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
+  background-color: #FBF8EF;
 }
 
-body{
-    margin:0; 
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+#formBouton{
+    margin-bottom: 25px;
+}
+
+#content{
+    margin-bottom: 25px;
 }
 
 .systeme_onglets{
     text-align: center;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .onglets{
     vertical-align: middle;
+    margin-left : -5px;
+    margin-right: -5px;
 }
 
 .onglet{
@@ -35,17 +54,22 @@ body{
 
 #onglet_etudes{
     width: 27%;
-    border-radius: 20px 0 0 20px;
+    border-radius: 10px 0 0 10px;
 
 }
 
 #onglet_vieActive{
-   width: 43.3%;
+   width: 44%;
 }
 
 #onglet_retraite{
     width: 27%;
-    border-radius: 0 20px 20px 0;
+    border-radius: 0 10px 10px 0;
+}
+
+#onglet_vie{
+    width: 99%;
+    border-radius: 10px 10px 10px 10px;
 }
 
 .contenu_onglet{
@@ -53,8 +77,22 @@ body{
     border:1px solid black;
     padding:3px;
     min-height: 50%;
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 10px 10px 10px 10px;
+    margin-bottom: 10px;
 }
+
+#activite_vieActive{
+    margin-bottom: 20px;
+}
+
+ #activite_etudes{
+    margin-bottom: 20px;
+}
+
+#activite_retraite{
+    margin-bottom: 20px;
+}
+
 
 .header_onglet{
     display: inline;
@@ -89,5 +127,77 @@ thead #ligne:hover {
     text-align: center;
     margin : 5px;
     text-decoration: bold;
+}
+
+#statistiques{
+    background-color:#F3E2A9;
+    border-bottom: black solid 2px;
+}
+
+#pannel-stat{
+    width: 98%;
+    margin:auto;
+}
+
+.panel-heading{
+    text-align:center;
+    font-weight: bold;
+    border: solid black 2px;
+}
+
+.panel-heading:hover{
+    cursor: pointer;
+}
+
+.panel-collapse{
+    margin:20px;
+    border:solid black 1px;
+}
+
+.panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}
+
+
+#tabListeOpti{
+    text-align: center;
+    width: 95%;
+    margin: auto;
+}
+
+#tabListeActivite{
+     text-align: center;
+}
+
+#tabListeActivite th{
+     text-align: center;
+}
+
+#listeOpti{
+    border-bottom: solid black 1px;
+}
+
+#statOptiLib{
+    width: 70%;
+}
+
+#statOptiTps{
+    width: 30%;
+}
+
+#statOptiTh1{
+    width: 20%;
+}
+
+#statOptiTh{
+    width: 40%;
 }
 

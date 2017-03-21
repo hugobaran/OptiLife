@@ -1,6 +1,7 @@
 //Affichage des modals
 $(document).ready(function(){
     $("#btnAdd").click(function(){
+        MAJbutton();
         $("#ModalAjout").modal();
     });
     $("#btnModif").click(function(){
@@ -11,6 +12,9 @@ $(document).ready(function(){
     });
      $("#btnOptiManuelle").click(function(){
         $("#ModalOpti").modal();
+    });
+     $("#btnChanger").click(function(){
+        $("#ModalChanger").modal();
     });
 });
 
@@ -36,9 +40,11 @@ var tr = document.querySelectorAll("#table #ligne"),
   modif = document.getElementById('btnModif');
   sup = document.getElementById('btnSupp');
   opti = document.getElementById('btnOptiManuelle');
+  echange = document.getElementById('btnChanger');
   modif.style.background = "#D5CEB5";
   sup.style.background = "#D5CEB5";
   opti.style.background = "#D5CEB5";
+  echange.style.background = "#D5CEB5";
   selected = [],
   i = 0,
   l = tr.length,
@@ -60,9 +66,11 @@ function clicked(){
     sup.disabled = true;
     modif.disabled = true;
     opti.disabled = true;
+    echange.disabled = true;
     modif.style.background = "#D5CEB5";
     sup.style.background = "#D5CEB5";
     opti.style.background = "#D5CEB5";
+    echange.style.background = "#D5CEB5";
     document.supprimerActivite.activite.value = "";
     document.supprimerActivite.frequence.value = "";
     document.supprimerActivite.classeAge.value = "";
@@ -74,8 +82,8 @@ function clicked(){
     document.optimiserActivite.activiteNum.value = "";
     document.optimiserActivite.temps.value = "";
     $('#activiteO').val("").change();
-    //selected.splice(selected.indexOf(this), 2);
   }else {
+
     selected[0].className = selected[0].className.replace(" selected", "");
     selected = [];
     this.className += " selected";
@@ -83,23 +91,47 @@ function clicked(){
     sup.disabled = false;
     modif.disabled = false;
     opti.disabled = false;
+    echange.disabled = false;
     modif.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
     sup.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
     opti.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
-    document.supprimerActivite.activite.value = this.children[9].innerHTML;
-    document.supprimerActivite.suppFrequence.value = this.children[2].innerHTML;
-    document.supprimerActivite.classeAge.value = this.children[6].innerHTML;
-    document.supprimerActivite.suppPra.value = this.children[0].innerHTML;
+    echange.style.background = "#FF8F15 linear-gradient( #FF8F15, #D55601)";
+
+    //initialisation des variables récupérée par le tableau
+    var praNum = this.children[0].innerHTML;
+    var actLibelle = this.children[1].innerHTML;
+    var frequence = this.children[2].innerHTML;
+    var nbFois = this.children[3].innerHTML;
+    var dureeTexte = this.children[4].innerHTML;
+    var dureeOptiTexte = this.children[5].innerHTML;
+    var classeAge = this.children[6].innerHTML;
+    var nbHeures = this.children[7].innerHTML;
+    var nbMinutes = this.children[8].innerHTML;
+    var actNum = this.children[9].innerHTML;
+    var dureeOpti = this.children[10].innerHTML;
+    var optiAutoFLag = this.children[11].innerHTML;
+    var actDuree = this.children[12].innerHTML;
+    var duree = this.children[13].innerHTML;
+    var domaine = this.children[14].innerHTML;
+    var sousDomaine = this.children[15].innerHTML;
+    var nature = this.children[16].innerHTML;
+    var natureLibelle = this.children[17].innerHTML;
+
+    //remplissage du formulaire de suppression
+    document.supprimerActivite.activite.value = actNum;
+    document.supprimerActivite.suppFrequence.value = frequence;
+    document.supprimerActivite.classeAge.value = classeAge;
+    document.supprimerActivite.suppPra.value = praNum;
 
     //remplissage formulaire modifier
-    document.modifierTache.EXfrequence.value = this.children[2].innerHTML;
-    document.modifierTache.activite.value = this.children[9].innerHTML;
-    document.modifierTache.pratique.value = this.children[0].innerHTML;
-    $('#affichageActivite').text(this.children[1].innerHTML);
-    $('#affichageActiviteS').text(this.children[1].innerHTML);
-    document.modifierTache.frequence.value = this.children[2].innerHTML;
-    document.modifierTache.classe_age.value = this.children[6].innerHTML;
-    classeAgeNB = this.children[6].innerHTML;
+    document.modifierTache.EXfrequence.value = frequence;
+    document.modifierTache.activite.value = actNum;
+    document.modifierTache.pratique.value = praNum;
+    $('#affichageActivite').text(actLibelle);
+    $('#affichageActiviteS').text(actLibelle);
+    document.modifierTache.frequence.value = frequence;
+    document.modifierTache.classe_age.value = classeAge;
+    classeAgeNB = classeAge;
     if(classeAgeNB==1){
       classeAgeTxt = "Etudes";
     }
@@ -114,27 +146,32 @@ function clicked(){
     }
     $('#affichageClasseAge').text(classeAgeTxt);
     $('#affichageClasseAgeS').text(classeAgeTxt);
-    document.modifierTache.nbFois.value = this.children[3].innerHTML;
-    document.modifierTache.nbHeure.value = this.children[7].innerHTML;
-    document.modifierTache.nbMinutes.value = this.children[8].innerHTML;
+    document.modifierTache.nbFois.value = nbFois;
+    document.modifierTache.nbHeure.value = nbHeures;
+    document.modifierTache.nbMinutes.value = nbMinutes;
 
+    //remplissage formulaire de changement d'activité
+    $('#pratiqueChange').val(praNum);
+    $('#affichageActiviteChange').text(actLibelle);
+    $('#ChangerActNature option[value="'+natureLibelle+'"]').prop('selected', true);
+    $('#ChangerActNature').change();
 
     //remplissage formulaire Optimisation
-    if(this.children[11].innerHTML == 1)
-      var tps = this.children[12].innerHTML;
-    else var tps = this.children[13].innerHTML;
+    if(optiAutoFLag == 1 && actDuree != 0 )
+      var tps = actDuree;
+    else var tps = duree;
     $('#affichageTemps').text(formaterTemps(tps));
     $('#affichageTempsOpti').text(formaterTemps(tps));
     $('#affichageTempsGagne').text(formaterTemps(0));
     $('#tempsOpti').val(tps);
     $('#temps').val(tps);
     $('#tempsGagne').val(0);
-    $('#tempsPratique').val(this.children[4].innerHTML);
-    $('#activiteO').val(this.children[9].innerHTML).change();
-    $('#pratiqueOpti').val(this.children[0].innerHTML);
-    $('#affichageActiviteOpti').text(this.children[1].innerHTML);
-    document.optimiserActivite.classe_age.value = this.children[6].innerHTML;
-    classeAgeNB = this.children[6].innerHTML;
+    $('#tempsPratique').val(dureeTexte);
+    $('#activiteO').val(actNum).change();
+    $('#pratiqueOpti').val(praNum);
+    $('#affichageActiviteOpti').text(actLibelle);
+    document.optimiserActivite.classe_age.value = classeAge;
+    classeAgeNB = classeAge;
     if(classeAgeNB==1){
       classeAgeTxt = "Etudes";
     }
@@ -185,5 +222,11 @@ function formaterTemps(temps){
   var heures = parseInt(temps/60,10);
   var minutes = parseInt(((temps/60)-heures)*60,10);
   var secondes = parseInt((temps - heures*60 - minutes)*60,10);
-  return heures + 'h ' + minutes + 'm ' + secondes + 's';
+  if(secondes == 60){
+    minutes ++;
+    secondes = 00;
+  }
+  if(minutes < 10) minutes = "0" + minutes;
+  if(secondes < 10) secondes = "0" + secondes;
+  return heures + 'h ' + minutes + 'mn ' + secondes + 's';
 }

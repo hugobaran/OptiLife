@@ -5,20 +5,16 @@
  */
 
  body {
-    overflow-x: hidden;
+    /*overflow-x: hidden;*/
  }
- 
-
 
 /* Toggle Styles */
-
 #wrapper {
     padding-right: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
-	/*height: 100%;*/
 	height : auto;
     padding-bottom : 100px;
     min-height:100%;
@@ -27,7 +23,6 @@
 
 #wrapper.toggled {
     padding-right: 250px;
-	/*height: 100%;*/
 }
 
 /* Affichage du Menu avant le clic */
@@ -52,7 +47,7 @@
 /* Affichage du Menu après le clic */
 #wrapper.toggled #sidebar-wrapper {
 	/* Largeur du sidebar*/
-    width: 40%;
+    width: 50%;
 }
 /* Adaptation du Contenu après l'affichage*/
 #wrapper.toggled {

@@ -16,7 +16,7 @@ if(!isset($_SESSION["EMP_NUM"])){
     <title>Emploi du temps</title>
     
     <!-- Custom CSS -->
-    <link href="../css/sidebar.css" rel="stylesheet">
+  
     <link rel="stylesheet" href="../css/edt.css" type="text/css" />
     
     <!--integration JS-->
@@ -24,53 +24,62 @@ if(!isset($_SESSION["EMP_NUM"])){
 </head>
 
 <body>
-    <?php 
-    	include('../php/fonctionsUtiles.php');
-        require_once('../php/afficherTempsOpti.php');
-     ?>
-    <?php include('header.php') ?>
 
-    <div id="Page" style="height:100%">
-	    <div id="wrapper" toggleClass="" style="height:100%" >
-	      <!-- Sidebar -->
-	      <div id="sidebar-wrapper" >
-	        <ul class="sidebar-nav">
-	          <li class="sidebar-brand">
-                <h4><b>Informations générales</b></h4>
-                <div class="table-responsive listeOpti">
-                   <?php afficherTempsOptimisationsStatistiques($bdd);?>
-               </div>
-                <h4><b>Liste des optimisations</b></h4>
-                <div class="table-responsive listeOpti">
-                    <table class="table tabOpti">
-                        <tr><th>Numero Activité</th><th>Activité</th><th>Temps Total Gagné</th><th>Temps par Optimisation Automatique Gagné</th><th>Temps par Optimisation Manuel Gagné</th></tr>
-	           	        <?php afficherListesOptimisationsStatistiques($bdd)?>
-                    </table>
+        <?php 
+        	include('../php/fonctionsUtiles.php');
+            require_once('../php/afficherTempsOpti.php');
+         ?>
+        <?php include('header.php') ?>
+
+
+
+    <div id="statistiques" class="collapse">
+
+            <div id="pannel-stat" class="panel panel-warning">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <div class="accordion-toggle" data-toggle="collapse" data-target="#collapse1">
+                            <b>Informations générales</b>
+                        </div>
+                    </h4>
                 </div>
-	          </li>
-	        </ul>
-	      </div>
-	      <!-- /#sidebar-wrapper --	>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <div class="table-responsive">
+                        <?php afficherTempsOptimisationsStatistiques($bdd);?>
+                    </div>
+                </div>
+            </div>
 
 
-	      <!-- Page Content -->
-	      <div id="page-content-wrapper" >
-	        <?php include('edt.php') ?>
-	      </div>
-	      <!-- /#page-content-wrapper -->
-	    </div>
+            <div id="pannel-stat" class="panel panel-warning">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <div class="accordion-toggle" data-toggle="collapse" data-target="#collapse2">
+                            <b>Liste des optimisations</b>
+                        </div>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="table-responsive">
+                        <?php afficherListesOptimisationsStatistiques2($bdd)?>
+                    </div>
+                </div>
+            </div>
+
     </div>
-    <?php //include('footer.html') ?>
+
+      <div id="content" >
+        <?php include('edt.php') ?>
+      </div>
+
+    <?php include('footer.html') ?>
     
 </body>
 
 
  <script type="text/javascript">
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
+
+
  </script>
-    <?php //include('footer.html') ?>
 
 </html>

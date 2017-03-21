@@ -20,7 +20,7 @@
           ?>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
         </div>
       </div>
       
@@ -42,7 +42,7 @@
           ?>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
         </div>
       </div>
       
@@ -83,7 +83,7 @@
           ?>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
         </div>
       </div>
       
@@ -104,11 +104,32 @@
           <p>Veuillez selectionner une activité</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
         </div>
-      </div>
-      
+      </div> 
     </div>
   </div>
+
+  <div class="modal fade" id="ModalChanger" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Changer une activité</h4>
+        </div>
+        <div class="modal-body">
+         <?php
+            include('changerActivite.php');
+          ?>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        </div>
+      </div> 
+    </div>
+  </div>
+
+
   </body>
 </html>

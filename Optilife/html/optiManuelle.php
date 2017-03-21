@@ -7,60 +7,61 @@
 	<head>
 		<meta charset="UTF-8"/>
 		<script type="text/javascript" src="../js/jquery.chained.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.steps.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="../css/formulaireOptiManuelle.css">
 	</head>
 	<body>
-		<form method="post" action= "../php/passerelle.php" enctype="application/x-www-form-urlencoded" name="optimiserActivite">
+		<form method="post" action= "../php/passerelle.php" enctype="application/x-www-form-urlencoded" name="optimiserActivite" id="optimiserActivite" novalidate>
 
-			<label>Activité :</label><p id="affichageActiviteOpti"></p>
-			<input name="pratiqueOpti" id="pratiqueOpti" type="hidden" value=""/>
+				<label>Activité :</label><p id="affichageActiviteOpti"></p>
+				<input name="pratiqueOpti" id="pratiqueOpti" type="hidden" value=""/>
 
-			<select name="activiteO" id="activiteO" style="visibility:hidden; width: 0; height: 0;">
-				<option value=""></option>
-				<?php 
-					$sql = 'SELECT * FROM activite';
-					creerListeActivites($bdd,$sql);
-				?>
-			</select>
+				<select name="activiteO" id="activiteO" style="visibility:hidden; width: 0; height: 0;">
+					<option value=""></option>
+					<?php 
+						$sql = 'SELECT * FROM activite';
+						creerListeActivites($bdd,$sql);
+					?>
+				</select>
 
-			</br>
-			<label>Classe d'age :</label><p id="affichageClasseAgeOpti"></p	>
-			<input name="classe_age" id="classe_age" type="hidden"/>
-			</br>
+				</br>
+				<label>Classe d'age :</label><p id="affichageClasseAgeOpti"></p	>
+				<input name="classe_age" id="classe_age" type="hidden"/>
+				</br>
 
-		    <div class="section">
-		      	<label>Temps Initial:</label><p id="affichageTemps"></p>
-				<input name="temps" id="temps" type="number" style="visibility:hidden; height: 0px" value=""/>
-		    </div>
-		    <div class="section">
-		     	<label>Temps Gagné :</label><p id="affichageTempsGagne"></p>
-				<input name="tempsGagne" id="tempsGagne" type="number" style="visibility:hidden;" value=""/>
-		    </div>
-		    <div class="section">
-		     	<label>Temps Final :</label><p id="affichageTempsOpti"></p>
-				<input name="tempsOpti" id="tempsOpti" type="number" style="visibility:hidden;" value=""/>
-		    </div>
+			    <div class="section">
+			      	<label>Temps Initial:</label><p id="affichageTemps"></p>
+					<input name="temps" id="temps" type="number" style="visibility:hidden; height: 0px" value=""/>
+			    </div>
+			    <div class="section">
+			     	<label>Temps Gagné :</label><p id="affichageTempsGagne"></p>
+					<input name="tempsGagne" id="tempsGagne" type="number" style="visibility:hidden;" value=""/>
+			    </div>
+			    <div class="section">
+			     	<label>Temps Final :</label><p id="affichageTempsOpti"></p>
+					<input name="tempsOpti" id="tempsOpti" type="number" style="visibility:hidden;" value=""/>
+			    </div>
 
-			<label for="Opti">Gagner encore plus de temps :</label>
-			<select name="Optimisation" id="Optimisation" class="form-control" data-show-subtext="true" onchange="listeOptiAjout();">
-				<option data-type="null" data-subtext="0" value="">Selectionner une méthode d'optimisation</option>
-				<?php  
-					$sql = 'SELECT * FROM optimiser JOIN optimisations using(OPTI_NUM) where (OPTI_NUM, ACT_NUM, OP_TPS_GAGNE, OP_POURCENTAGE, OPTI_LIBELLE) not in( SELECT OPTI_NUM, pratiquer.ACT_NUM, OP_TPS_GAGNE, OP_POURCENTAGE, OPTI_LIBELLE FROM est_optimise JOIN optimisations using(OPTI_NUM) join optimiser USING(OPTI_NUM) join pratiquer USING(PRA_NUM) WHERE pratiquer.ACT_NUM = optimiser.ACT_NUM AND pratiquer.EMP_NUM = ' .$_SESSION["EMP_NUM"] .')';
-					creerListeOptimisations($bdd,$sql);
-				?>
-			</select>
+				<label for="Opti">Gagner encore plus de temps :</label>
+				<select name="Optimisation" id="Optimisation" class="form-control" data-show-subtext="true" onchange="listeOptiAjout();">
+					<option data-type="null" data-subtext="0" value="">Selectionner une méthode d'optimisation</option>
+					<?php  
+						$sql = 'SELECT * FROM optimiser JOIN optimisations using(OPTI_NUM) where (OPTI_NUM, ACT_NUM, OP_TPS_GAGNE, OP_POURCENTAGE, OPTI_LIBELLE) not in( SELECT OPTI_NUM, pratiquer.ACT_NUM, OP_TPS_GAGNE, OP_POURCENTAGE, OPTI_LIBELLE FROM est_optimise JOIN optimisations using(OPTI_NUM) join optimiser USING(OPTI_NUM) join pratiquer USING(PRA_NUM) WHERE pratiquer.ACT_NUM = optimiser.ACT_NUM AND pratiquer.EMP_NUM = ' .$_SESSION["EMP_NUM"] .')';
+						creerListeOptimisations($bdd,$sql);
+					?>
+				</select>
 
-			<ul id="liste"></ul>
+				<ul id="liste"></ul>
 
-			<select name="Optimisation2" id="Optimisation2" class="form-control" style="visibility:hidden;" onchange="MAJListe();">
-				<?php  
-					$sql = "SELECT OPTI_NUM, pratiquer.ACT_NUM, OP_TPS_GAGNE, OP_POURCENTAGE, OPTI_LIBELLE FROM est_optimise JOIN optimisations using(OPTI_NUM) join optimiser USING(OPTI_NUM) join pratiquer USING(PRA_NUM) WHERE pratiquer.ACT_NUM = optimiser.ACT_NUM AND pratiquer.EMP_NUM = " . $_SESSION["EMP_NUM"];
-					creerListeOptimisations($bdd,$sql);
-				?>
-			</select>
+				<select name="Optimisation2" id="Optimisation2" class="form-control" style="display:none;" onchange="//MAJListe();">
+					<?php  
+						$sql = "SELECT OPTI_NUM, pratiquer.ACT_NUM, OP_TPS_GAGNE, OP_POURCENTAGE, OPTI_LIBELLE FROM est_optimise JOIN optimisations using(OPTI_NUM) join optimiser USING(OPTI_NUM) join pratiquer USING(PRA_NUM) WHERE pratiquer.ACT_NUM = optimiser.ACT_NUM AND est_optimise.EMP_NUM = " . $_SESSION["EMP_NUM"];
+						creerListeOptimisations($bdd,$sql);
+					?>
+				</select>
 
-			</br>
-			<input type="submit" class="btn btn-primary btn-lg btn-block" id="optimiserManuellement" name="optimiserManuellement" value="Optimiser">
+				</br>
+				<input type="submit" class="btn btn-primary btn-lg btn-block" id="optimiserManuellement" name="optimiserManuellement" value="Optimiser">
 		</form>
 	</body>
 
@@ -86,11 +87,13 @@
       		var optiVal = $(this).attr('data-subtext');
       		var optiType = $(this).attr('data-type');
       		
-      		if (ul.find('input[value=' + $(this).val() + ']').length == 0)
+      		if (ul.find('input[value=' + $(this).val() + ']').length == 0){
 	      		ul.append('<li id="listeOpti" data-name="'+optiName+'" data-subtext="'+optiVal+'" data-type="'+optiType+'" onclick="listeOptiEnlever(this);">' +
 	          		'<input type="hidden" name="optimisation[]" value="' + 
 	          		$(this).val() + '" /> <img id="imgSupp" src="../img/supprimer.png" />' +
 	          		optiName + '</li>');
+      		}
+
 		});
 		MAJTemps();
 	}
@@ -105,7 +108,7 @@
 
 		var cpt = 0;
 		$("#tempsGagne").val(0);
-		$("#tempsOpti").val($("#temps"));
+		$("#tempsOpti").val($("#temps").val());
 		$("#affichageTempsGagne").text(formaterTemps(0));
 		$("#affichageTempsOpti").text(formaterTemps($("#temps").val()));
 
@@ -119,10 +122,10 @@
 			var tpsGagneVal = parseFloat($("#tempsGagne").val(),10);
 			var gagne = 0;
 
-			if(liType = "temps"){
+			if(liType == "temps"){
 				gagne = tpsGagneVal + liGagne;
-			}else if(liType = "pourcentage"){
-				gagne = tpsGagneVal + (tpsPratiqueVal*liGagne);
+			}else if(liType == "pourcentage"){
+				gagne = tpsGagneVal + (tpsInitVal*liGagne);
 			}else{
 				gagne = tpsGagneVal;
 			}
@@ -133,8 +136,9 @@
 			$("#tempsOpti").val(tpsFinal);
 			$("#affichageTempsGagne").text(formaterTemps(gagne));
 			$("#affichageTempsOpti").text(formaterTemps(tpsFinal));
-
+			cpt++;
 		});
+			
     	
 	}
 
@@ -151,10 +155,11 @@
 	    var optiAct = option.attr('class');
 	    var optiNum = option.val();
 
-	    var newOption = '<option data-name="'+optiName+'" data-type="temps" data-subtext="'+optiVal+'" class="'+optiAct+'" value="' +optiNum+ '">'+optiName+ ' | -' +optiVal;
      	if(optiType == "temps"){
+     		var newOption = '<option data-name="'+optiName+'" data-type="temps" data-subtext="'+optiVal+'" class="'+optiAct+'" value="' +optiNum+ '">'+optiName+ ' | -' +optiVal;
       		newOption += ' MIN';
       	}else if(optiType == "pourcentage"){
+      		var newOption = '<option data-name="'+optiName+'" data-type="pourcentage" data-subtext="'+optiVal+'" class="'+optiAct+'" value="' +optiNum+ '">'+optiName+ ' | -' +optiVal*100;
       		newOption += ' %';
      	}
 
@@ -170,25 +175,35 @@
 	    var ul = $("#liste");
 	    var select = $("#Optimisation2");
 	    var option = $('#Optimisation option:selected');
+	    var tpsOpti = $('#tempsOpti').val();
 
 	    var optiName = option.attr('data-name');
 	    var optiVal = option.attr('data-subtext');
 	    var optiType = option.attr('data-type');
 	    var optiAct = option.attr('class');
 	    var optiNum = option.val();
+	    var flag = false;
 
 	    if(optiType != "null"){
 
-	      var newOption = '<option data-name="'+optiName+'" data-type="temps" data-subtext="'+optiVal+'" class="'+optiAct+'" value="' +optiNum+ '">'+optiName+ ' | -' +optiVal;
 	      if(optiType == "temps"){
-	      	newOption += ' MIN';
+	      	if(tpsOpti - optiVal >= 0){
+	      		var newOption = '<option data-name="'+optiName+'" data-type="temps" data-subtext="'+optiVal+'" class="'+optiAct+'" value="' +optiNum+ '">'+optiName+ ' | -' +optiVal;
+	      	    newOption += ' MIN';
+	      	    flag = true;
+	        }else{
+	        	alert("Durée trop faible, supprimez des optimisations ou augmentez la durée de votre activité");
+	        }
 	      }else if(optiType == "pourcentage"){
+	      	var newOption = '<option data-name="'+optiName+'" data-type="pourcentage" data-subtext="'+optiVal+'" class="'+optiAct+'" value="' +optiNum+ '">'+optiName+ ' | -' +optiVal;
 	      	newOption += ' %';
+	      	flag = true;
 	      }
-
-	      select.append(newOption);
-	      option.remove();
-	      MAJListe();
+	      if(flag){
+		      select.append(newOption);
+		      option.remove();
+		      MAJListe();
+		   }
 		}
     }
 

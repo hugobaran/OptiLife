@@ -1,9 +1,13 @@
 #footer{
 	background-color:#FF8F15;
 	position : absolute;
-	height : 100px;
-	width: 100%;
+	right: 0;
+ 	bottom: 0;
+    left: 0;
+    padding: 1rem;
 	text-align: center;
 }
 
-	
+#creators{
+	font-size: 10px;
+}
