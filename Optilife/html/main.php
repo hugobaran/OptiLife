@@ -2,7 +2,7 @@
 <html lang="fr">
 <?php
 @session_start(); 
-if(!isset($_SESSION["EMP_NUM"])){
+if(!isset($_SESSION["EMP_NUM"])){//pdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdppdpdpdpdpdpdpdpdpdpdpdppdpdpdppdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdpdppd
   header("location: ../html/accueil.php");
 }
 ?>

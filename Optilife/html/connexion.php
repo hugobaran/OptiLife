@@ -8,7 +8,7 @@ if(!isset($_POST["pseudo"])){
 include("connexion.html");
 }
 
-if(!empty($_POST["pseudo"])){
+if(!empty($_POST["pseudo"]) && !empty($_POST["mail"])){
 	if(!empty($_POST["mdp"])){
 		$pseudo = $_POST["pseudo"];
 		$mdp = $_POST["mdp"];
