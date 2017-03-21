@@ -7,7 +7,6 @@ if(empty($_SESSION["usrNum"])){
 	
 	$_SESSION["usrNum"] = $nb;
 	$_SESSION["usrDate"] = date("Y-m-d");
-	$_SESSION["EMP_NUM"] = -1;
 	$sql = "INSERT INTO visiteur (USR_NUM, USR_DATE) VALUES ('".$_SESSION["usrNum"]."','".$_SESSION["usrDate"]."')";
 	$stmt = $bdd->exec($sql);
 	//header("location: ../html/main.php");
