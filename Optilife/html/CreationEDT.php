@@ -1,8 +1,4 @@
-<?php session_start(); 
-if(isset($_SESSION["EMP_NUM"])){
-	header("location: ../html/main.php");
-}
-?>
+<?php session_start(); ?>
 
 <?php include("../php/genererSession.php"); ?>
 <html>

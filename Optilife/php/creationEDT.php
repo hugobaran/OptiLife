@@ -23,7 +23,9 @@ if(isset($_POST['creationEDTSubmit'])){
 			$sql = "INSERT INTO `emploidutemps` (`EMP_NUM`, `CAT_NUM`, `USR_NUM_VISITEUR`, `USR_NUM_INSCRIT`) VALUES (1, '".$num."', '".$_SESSION["usrNum"]."', NULL)";
 			$bdd ->exec($sql);
 		}else{
-			$sql = "INSERT INTO `emploidutemps` (`EMP_NUM`, `CAT_NUM`, `USR_NUM_VISITEUR`, `USR_NUM_INSCRIT`) VALUES ((select max(emp_num)+1 from emploidutemps), '".$num."', '".$_SESSION["usrNum"]."', NULL)";
+			$sql = "select max(emp_num)+1 as max from emploidutemps";
+			$tab = LireDonneesPDO1($bdd, $sql);
+			$sql = "INSERT INTO `emploidutemps` (`EMP_NUM`, `CAT_NUM`, `USR_NUM_VISITEUR`, `USR_NUM_INSCRIT`) VALUES (".$tab[0]['max'].", '".$num."', '".$_SESSION["usrNum"]."', NULL)";
 			$bdd ->exec($sql);
 		}
 	$sql1 = "SELECT * FROM `emploidutemps` WHERE `USR_NUM_VISITEUR` LIKE '".$_SESSION["usrNum"]."' ";
