@@ -9,7 +9,7 @@ function creerListeActiviteNature($bdd,$sql){
 		$actTemps = $donnees['ACT_TEMPS'];
 		$act = $donnees['ACT_NUM'];
 		echo '<option class="'.$nature.'" value="'. $act .'"';
-		echo  ' data-temps="'. $actTemps .'">'.$actLib.'</option>';
+		echo  ' data-temps="'. $actTemps .'">'.$actLib.' ' . $actTemps . '</option>';
 
 	}
 	$reponse->closeCursor();
@@ -21,7 +21,6 @@ function creerListeNature($bdd,$sql){
 	{
 		$nature = utf8_encode($donnees['NAT_LIBELLE']);
 		echo '<option value="'. $nature .'">'.$nature.'</option>';
-
 	}
 	$reponse->closeCursor();
 }

@@ -1,4 +1,5 @@
 <?php
+
 include("../php/connexionBDD.php");
 require_once("../php/fonctionsUtiles.php");
 @session_start(); 
@@ -12,4 +13,5 @@ $_SESSION["EMP_NUM"] = $tab[0]["EMP_NUM"];
 echo $_SESSION["EMP_NUM"] ;
 header("location: ../html/main.php");
 //echo $_SESSION["EMP_NUM"];
+
 ?>
