@@ -32,6 +32,5 @@ if(!isset($_POST["pseudo"])){
 }
 
 
-
 ?>
 

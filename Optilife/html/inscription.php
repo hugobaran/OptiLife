@@ -6,7 +6,7 @@ include("header.php");
 
 include("inscription.html");
 
-if(!empty($_POST["pseudo"])){
+if(!empty($_POST["pseudo"]) && !empty($_POST["mail"])){
 
 		if(!empty($_POST["mdp"]) && ! empty($_POST["mdpVerif"])){
 		if($_POST["mdp"]== $_POST["mdpVerif"]){
