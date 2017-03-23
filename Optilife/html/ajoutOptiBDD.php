@@ -56,12 +56,25 @@ if(isset($_POST['ajouter'])){
 <meta charset="UTF-8">
 <title>Ajout Oppott</title>	
 
+        <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+
+
+        <!-- JS -->
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type="text/javascript" src="../js/bootstrap/bootstrap.min.js"></script>
+   
+        <script type="text/javascript" src="../../Js/jquery.corner.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+
 </head> 
 
 <body>
 	<form method="post" action= "" enctype="application/x-www-form-urlencoded" name="ajout" id="ajout">
 		<label for="activite">Activité :</label>
-		<select name="activite" id="activite" class="form-control">
+		<select name="activite" id="activite" class="form-control selectKek" >
 		<option value="">Sélectionner une activité</option>
 		<?php  
 			$sql = 'SELECT * FROM activite order by ACT_NUM';
@@ -70,7 +83,7 @@ if(isset($_POST['ajouter'])){
 		</select>
 		</br></br>
 		<label for="opti">Opti :</label>
-		<select name="opti" id="opti" class="form-control">
+		<select name="opti" id="opti" class="form-control selectKek" >
 		<?php  
 			$sql = 'SELECT * FROM optimisations order by OPTI_LIBELLE';
 			creerListeOpti($bdd,$sql);
@@ -85,5 +98,11 @@ if(isset($_POST['ajouter'])){
 		</br></br>
 		<input type="submit" id="ajouter" name="ajouter" value="Ajouter">
 	</form>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+  $(".selectKek").select2();
+});
+	</script>
 
 </html>

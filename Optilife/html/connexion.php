@@ -5,35 +5,33 @@ include("../php/connexionBDD.php");
 include("header.php");
 
 if(!isset($_POST["pseudo"])){
-include("connexion.html");
-}
-
-if(!empty($_POST["pseudo"]) && !empty($_POST["mail"])){
-	if(!empty($_POST["mdp"])){
+	include("connexion.html");
+}else{
+	if(!empty($_POST["pseudo"]) && !empty($_POST["mdp"])){
 		$pseudo = $_POST["pseudo"];
 		$mdp = $_POST["mdp"];
-		
-		$sql = "SELECT `USR_NUM` as num,`USR_ADMIN` as adm FROM `inscrit` WHERE `USR_PSEUDO` = '".$pseudo."' AND `USR_MDP` = '".$mdp."'";
-		$stmt =  $bdd->query($sql);
-		$i=0;
-		foreach($stmt as $row){
-		if($i ==0){
-			$admin= $row['adm'];
-			$num= $row['num'];
-			$i++;
-			}
-			
-		}
-		if(1){
-			$_SESSION["usrNum"]=$num; 
-			$_SESSION["usrPseudo"]=$pseudo;
-			$_SESSION["usrAdmin"]=$admin; 
-			header('location:accueil.php');
-		}
+		$sql = "SELECT `USR_NUM`,`USR_ADMIN` FROM `inscrit` WHERE `USR_PSEUDO` = '".$pseudo."' AND `USR_MDP` = '".$mdp."'";
+		$reponse = $bdd->query($sql);
+        if($reponse->rowCount() == 0){
+        	header("connexion.html");
+        }else{
+        	while ($donnees = $reponse->fetch()){
+        		$num = $donnees['USR_NUM'];
+        		$admin = $donnees['USR_ADMIN'];
+        		if(isset($_SESSION['EMP_NUM'])){
+					$sql = "UPDATE emploidutemps SET USR_NUM_VISITEUR = NULL, USR_NUM_INSCRIT = '" . $num . "' WHERE USR_NUM_VISITEUR = '" . $_SESSION["usrNum"] ."'";
+					$bdd->exec($sql);
+				}
+        		$_SESSION["usrNum"]=$num; 
+				$_SESSION["usrPseudo"]=$pseudo;
+				$_SESSION["usrAdmin"]=$admin; 
+				header('location:accueil.php');
+        	}
+        }
+	} 
+}
 
-	}
-	else{ }
-} 
+
 
 ?>
 

@@ -58,8 +58,11 @@
 		</br>
 
 			<label>Classe d'age : </label></br>
+			<?php if($_SESSION['age'] <= 25){ ?>
 			<label for="caEtudes" class="checkbox-inline"><input type="checkbox" id="caEtudes" name="classe_age[]" onclick="affiche_bouton()" value="1"/>Etudes</label>
+			<?php }if($_SESSION['age'] <= 65){ ?>
 		    <label for="caVieActive" class="checkbox-inline"><input type="checkbox" id="caVieActive" name="classe_age[]" onclick="affiche_bouton()" value="2"/>Vie Active </label>
+		    <?php } ?>
 		    <label for="caRetraite" class="checkbox-inline"><input type="checkbox" id="caRetraite" name="classe_age[]" onclick="affiche_bouton()" value="3"/>Retraite </label>
 			<!--<label for="caVie">Toute la vie </label><input type="checkbox" id="caVie" name="classe_age[]" value="4"/>-->
 			</br></br>

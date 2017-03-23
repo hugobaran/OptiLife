@@ -16,6 +16,8 @@ if(!empty($_POST["pseudo"])){
 
 				$sql = "INSERT INTO `inscrit` (`USR_MAIL`, `USR_PSEUDO`, `USR_MDP`, `USR_ADMIN`) values ('".$mail."','".$pseudo."','".$mdp."', 0);";
 				$stmt =  $bdd->exec($sql);
+				header("location:accueil.php");
+				exit();
 			}
 			else{
 				echo "<script>alert(\"Les mots de passe ne sont pas identiques\")</script>"; 

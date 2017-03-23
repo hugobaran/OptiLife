@@ -8,7 +8,9 @@
 		<meta charset="UTF-8"/>
 		<script type="text/javascript" src="../js/jquery.chained.min.js"></script>
 		<script type="text/javascript" src="../js/jquery.steps.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-select.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="../css/formulaireOptiManuelle.css">
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap-select.min.css">
 	</head>
 	<body>
 		<form method="post" action= "../php/passerelle.php" enctype="application/x-www-form-urlencoded" name="optimiserActivite" id="optimiserActivite" novalidate>
@@ -43,7 +45,7 @@
 			    </div>
 
 				<label for="Opti">Gagner encore plus de temps :</label>
-				<select name="Optimisation" id="Optimisation" class="form-control" data-show-subtext="true" onchange="listeOptiAjout();">
+				<select name="Optimisation" id="Optimisation" class="form-control " onchange="listeOptiAjout();">
 					<option data-type="null" data-subtext="0" value="">Selectionner une méthode d'optimisation</option>
 					<?php  
 						$sql = 'SELECT * FROM optimiser JOIN optimisations using(OPTI_NUM) where (OPTI_NUM, ACT_NUM, OP_TPS_GAGNE, OP_POURCENTAGE, OPTI_LIBELLE) not in( SELECT OPTI_NUM, pratiquer.ACT_NUM, OP_TPS_GAGNE, OP_POURCENTAGE, OPTI_LIBELLE FROM est_optimise JOIN optimisations using(OPTI_NUM) join optimiser USING(OPTI_NUM) join pratiquer USING(PRA_NUM) WHERE pratiquer.ACT_NUM = optimiser.ACT_NUM AND pratiquer.EMP_NUM = ' .$_SESSION["EMP_NUM"] .')';

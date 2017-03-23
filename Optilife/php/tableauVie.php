@@ -4,8 +4,8 @@
 
  <div class="systeme_onglets">
         <div class="onglets">
-            <span class="onglet" id="onglet_etudes" onclick="window.location.href='#etudes'">Etudes</span>
-            <span class="onglet" id="onglet_vieActive" onclick="window.location.href='#vieActive'">Vie Active</span>
+            <span class="onglet" id="onglet_etudes" <?php if($_SESSION['age'] <= 25){ ?> onclick="window.location.href='#etudes'" <?php }else{ ?> style="background:#D5CEB5;" title="vous avez passé cette classe d'age" <?php  } ?> >Etudes</span>
+            <span class="onglet" id="onglet_vieActive"  <?php if($_SESSION['age'] <= 25){ ?> onclick="window.location.href='#vieActive'" <?php }else{ ?> style="background:#D5CEB5;" title="vous avez passé cette classe d'age" <?php  } ?>  >Vie Active</span>
             <span class="onglet" id="onglet_retraite" onclick="window.location.href='#retraite'">Retraite</span>
             <span class="onglet" id="onglet_vie" onclick="window.location.href='#edt'">Toute la vie</span>
         </div>

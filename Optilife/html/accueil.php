@@ -22,6 +22,9 @@
 					else{
 						echo '<input class="bouton" type=button value="Continuer l\'optimisation actuelle" onclick="document.location.href=\'main.php\'"/>';
 						echo '<input class="bouton" type=button value="Commencer une nouvelle optimisation" onclick="document.location.href=\'creationEDT.php\'"/>';
+						if(isset($_SESSION["usrPseudo"])){
+							echo '<input class="bouton" type=button value="Charger une optimisation" onclick="document.location.href=\'charger.php\'"/>';
+						}
 					}
 				?>
 			</div>
@@ -34,12 +37,16 @@
 
 				<div class="tab-content">
 					<div id="presentation" class="tab-pane fade in active">
-						<h3>Presentation</h3>
-						<p>OPTI-LIFE c'est une application un peu bizarre pour optimiser sa vie. OPTI-LIFE c'est une application un peu bizarre pour optimiser sa vie.OPTI-LIFE c'est une application un peu bizarre pour optimiser sa vie.OPTI-LIFE c'est une application un peu bizarre pour optimiser sa vie.OPTI-LIFE c'est une application un peu bizarre pour optimiser sa vie.OPTI-LIFE c'est une application un peu bizarre pour optimiser sa vie.OPTI-LIFE c'est une application un peu bizarre pour optimiser sa vie.OPTI-LIFE c'est une application un peu bizarre pour optimiser sa vie.OPTI-LIFE c'est une application un peu bizarre pour optimiser sa vie.OPTI-LIFE c'est une application un peu bizarre pour optimiser sa vie.OPTI-LIFE c'est une application un peu bizarre pour optimiser sa vie.OPTI-LIFE c'est une application un peu bizarre pour optimiser sa vie.OPTI-LIFE c'est une application un peu bizarre pour optimiser sa vie.OPTI-LIFE c'est une application un peu bizarre pour optimiser sa vie.OPTI-LIFE c'est une application un peu bizarre pour optimiser sa vie.</p>
+						<h3>Presentation d'Opti-Life</h3>
+						<p>Aatchi&Aatchi est fier de vous présenter OPTI-LIFE, l'application vous permettant de gagner du temps dans votre vie.</p>
+						<p>L'application va vous permettre de créer et personnaliser votre emploi du temps en le remplissant d'activités que vous réalisez dans votre vie.
+						Ensuite Opti-Life vous assistera pour vous permettre de trouvez des manières de gagner du temps dans vos pratique tout au long de votre vie.</p>
+						<p>Vous pouvez suivre en temps réel vos résultats d'optimisation de votre emploi du temps afin de vous rendre compte de comment vous pouvez gagner du temps dans votre vie.
+						<p>Laissez vous donc tenter par Opti-Life, et découvrez divers manières de gagner du temps au quotidien ! </p>
 					</div>
 					<div id="tuto" class="tab-pane fade">
-						<h3>Tutoriel</h3>
-						<p>Pour utiliser Opti-Life il faut un pc et une envie de suicide. Pour utiliser Opti-Life il faut un pc et une envie de suicide.Pour utiliser Opti-Life il faut un pc et une envie de suicide.Pour utiliser Opti-Life il faut un pc et une envie de suicide.Pour utiliser Opti-Life il faut un pc et une envie de suicide.Pour utiliser Opti-Life il faut un pc et une envie de suicide.Pour utiliser Opti-Life il faut un pc et une envie de suicide.Pour utiliser Opti-Life il faut un pc et une envie de suicide.Pour utiliser Opti-Life il faut un pc et une envie de suicide.Pour utiliser Opti-Life il faut un pc et une envie de suicide.Pour utiliser Opti-Life il faut un pc et une envie de suicide.Pour utiliser Opti-Life il faut un pc et une envie de suicide.Pour utiliser Opti-Life il faut un pc et une envie de suicide.Pour utiliser Opti-Life il faut un pc et une envie de suicide. </p>
+						<h3>Tutoriel d'utilisation</h3>
+						<p></p>
 					</div> 
 				</div>
 			</div>

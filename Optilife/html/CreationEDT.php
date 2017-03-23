@@ -18,7 +18,7 @@
 			<h1 id="titreFormEDT">Personnalisez votre emploi du temps</h1>
 			<hr width="100%">
 			<form action="../php/creationEDT.php" method="post" id="formCreationEDT">
-				<label>Quel est votre sexe ?</label></br>
+				<label>Quel est votre genre ?</label></br>
 				<label class="radio-inline">
 			      <input type="radio" name="sexe">Homme
 			    </label>
@@ -31,14 +31,6 @@
 			    <br/><br/>
 				<label for="age">Quel age avez vous ?</label>
 				<input type="number" class="form-control" name="age" id="age" min="0" max="130">
-				<br/>
-				<label for="classeAgeEDT">Souhaitez vous commencer dans une classe d'age précise ?</label>
-				<select name="classeAgeEDT" id="classeAgeEDT" class="form-control">
-					<option id="optionCAEDT" value="0">Laisser l'application choisir</option>
-					<option id="optionCAEDT" value="1">Etudes</option>
-					<option id="optionCAEDT" value="2">Vie active</option>
-					<option id="optionCAEDT" value="3">Retraite</option>
-				</select>
 				<br/><br/>
 		    	<button type="submit" class="btn btn-success btn-lg btn-block" name="creationEDTSubmit" id="creationEDTSubmit">Créer un emploi du temps</button>
 			</form>
